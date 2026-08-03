@@ -84,12 +84,17 @@
 
 ## E. Essential Environment Variables (Vercel Requirements)
 
-> ⚠️ **Security Policy**: Secret values are omitted. Configure these key names in Vercel Environment Variables:
+> ⚠️ **Security Policy**: Secret values are omitted. Configure all 5 key names in Vercel Environment Variables:
 
 1. `POSTGRES_URL` (Neon PostgreSQL database connection string)
 2. `DATABASE_URL` (Direct Neon database pool URL)
 3. `PAYLOAD_SECRET` (Payload CMS secret key for authentication & JWT)
 4. `NEXT_PUBLIC_SERVER_URL` (Base domain URL for Next.js and Payload asset resolution)
+5. `NEXT_PUBLIC_CMS_PROVIDER` (Set value to `cms` — Critical for forcing real database CMS provider vs mock fallback)
+
+> ℹ️ **Default Provider Fallback Analysis (`src/lib/cms/config.ts` & `src/lib/providers/factory.ts`)**:  
+> In `src/lib/cms/config.ts`, line 2: `provider: process.env.NEXT_PUBLIC_CMS_PROVIDER || "mock"`.  
+> If `NEXT_PUBLIC_CMS_PROVIDER` is missing or not set to `"cms"`, the system defaults to `"mock"`, causing `getContentProvider()` in `src/lib/providers/factory.ts` to return `new MockContentProvider()`. This serves static mock data instead of live database content. Setting `NEXT_PUBLIC_CMS_PROVIDER=cms` on Vercel is mandatory.
 
 ---
 
