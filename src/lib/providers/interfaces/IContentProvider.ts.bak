@@ -1,0 +1,43 @@
+import type {
+  Company,
+  ProductVariant,
+  Category,
+  Brand,
+  GalleryItem,
+  NavigationItem,
+  ContactInformation,
+  ContactLink,
+  Feature,
+  Country,
+  ProductSeries,
+  ProductGroup,
+  Series,
+  ProductLine
+} from "@/types";
+
+export interface IContentProvider {
+  getCompany(): Promise<Company> | Company;
+  getFeatures(): Promise<Feature[]> | Feature[];
+  getCountries(): Promise<Country[]> | Country[];
+  getProducts(): Promise<ProductVariant[]> | ProductVariant[];
+  getCategories(): Promise<Category[]> | Category[];
+  getBrands(): Promise<Brand[]> | Brand[];
+  getGallery(): Promise<GalleryItem[]> | GalleryItem[];
+  getNavigation(): Promise<NavigationItem[]> | NavigationItem[];
+  getContact(): Promise<ContactInformation> | ContactInformation;
+  getContactLinks(): Promise<ContactLink[]> | ContactLink[];
+
+  // B2B Catalog dynamic queries
+  getSeries(): Series[];
+  getProductLines(): ProductLine[];
+  getCategoryBySlug(slug: string): Promise<Category | undefined> | Category | undefined;
+  getProductSeriesByCategory(categorySlug: string): Promise<ProductSeries[]> | ProductSeries[];
+  getProductSeriesBySlug(categorySlug: string, seriesSlug: string): Promise<ProductSeries | undefined> | ProductSeries | undefined;
+  getProductLinesBySeries(categorySlug: string, seriesSlug: string): ProductLine[];
+  getProductLineBySlug(categorySlug: string, seriesSlug: string, productLineSlug: string): ProductLine | undefined;
+  getProductVariantsByProductLine(categorySlug: string, seriesSlug: string, productLineSlug: string): ProductVariant[];
+  getProductGroupsBySeries(categorySlug: string, seriesSlug: string): Promise<ProductGroup[]> | ProductGroup[];
+  getProductGroupBySlug(categorySlug: string, seriesSlug: string, groupSlug: string): Promise<ProductGroup | undefined> | ProductGroup | undefined;
+  getProductVariantsByGroup(categorySlug: string, seriesSlug: string, groupSlug: string): Promise<ProductVariant[]> | ProductVariant[];
+  getProductVariantBySlug(categorySlug: string, seriesSlug: string, productLineSlug: string, variantSlug: string): Promise<ProductVariant | undefined> | ProductVariant | undefined;
+}

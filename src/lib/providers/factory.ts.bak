@@ -1,0 +1,8 @@
+import type { IContentProvider } from "./interfaces/IContentProvider";
+import { MockContentProvider } from "./mock/MockContentProvider";
+
+const activeProvider = new MockContentProvider();
+
+export function getContentProvider(): IContentProvider {
+  return activeProvider;
+}

@@ -1,0 +1,15 @@
+export interface ImageAsset {
+  src: string;
+  alt: string;
+  title: string;
+}
+
+export * from "./company";
+export * from "./category";
+export * from "./series";
+export * from "./productLine";
+export * from "./product";
+export * from "./brand";
+export * from "./gallery";
+export * from "./navigation";
+export * from "./contact";

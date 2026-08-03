@@ -1,0 +1,25 @@
+# Next.js build output
+.next/
+out/
+build/
+tsconfig.tsbuildinfo
+
+# Node dependencies
+node_modules/
+
+# Environment files
+.env*.local
+.env.local
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Log and process files
+*.log
+*.pid
+dev-server.*
+
+# Temporary / backup directories
+.backups/
+.next-corrupt-*/

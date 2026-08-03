@@ -1,0 +1,51 @@
+"use client";
+
+import Image from "next/image";
+import { motion, useReducedMotion } from "framer-motion";
+import type { Product } from "@/types";
+
+interface CatalogProductCardProps {
+  product: Product;
+  className?: string;
+}
+
+export function CatalogProductCard({ product, className }: CatalogProductCardProps) {
+  const shouldReduceMotion = useReducedMotion();
+  const productLineSlug = product.productLineSlug ?? product.groupSlug;
+  const detailUrl = productLineSlug && product.seriesSlug
+    ? `/products/${product.categorySlug}/${product.seriesSlug}/${productLineSlug}/${product.slug}`
+    : product.seriesSlug
+    ? `/products/${product.categorySlug}/${product.seriesSlug}/${product.slug}`
+    : `/products/${product.categorySlug}/${product.slug}`;
+
+  return (
+    <motion.article 
+      className={["catalog-product-card", className].filter(Boolean).join(" ")}
+      whileHover={shouldReduceMotion ? undefined : { y: -6 }}
+      transition={{ duration: 0.2, ease: "easeOut" }}
+    >
+      <a href={detailUrl} className="product-card-link">
+        <div className="product-photo-container">
+          <Image 
+            src={product.image.src} 
+            alt={product.image.alt} 
+            title={product.image.title} 
+            fill 
+            sizes="(max-width: 640px) 48vw, (max-width: 1024px) 30vw, 240px" 
+            quality={90} 
+            loading="lazy" 
+            decoding="async" 
+            className="product-card-image"
+          />
+        </div>
+        <div className="product-card-content">
+          <span className="product-card-category-tag">{product.categorySlug}</span>
+          <h3 className="product-card-title">{product.thai}</h3>
+          <p className="product-card-subtitle">{product.english}</p>
+          {product.brand && <span className="product-card-brand">{product.brand}</span>}
+          {product.size && <span className="product-card-size">{product.size}</span>}
+        </div>
+      </a>
+    </motion.article>
+  );
+}

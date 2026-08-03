@@ -1,0 +1,117 @@
+import type { Metadata } from "next";
+import { notFound } from "next/navigation";
+import { getCategoryBySlug, getProductSeriesBySlug, getProductLineBySlug, getProductVariantsByProductLine } from "@/lib/data";
+import { productLines } from "@/lib/data/productLines";
+import { Container } from "@/components/ui/Container";
+import { CatalogHero } from "@/components/catalog/CatalogHero";
+import { CatalogHeader } from "@/components/catalog/CatalogHeader";
+import { VariantGrid } from "@/components/catalog/VariantGrid";
+
+interface ProductLinePageProps {
+  params: Promise<{
+    category: string;
+    series: string;
+    productLine: string;
+  }>;
+}
+
+export function generateStaticParams() {
+  return productLines.map((line) => ({
+    category: line.categorySlug,
+    series: line.seriesSlug,
+    productLine: line.slug,
+  }));
+}
+
+export async function generateMetadata({ params }: ProductLinePageProps): Promise<Metadata> {
+  const { category, series, productLine } = await params;
+  const productLineData = getProductLineBySlug(category, series, productLine);
+
+  if (!productLineData) {
+    return {
+      title: "ไม่พบสายผลิตภัณฑ์ | Product Line Not Found",
+    };
+  }
+
+  return {
+    title: `สายผลิตภัณฑ์${productLineData.thai}แช่แข็งนำเข้า (${productLineData.english}) | Origin Seafoods`,
+    description: `ข้อมูลและรายการสเปกขนาดทั้งหมดของสายผลิตภัณฑ์ ${productLineData.thai} คัดแยกตามขนาดและบรรจุภัณฑ์เกรด B2B`,
+    alternates: {
+      canonical: `/products/${category}/${series}/${productLine}`
+    },
+    openGraph: {
+      title: `${productLineData.thai} (${productLineData.english}) | Origin Seafoods`,
+      description: productLineData.description,
+      images: productLineData.coverImage
+        ? [{ url: productLineData.coverImage.src, alt: productLineData.coverImage.alt }]
+        : undefined
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: `${productLineData.thai} (${productLineData.english}) | Origin Seafoods`,
+      description: productLineData.description
+    }
+  };
+}
+
+export default async function ProductLinePage({ params }: ProductLinePageProps) {
+  const { category, series, productLine } = await params;
+  const categoryData = getCategoryBySlug(category);
+  const seriesData = getProductSeriesBySlug(category, series);
+  const productLineData = getProductLineBySlug(category, series, productLine);
+
+  if (!categoryData || !seriesData || !productLineData) {
+    notFound();
+  }
+
+  const variantsList = getProductVariantsByProductLine(category, series, productLine);
+
+  const breadcrumbItems = [
+    { label: "หน้าแรก / Home", href: "/" },
+    { label: "สินค้าทั้งหมด / Products", href: "/products" },
+    { label: `${categoryData.thai} / ${categoryData.english}`, href: `/products/${category}` },
+    { label: `${seriesData.thai} / ${seriesData.english}`, href: `/products/${category}/${series}` },
+    { label: `${productLineData.thai}` }
+  ];
+
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    name: `${productLineData.thai} (${productLineData.english})`,
+    description: productLineData.description,
+    url: `/products/${category}/${series}/${productLine}`,
+    breadcrumb: {
+      "@type": "BreadcrumbList",
+      itemListElement: breadcrumbItems.map((item, index) => ({
+        "@type": "ListItem",
+        position: index + 1,
+        name: item.label,
+        item: item.href ?? `/products/${category}/${series}/${productLine}`
+      }))
+    }
+  };
+
+  return (
+    <div className="product-group-page">
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
+      <CatalogHero
+        breadcrumbItems={breadcrumbItems}
+        eyebrow="PRODUCT LINE"
+        title={`${productLineData.thai} (${productLineData.english})`}
+        description={productLineData.description}
+      />
+
+      {/* Variants List */}
+      <section className="catalog-products-section">
+        <Container compact>
+          <CatalogHeader title={`ขนาดและสเปกย่อยที่มีจำหน่าย / Available Sizes (${variantsList.length})`} />
+          {variantsList.length === 0 ? (
+            <p className="no-products-message">ขณะนี้ไม่มีขนาดหรือสเปกย่อยในสายผลิตภัณฑ์นี้ / No sizes in this product line.</p>
+          ) : (
+            <VariantGrid variants={variantsList} />
+          )}
+        </Container>
+      </section>
+    </div>
+  );
+}

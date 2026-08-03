@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 160" role="img" aria-label="Origin symbol">
+  <circle cx="62" cy="92" r="38" fill="none" stroke="#f58220" stroke-width="18"/>
+  <circle cx="88" cy="36" r="6" fill="#42b549"/>
+  <circle cx="110" cy="45" r="6" fill="#42b549"/>
+  <circle cx="126" cy="64" r="6" fill="#42b549"/>
+  <circle cx="132" cy="88" r="6" fill="#42b549"/>
+  <path fill="#42b549" d="M79 73h62v38H79z"/>
+</svg>

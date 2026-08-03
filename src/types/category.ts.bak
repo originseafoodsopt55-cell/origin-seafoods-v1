@@ -1,0 +1,10 @@
+import type { ImageAsset } from "./index";
+
+export interface Category {
+  id: string;
+  slug: string;
+  thai: string;
+  english: string;
+  description: string;
+  coverImage: ImageAsset;
+}

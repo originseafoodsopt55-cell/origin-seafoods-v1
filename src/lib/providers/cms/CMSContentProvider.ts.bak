@@ -1,0 +1,112 @@
+import type { IContentProvider } from "../interfaces/IContentProvider";
+import type {
+  Company,
+  ProductVariant,
+  Category,
+  Brand,
+  GalleryItem,
+  NavigationItem,
+  ContactInformation,
+  ContactLink,
+  Feature,
+  Country,
+  ProductSeries,
+  ProductGroup,
+  Series,
+  ProductLine
+} from "@/types";
+
+export class CMSContentProvider implements IContentProvider {
+  getCompany(): Promise<Company> {
+    return Promise.reject(new Error("CMSContentProvider.getCompany is not implemented"));
+  }
+
+  getFeatures(): Promise<Feature[]> {
+    return Promise.reject(new Error("CMSContentProvider.getFeatures is not implemented"));
+  }
+
+  getCountries(): Promise<Country[]> {
+    return Promise.reject(new Error("CMSContentProvider.getCountries is not implemented"));
+  }
+
+  getProducts(): Promise<ProductVariant[]> {
+    return Promise.reject(new Error("CMSContentProvider.getProducts is not implemented"));
+  }
+
+  getCategories(): Promise<Category[]> {
+    return Promise.reject(new Error("CMSContentProvider.getCategories is not implemented"));
+  }
+
+  getBrands(): Promise<Brand[]> {
+    return Promise.reject(new Error("CMSContentProvider.getBrands is not implemented"));
+  }
+
+  getGallery(): Promise<GalleryItem[]> {
+    return Promise.reject(new Error("CMSContentProvider.getGallery is not implemented"));
+  }
+
+  getNavigation(): Promise<NavigationItem[]> {
+    return Promise.reject(new Error("CMSContentProvider.getNavigation is not implemented"));
+  }
+
+  getContact(): Promise<ContactInformation> {
+    return Promise.reject(new Error("CMSContentProvider.getContact is not implemented"));
+  }
+
+  getContactLinks(): Promise<ContactLink[]> {
+    return Promise.reject(new Error("CMSContentProvider.getContactLinks is not implemented"));
+  }
+
+  getCategoryBySlug(_slug: string): Promise<Category | undefined> {
+    return Promise.reject(new Error("CMSContentProvider.getCategoryBySlug is not implemented"));
+  }
+
+  getSeries(): Series[] {
+    throw new Error("CMSContentProvider.getSeries is not implemented");
+  }
+
+  getProductLines(): ProductLine[] {
+    throw new Error("CMSContentProvider.getProductLines is not implemented");
+  }
+
+  getProductSeriesByCategory(_categorySlug: string): Promise<ProductSeries[]> {
+    return Promise.reject(new Error("CMSContentProvider.getProductSeriesByCategory is not implemented"));
+  }
+
+  getProductSeriesBySlug(_categorySlug: string, _seriesSlug: string): Promise<ProductSeries | undefined> {
+    return Promise.reject(new Error("CMSContentProvider.getProductSeriesBySlug is not implemented"));
+  }
+
+  getProductGroupsBySeries(_categorySlug: string, _seriesSlug: string): Promise<ProductGroup[]> {
+    return Promise.reject(new Error("CMSContentProvider.getProductGroupsBySeries is not implemented"));
+  }
+
+  getProductLinesBySeries(_categorySlug: string, _seriesSlug: string): ProductLine[] {
+    throw new Error("CMSContentProvider.getProductLinesBySeries is not implemented");
+  }
+
+  getProductGroupBySlug(_categorySlug: string, _seriesSlug: string, _groupSlug: string): Promise<ProductGroup | undefined> {
+    return Promise.reject(new Error("CMSContentProvider.getProductGroupBySlug is not implemented"));
+  }
+
+  getProductLineBySlug(_categorySlug: string, _seriesSlug: string, _productLineSlug: string): ProductLine | undefined {
+    throw new Error("CMSContentProvider.getProductLineBySlug is not implemented");
+  }
+
+  getProductVariantsByGroup(_categorySlug: string, _seriesSlug: string, _groupSlug: string): Promise<ProductVariant[]> {
+    return Promise.reject(new Error("CMSContentProvider.getProductVariantsByGroup is not implemented"));
+  }
+
+  getProductVariantsByProductLine(_categorySlug: string, _seriesSlug: string, _productLineSlug: string): ProductVariant[] {
+    throw new Error("CMSContentProvider.getProductVariantsByProductLine is not implemented");
+  }
+
+  getProductVariantBySlug(
+    _categorySlug: string,
+    _seriesSlug: string,
+    _productLineSlug: string,
+    _variantSlug: string
+  ): Promise<ProductVariant | undefined> {
+    return Promise.reject(new Error("CMSContentProvider.getProductVariantBySlug is not implemented"));
+  }
+}

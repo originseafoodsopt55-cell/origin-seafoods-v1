@@ -1,0 +1,55 @@
+import Image from "next/image";
+import { ArrowRight } from "lucide-react";
+import { getCategories } from "@/lib/data";
+import { Button } from "@/components/ui/Button";
+import { Container } from "@/components/ui/Container";
+import { SectionTitle } from "@/components/ui/SectionTitle";
+import { ScrollReveal } from "@/components/ui/ScrollReveal";
+
+export function ProductCategories() {
+  const categories = getCategories();
+  return (
+    <section id="products" className="products-section" aria-labelledby="products-title">
+      <Container compact>
+        <ScrollReveal direction="up" className="section-header-wrapper">
+          <SectionTitle id="products-title" eyebrow="PRODUCT CATEGORIES" title="หมวดหมู่สินค้า" center />
+        </ScrollReveal>
+
+        {/* 6 Category cards grid */}
+        <ScrollReveal direction="up" delay={0.15}>
+          <div className="home-category-cards-grid">
+            {categories.map((cat) => (
+              <a 
+                key={cat.id} 
+                href={`/products/${cat.slug}`} 
+                className="home-category-card"
+              >
+                <div className="home-category-photo-container">
+                  <Image 
+                    src={cat.coverImage.src} 
+                    alt={cat.coverImage.alt} 
+                    title={cat.coverImage.title}
+                    fill
+                    sizes="(max-width: 640px) 100vw, (max-width: 1024px) 33vw, 200px"
+                    className="home-category-img"
+                  />
+                </div>
+                <div className="home-category-card-content">
+                  <span className="home-cat-eyebrow">{cat.english}</span>
+                  <h3 className="home-cat-title">{cat.thai}</h3>
+                  <p className="home-cat-desc">{cat.description}</p>
+                </div>
+              </a>
+            ))}
+          </div>
+        </ScrollReveal>
+
+        <div className="home-category-action-row">
+          <Button variant="outline" href="/products">
+            ดูสินค้าทั้งหมด <ArrowRight size={17} aria-hidden="true" />
+          </Button>
+        </div>
+      </Container>
+    </section>
+  );
+}

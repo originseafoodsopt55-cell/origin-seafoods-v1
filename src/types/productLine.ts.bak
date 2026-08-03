@@ -1,0 +1,13 @@
+import type { ImageAsset } from "./index";
+
+export interface ProductLine {
+  id: string;
+  slug: string;
+  seriesSlug: string;
+  categorySlug?: string;
+  thai: string;
+  english: string;
+  description?: string;
+  brand?: string;
+  coverImage?: ImageAsset;
+}

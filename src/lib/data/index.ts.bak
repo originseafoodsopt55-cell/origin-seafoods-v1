@@ -1,0 +1,103 @@
+import { getContentProvider } from "../providers/factory";
+
+const provider = getContentProvider();
+
+function resolveSync<T>(value: Promise<T> | T): T {
+  if (value instanceof Promise) {
+    throw new Error("DAL received a Promise. CMS data fetching must be handled asynchronously.");
+  }
+  return value;
+}
+
+export function getCompany() {
+  const comp = resolveSync(provider.getCompany());
+  const feats = resolveSync(provider.getFeatures());
+  const countrs = resolveSync(provider.getCountries());
+  return {
+    ...comp,
+    features: feats,
+    countries: countrs
+  };
+}
+
+export function getProducts() {
+  return resolveSync(provider.getProducts());
+}
+
+export function getBrands() {
+  return resolveSync(provider.getBrands());
+}
+
+export function getGallery() {
+  return resolveSync(provider.getGallery());
+}
+
+export function getNavigation() {
+  return resolveSync(provider.getNavigation());
+}
+
+export function getContact() {
+  return resolveSync(provider.getContact());
+}
+
+export function getContactLinks() {
+  return resolveSync(provider.getContactLinks());
+}
+
+export function getCategories() {
+  return resolveSync(provider.getCategories());
+}
+
+// B2B Catalog dynamic queries
+export function getSeries() {
+  return provider.getSeries();
+}
+
+export function getProductLines() {
+  return provider.getProductLines();
+}
+
+export function getCategoryBySlug(slug: string) {
+  return resolveSync(provider.getCategoryBySlug(slug));
+}
+
+export function getProductSeriesByCategory(categorySlug: string) {
+  return resolveSync(provider.getProductSeriesByCategory(categorySlug));
+}
+
+export function getProductSeriesBySlug(categorySlug: string, seriesSlug: string) {
+  return resolveSync(provider.getProductSeriesBySlug(categorySlug, seriesSlug));
+}
+
+export function getProductGroupsBySeries(categorySlug: string, seriesSlug: string) {
+  return resolveSync(provider.getProductGroupsBySeries(categorySlug, seriesSlug));
+}
+
+export function getProductLinesBySeries(categorySlug: string, seriesSlug: string) {
+  return provider.getProductLinesBySeries(categorySlug, seriesSlug);
+}
+
+export function getProductGroupBySlug(categorySlug: string, seriesSlug: string, groupSlug: string) {
+  return resolveSync(provider.getProductGroupBySlug(categorySlug, seriesSlug, groupSlug));
+}
+
+export function getProductLineBySlug(categorySlug: string, seriesSlug: string, productLineSlug: string) {
+  return provider.getProductLineBySlug(categorySlug, seriesSlug, productLineSlug);
+}
+
+export function getProductVariantsByGroup(categorySlug: string, seriesSlug: string, groupSlug: string) {
+  return resolveSync(provider.getProductVariantsByGroup(categorySlug, seriesSlug, groupSlug));
+}
+
+export function getProductVariantsByProductLine(categorySlug: string, seriesSlug: string, productLineSlug: string) {
+  return provider.getProductVariantsByProductLine(categorySlug, seriesSlug, productLineSlug);
+}
+
+export function getProductVariantBySlug(
+  categorySlug: string,
+  seriesSlug: string,
+  productLineSlug: string,
+  variantSlug: string
+) {
+  return resolveSync(provider.getProductVariantBySlug(categorySlug, seriesSlug, productLineSlug, variantSlug));
+}

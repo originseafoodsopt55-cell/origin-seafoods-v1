@@ -1,0 +1,139 @@
+import type { IContentProvider } from "../interfaces/IContentProvider";
+import { company, features, countries } from "@/lib/data/company";
+import { productSeries, productGroups, productVariants } from "@/lib/data/products";
+import { series } from "@/lib/data/series";
+import { productLines } from "@/lib/data/productLines";
+import { brands } from "@/lib/data/brands";
+import { gallery } from "@/lib/data/gallery";
+import { navItems } from "@/lib/data/navigation";
+import { contact, contactLinks } from "@/lib/data/contact";
+import { categories } from "@/lib/data/categories";
+import type {
+  Company,
+  ProductVariant,
+  Category,
+  Brand,
+  GalleryItem,
+  NavigationItem,
+  ContactInformation,
+  ContactLink,
+  Feature,
+  Country,
+  ProductSeries,
+  ProductGroup,
+  Series,
+  ProductLine
+} from "@/types";
+
+export class MockContentProvider implements IContentProvider {
+  getCompany(): Company {
+    return company;
+  }
+
+  getFeatures(): Feature[] {
+    return features;
+  }
+
+  getCountries(): Country[] {
+    return countries;
+  }
+
+  getProducts(): ProductVariant[] {
+    return productVariants;
+  }
+
+  getCategories(): Category[] {
+    return categories;
+  }
+
+  getBrands(): Brand[] {
+    return brands;
+  }
+
+  getGallery(): GalleryItem[] {
+    return gallery;
+  }
+
+  getNavigation(): NavigationItem[] {
+    return navItems;
+  }
+
+  getContact(): ContactInformation {
+    return contact;
+  }
+
+  getContactLinks(): ContactLink[] {
+    return contactLinks;
+  }
+
+  // B2B Catalog Dynamic Queries
+  getCategoryBySlug(slug: string): Category | undefined {
+    return categories.find((c) => c.slug === slug);
+  }
+
+  getSeries(): Series[] {
+    return series;
+  }
+
+  getProductLines(): ProductLine[] {
+    return productLines;
+  }
+
+  getProductSeriesByCategory(categorySlug: string): ProductSeries[] {
+    return productSeries.filter((s) => s.categorySlug === categorySlug);
+  }
+
+  getProductSeriesBySlug(categorySlug: string, seriesSlug: string): ProductSeries | undefined {
+    return productSeries.find((s) => s.categorySlug === categorySlug && s.slug === seriesSlug);
+  }
+
+  getProductGroupsBySeries(categorySlug: string, seriesSlug: string): ProductGroup[] {
+    return productGroups.filter((g) => g.categorySlug === categorySlug && g.seriesSlug === seriesSlug);
+  }
+
+  getProductLinesBySeries(categorySlug: string, seriesSlug: string): ProductLine[] {
+    return productLines.filter((line) => line.categorySlug === categorySlug && line.seriesSlug === seriesSlug);
+  }
+
+  getProductGroupBySlug(categorySlug: string, seriesSlug: string, groupSlug: string): ProductGroup | undefined {
+    return productGroups.find(
+      (g) => g.categorySlug === categorySlug && g.seriesSlug === seriesSlug && g.slug === groupSlug
+    );
+  }
+
+  getProductLineBySlug(categorySlug: string, seriesSlug: string, productLineSlug: string): ProductLine | undefined {
+    return productLines.find(
+      (line) => line.categorySlug === categorySlug && line.seriesSlug === seriesSlug && line.slug === productLineSlug
+    );
+  }
+
+  getProductVariantsByGroup(categorySlug: string, seriesSlug: string, groupSlug: string): ProductVariant[] {
+    return productVariants.filter(
+      (v) => v.categorySlug === categorySlug && v.seriesSlug === seriesSlug && v.groupSlug === groupSlug
+    );
+  }
+
+  getProductVariantsByProductLine(categorySlug: string, seriesSlug: string, productLineSlug: string): ProductVariant[] {
+    return productVariants.filter(
+      (v) =>
+        v.categorySlug === categorySlug &&
+        v.seriesSlug === seriesSlug &&
+        (v.productLineSlug ?? v.groupSlug) === productLineSlug
+    );
+  }
+
+  getProductVariantBySlug(
+    categorySlug: string,
+    seriesSlug: string,
+    productLineSlug: string,
+    variantSlug: string
+  ): ProductVariant | undefined {
+    return productVariants.find(
+      (v) =>
+        v.categorySlug === categorySlug &&
+        v.seriesSlug === seriesSlug &&
+        (v.productLineSlug ?? v.groupSlug) === productLineSlug &&
+        v.slug === variantSlug
+    );
+  }
+}
