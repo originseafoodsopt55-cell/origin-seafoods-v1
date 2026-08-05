@@ -227,137 +227,90 @@ export const productSeries: ProductSeries[] = [
 export const productGroups: ProductGroup[] = [
   // Crabs -> Blue Swimming Crab
   {
-    id: "group-bsc-ibnr",
-    slug: "ibnr",
+    id: "group-blue-swimming-crab",
+    slug: "blue-swimming-crab",
     seriesSlug: "blue-swimming-crab",
     categorySlug: "crabs",
-    thai: "ปูม้า IBNR",
-    english: "Blue Swimming Crab IBNR",
-    brand: "IBNR",
+    thai: "ปูม้า",
+    english: "Blue Swimming Crab",
     image: {
       src: "/images/products/blue-swimming-crab-ibnr.jpg",
-      alt: "Blue swimming crab IBNR frozen seafood product",
-      title: "Blue Swimming Crab IBNR"
+      alt: "Blue swimming crab frozen seafood product",
+      title: "Blue Swimming Crab"
     },
-    description: "ปูม้าแช่แข็ง แบรนด์ IBNR คุณภาพพรีเมียม สดสะอาด"
-  },
-  {
-    id: "group-bsc-white-box",
-    slug: "white-box",
-    seriesSlug: "blue-swimming-crab",
-    categorySlug: "crabs",
-    thai: "ปูม้า กล่องขาว",
-    english: "Blue Swimming Crab White Box",
-    image: {
-      src: "/images/products/blue-swimming-crab-white-box.jpg",
-      alt: "Blue swimming crab White Box frozen seafood product",
-      title: "Blue Swimming Crab White Box"
-    },
-    description: "ปูม้าแช่แข็งบรรจุกล่องขาว คัดเกรดพิเศษเพื่อการแปรรูปและร้านอาหาร"
+    description: "ปูม้าแช่แข็งคุณภาพส่งออก คัดไซส์พิเศษ เนื้อแน่นหวานฉ่ำ"
   },
   // Crabs -> Three Spot Swimming Crab
   {
-    id: "group-tssc-ibnr",
-    slug: "ibnr",
+    id: "group-three-spot-swimming-crab",
+    slug: "three-spot-swimming-crab",
     seriesSlug: "three-spot-swimming-crab",
     categorySlug: "crabs",
-    thai: "ปูจุด IBNR",
-    english: "Three Spot Swimming Crab IBNR",
-    brand: "IBNR",
+    thai: "ปูแดง / ปูจุด",
+    english: "Three Spot Swimming Crab",
     image: {
       src: "/images/products/three-spot-swimming-crab-ibnr.jpg",
-      alt: "Three spot swimming crab IBNR frozen seafood product",
-      title: "Three Spot Swimming Crab IBNR"
+      alt: "Three spot swimming crab frozen seafood product",
+      title: "Three Spot Swimming Crab"
     },
-    description: "ปูจุดแช่แข็ง แบรนด์ IBNR สดสะอาด คุณภาพสม่ำเสมอ"
+    description: "ปูจุดธรรมชาติ เนื้อแน่นสดใหม่ เหมาะสำหรับปรุงเมนูหลากหลาย"
   },
   // Squid -> Squid Neck
   {
-    id: "group-squid-neck-er",
-    slug: "er",
+    id: "group-squid-neck",
+    slug: "squid-neck",
     seriesSlug: "squid-neck",
     categorySlug: "squid",
-    thai: "คอหมึกเปรู แบรนด์ ER",
-    english: "Peru Squid Neck ER Brand",
-    brand: "ER",
+    thai: "คอหมึกเปรู",
+    english: "Peru Squid Neck",
     image: {
       src: "/images/products/squid-neck-er.jpg",
-      alt: "Squid neck ER frozen seafood product",
-      title: "Squid Neck ER"
+      alt: "Squid neck frozen seafood product",
+      title: "Squid Neck"
     },
-    description: "คอหมึกเปรูแช่แข็ง แบรนด์ ER สด สะอาด เด้งดึ๋งได้รูป"
-  },
-  {
-    id: "group-squid-neck-peru-frost",
-    slug: "peru-frost",
-    seriesSlug: "squid-neck",
-    categorySlug: "squid",
-    thai: "คอหมึกเปรู แบรนด์ PERU FROST",
-    english: "Peru Squid Neck PERU FROST Brand",
-    brand: "PERU FROST",
-    image: {
-      src: "/images/products/squid-neck-peru-frost.jpg",
-      alt: "Peru squid neck Peru Frost frozen seafood product",
-      title: "Peru Squid Neck Peru Frost"
-    },
-    description: "คอหมึกเปรูแช่แข็ง แบรนด์ PERU FROST คุณภาพพรีเมียมเนื้อตรงไซส์"
+    description: "คอหมึกเปรูแช่แข็ง สด สะอาด เด้งดึ๋งได้รูป"
   },
   // Squid -> Black Squid
   {
-    id: "group-black-squid-xing-bang",
-    slug: "xing-bang",
+    id: "group-black-squid",
+    slug: "black-squid",
     seriesSlug: "black-squid",
     categorySlug: "squid",
-    thai: "หมึกดำ XING BANG",
-    english: "Black Squid XING BANG",
-    brand: "XING BANG",
+    thai: "หมึกดำ",
+    english: "Black Squid",
     image: {
       src: "/images/products/black-squid-xing-bang.jpg",
-      alt: "Black squid Xing Bang frozen seafood product",
-      title: "Black Squid Xing Bang"
+      alt: "Black squid frozen seafood product",
+      title: "Black Squid"
     },
-    description: "หมึกดำแช่แข็ง แบรนด์ XING BANG ตัวสดเด้ง สีสวยตรงตามธรรมชาติ"
-  },
-  {
-    id: "group-black-squid-vietnam",
-    slug: "vietnam",
-    seriesSlug: "black-squid",
-    categorySlug: "squid",
-    thai: "หมึกดำเวียดนาม",
-    english: "Vietnam Black Squid",
-    image: {
-      src: "/images/products/black-squid-vietnam.jpg",
-      alt: "Black squid Vietnam frozen seafood product",
-      title: "Black Squid Vietnam"
-    },
-    description: "หมึกดำนำเข้าจากประเทศเวียดนาม สด สะอาด และเหนียวนุ่มอร่อย"
+    description: "หมึกดำแช่แข็ง ตัวสดเด้ง สีสวยตรงตามธรรมชาติ"
   },
   // Squid -> Pakistani Squid
   {
-    id: "group-paki-squid-white-box",
-    slug: "white-box",
+    id: "group-pakistani-squid",
+    slug: "pakistani-squid",
     seriesSlug: "pakistani-squid",
     categorySlug: "squid",
-    thai: "หมึกปากี กล่องขาว",
-    english: "Pakistani Squid White Box",
+    thai: "หมึกปากี",
+    english: "Pakistani Squid",
     image: {
       src: "/images/products/pakistani-squid-white-box.jpg",
-      alt: "Pakistani squid White Box frozen seafood product",
-      title: "Pakistani Squid White Box"
+      alt: "Pakistani squid frozen seafood product",
+      title: "Pakistani Squid"
     },
     description: "หมึกปากีนำเข้าบรรจุกล่องขาวเกรดดี ตัวสวยสม่ำเสมอ"
   },
   // Squid -> Argentine Squid
   {
     id: "group-argentine-squid",
-    slug: "argentine",
+    slug: "argentine-squid",
     seriesSlug: "argentine-squid",
     categorySlug: "squid",
     thai: "หมึกอาร์เจน",
     english: "Argentine Squid",
     image: {
       src: "/images/products/argentine-squid-argentine.jpg",
-      alt: "Argentine squid Argentine frozen seafood product",
+      alt: "Argentine squid frozen seafood product",
       title: "Argentine Squid"
     },
     description: "หมึกนำเข้าจากอาร์เจนตินา สดใหม่ เนื้อหวานเด้งธรรมชาติ"
@@ -550,7 +503,7 @@ const productVariantEntries: ProductVariant[] = [
   {
     id: "var-bsc-ibnr-60-80-m",
     slug: "60-80-m",
-    groupSlug: "ibnr",
+    groupSlug: "blue-swimming-crab",
     seriesSlug: "blue-swimming-crab",
     categorySlug: "crabs",
     thai: "ปูม้า IBNR 60-80 M",
@@ -568,7 +521,7 @@ const productVariantEntries: ProductVariant[] = [
   {
     id: "var-bsc-ibnr-60-80-f",
     slug: "60-80-f",
-    groupSlug: "ibnr",
+    groupSlug: "blue-swimming-crab",
     seriesSlug: "blue-swimming-crab",
     categorySlug: "crabs",
     thai: "ปูม้า IBNR 60-80 F",
@@ -586,7 +539,7 @@ const productVariantEntries: ProductVariant[] = [
   {
     id: "var-bsc-ibnr-200up-m",
     slug: "200up-m",
-    groupSlug: "ibnr",
+    groupSlug: "blue-swimming-crab",
     seriesSlug: "blue-swimming-crab",
     categorySlug: "crabs",
     thai: "ปูม้า IBNR 200UP M",
@@ -604,7 +557,7 @@ const productVariantEntries: ProductVariant[] = [
   {
     id: "var-bsc-ibnr-300up-m",
     slug: "300up-m",
-    groupSlug: "ibnr",
+    groupSlug: "blue-swimming-crab",
     seriesSlug: "blue-swimming-crab",
     categorySlug: "crabs",
     thai: "ปูม้า IBNR 300UP M",
@@ -623,7 +576,7 @@ const productVariantEntries: ProductVariant[] = [
   {
     id: "var-bsc-white-200up-f",
     slug: "200up-f",
-    groupSlug: "white-box",
+    groupSlug: "blue-swimming-crab",
     seriesSlug: "blue-swimming-crab",
     categorySlug: "crabs",
     thai: "ปูม้า กล่องขาว 200UP F",
@@ -634,13 +587,14 @@ const productVariantEntries: ProductVariant[] = [
       title: "Blue Swimming Crab"
     },
     size: "200UP F",
+    brand: "กล่องขาว",
     packing: "ลังละ 10 kg.",
     description: "ปูม้าตัวเมีย บรรจุกล่องขาวควบคุมสุขอนามัย ขนาดใหญ่ 200UP ไข่แน่นมันอร่อย"
   },
   {
     id: "var-bsc-white-200up-m",
     slug: "200up-m-white",
-    groupSlug: "white-box",
+    groupSlug: "blue-swimming-crab",
     seriesSlug: "blue-swimming-crab",
     categorySlug: "crabs",
     thai: "ปูม้า กล่องขาว 200UP M",
@@ -651,13 +605,14 @@ const productVariantEntries: ProductVariant[] = [
       title: "Blue Swimming Crab"
     },
     size: "200UP M",
+    brand: "กล่องขาว",
     packing: "ลังละ 10 kg.",
     description: "ปูม้าตัวผู้ บรรจุกล่องขาว ขนาดใหญ่ 200UP เนื้อเด้งแน่น สดส่งตรงจากแพ"
   },
   {
     id: "var-bsc-white-300up-m",
     slug: "300up-m-white",
-    groupSlug: "white-box",
+    groupSlug: "blue-swimming-crab",
     seriesSlug: "blue-swimming-crab",
     categorySlug: "crabs",
     thai: "ปูม้า กล่องขาว 300UP M",
@@ -668,6 +623,7 @@ const productVariantEntries: ProductVariant[] = [
       title: "Blue Swimming Crab"
     },
     size: "300UP M",
+    brand: "กล่องขาว",
     packing: "ลังละ 10 kg.",
     description: "ปูม้าตัวผู้ขนาดจัมโบ้ บรรจุกล่องขาว ขนาดใหญ่ 300UP เนื้อเต็มแน่นคุ้มค่า"
   },
@@ -675,7 +631,7 @@ const productVariantEntries: ProductVariant[] = [
   {
     id: "var-tssc-ibnr-40-60-m",
     slug: "40-60-m",
-    groupSlug: "ibnr",
+    groupSlug: "three-spot-swimming-crab",
     seriesSlug: "three-spot-swimming-crab",
     categorySlug: "crabs",
     thai: "ปูจุด IBNR 40-60 M",
@@ -695,7 +651,7 @@ const productVariantEntries: ProductVariant[] = [
   {
     id: "var-squid-neck-er-100-500",
     slug: "100-500",
-    groupSlug: "er",
+    groupSlug: "squid-neck",
     seriesSlug: "squid-neck",
     categorySlug: "squid",
     thai: "คอหมึกเปรู ER 100/500",
@@ -713,7 +669,7 @@ const productVariantEntries: ProductVariant[] = [
   {
     id: "var-squid-neck-er-500up",
     slug: "500up",
-    groupSlug: "er",
+    groupSlug: "squid-neck",
     seriesSlug: "squid-neck",
     categorySlug: "squid",
     thai: "คอหมึกเปรู ER 500UP",
@@ -732,7 +688,7 @@ const productVariantEntries: ProductVariant[] = [
   {
     id: "var-squid-neck-perufrost-500up",
     slug: "500up-pf",
-    groupSlug: "peru-frost",
+    groupSlug: "squid-neck",
     seriesSlug: "squid-neck",
     categorySlug: "squid",
     thai: "คอหมึกเปรู PERU FROST 500UP",
@@ -751,7 +707,7 @@ const productVariantEntries: ProductVariant[] = [
   {
     id: "var-squid-black-xb-50-100",
     slug: "50-100",
-    groupSlug: "xing-bang",
+    groupSlug: "black-squid",
     seriesSlug: "black-squid",
     categorySlug: "squid",
     thai: "หมึกดำ XING BANG 50/100",
@@ -770,7 +726,7 @@ const productVariantEntries: ProductVariant[] = [
   {
     id: "var-squid-black-xb-100-300",
     slug: "100-300",
-    groupSlug: "xing-bang",
+    groupSlug: "black-squid",
     seriesSlug: "black-squid",
     categorySlug: "squid",
     thai: "หมึกดำ XING BANG 100/300",
@@ -789,7 +745,7 @@ const productVariantEntries: ProductVariant[] = [
   {
     id: "var-squid-black-xb-300-500",
     slug: "300-500",
-    groupSlug: "xing-bang",
+    groupSlug: "black-squid",
     seriesSlug: "black-squid",
     categorySlug: "squid",
     thai: "หมึกดำ XING BANG 300/500",
@@ -809,7 +765,7 @@ const productVariantEntries: ProductVariant[] = [
   {
     id: "var-squid-black-vn-80-150",
     slug: "80-150",
-    groupSlug: "vietnam",
+    groupSlug: "black-squid",
     seriesSlug: "black-squid",
     categorySlug: "squid",
     thai: "หมึกดำเวียดนาม 80/150",
@@ -820,6 +776,7 @@ const productVariantEntries: ProductVariant[] = [
       title: "Frozen Squid"
     },
     size: "80/150",
+    brand: "เวียดนาม",
     country: "Vietnam",
     packing: "กล่องละ 10 Kg.",
     description: "หมึกดำเกรดส่งตรงจากเวียดนาม สด สะอาด ตัวเหนียวหนุบย่างอร่อยมาก",
@@ -828,7 +785,7 @@ const productVariantEntries: ProductVariant[] = [
   {
     id: "var-squid-black-vn-150-200",
     slug: "150-200",
-    groupSlug: "vietnam",
+    groupSlug: "black-squid",
     seriesSlug: "black-squid",
     categorySlug: "squid",
     thai: "หมึกดำเวียดนาม 150/200",
@@ -839,6 +796,7 @@ const productVariantEntries: ProductVariant[] = [
       title: "Frozen Squid"
     },
     size: "150/200",
+    brand: "เวียดนาม",
     country: "Vietnam",
     packing: "กล่องละ 10 Kg.",
     description: "หมึกดำตัวโต เนื้อสดสะอาด เด้งพรีเมียม เหมาะสำหรับจัดเลี้ยงร้านบุฟเฟต์และขายส่ง",
@@ -848,7 +806,7 @@ const productVariantEntries: ProductVariant[] = [
   {
     id: "var-squid-paki-80up",
     slug: "80up",
-    groupSlug: "white-box",
+    groupSlug: "pakistani-squid",
     seriesSlug: "pakistani-squid",
     categorySlug: "squid",
     thai: "หมึกปากี กล่องขาว 80UP",
@@ -859,6 +817,7 @@ const productVariantEntries: ProductVariant[] = [
       title: "Frozen Squid"
     },
     size: "80UP",
+    brand: "กล่องขาว",
     packing: "ลังละ 20 Kg.",
     description: "หมึกปากีนำเข้าบรรจุกล่องขาว เกรดพรีเมียม สดตรงไซส์ บล็อคละ 5 kg. (1 ลังมี 4 บล็อค)"
   },
@@ -866,7 +825,7 @@ const productVariantEntries: ProductVariant[] = [
   {
     id: "var-squid-argen-s-200-300",
     slug: "s-200-300",
-    groupSlug: "argentine",
+    groupSlug: "argentine-squid",
     seriesSlug: "argentine-squid",
     categorySlug: "squid",
     thai: "หมึกอาร์เจน S 200/300",
@@ -877,13 +836,14 @@ const productVariantEntries: ProductVariant[] = [
       title: "Frozen Squid"
     },
     size: "200/300",
+    brand: "ARDAPEZ",
     country: "Argentina",
     description: "หมึกอาร์เจนตินาแท้ ตัวสวย หนังไม่ลอก สดเป็นธรรมชาติ เทสปั่นแล้วเด้งกรอบมาก"
   },
   {
     id: "var-squid-argen-ss-100-200",
     slug: "ss-100-200",
-    groupSlug: "argentine",
+    groupSlug: "argentine-squid",
     seriesSlug: "argentine-squid",
     categorySlug: "squid",
     thai: "หมึกอาร์เจน SS 100/200 (ARDAPEZ)",
