@@ -7,6 +7,7 @@ import {
   getProductVariantsByProductLine 
 } from "@/lib/data";
 import ProductClientView from "./ProductClientView";
+import { RelatedProducts } from "@/components/catalog/RelatedProducts";
 
 export const revalidate = 300;
 
@@ -73,6 +74,16 @@ export default async function ProductLinePage({ params }: ProductLinePageProps) 
 
   const bgImageUrl = categoryData.backgroundImage?.src || "";
 
+  // Render Server Component Node for RelatedProducts
+  const relatedProductsNode = (
+    <RelatedProducts 
+      categorySlug={categoryData.slug}
+      seriesSlug={seriesData.slug}
+      productLineSlug={productLineData.slug}
+      excludeProductId={variantsList[0]?.id} 
+    />
+  );
+
   return (
     <main 
       className="min-h-screen bg-cover bg-center bg-no-repeat bg-fixed relative overflow-hidden"
@@ -84,6 +95,7 @@ export default async function ProductLinePage({ params }: ProductLinePageProps) 
         seriesData={seriesData} 
         productLineData={productLineData} 
         variantsList={variantsList}
+        relatedProductsNode={relatedProductsNode}
       />
     </main>
   );

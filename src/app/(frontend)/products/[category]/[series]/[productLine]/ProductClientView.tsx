@@ -1,14 +1,13 @@
 "use client";
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { useState } from "react";
+import React, { useState } from "react";
 import { useRouter } from "next/navigation";
 import { ProductLayout } from "@/components/products/ProductLayout";
 import { Breadcrumb } from "@/components/catalog/Breadcrumb";
 import { ProductGallery } from "@/components/catalog/ProductGallery";
 import { ProductInformation } from "@/components/catalog/ProductInformation";
 import { ProductSpecifications } from "@/components/catalog/ProductSpecifications";
-import { RelatedProducts } from "@/components/catalog/RelatedProducts";
 import type { Category, Series, ProductLine, ProductVariant } from "@/types";
 
 interface ProductClientViewProps {
@@ -16,6 +15,7 @@ interface ProductClientViewProps {
   seriesData: Series | any;
   productLineData: ProductLine | any;
   variantsList: (ProductVariant | any)[];
+  relatedProductsNode?: React.ReactNode;
 }
 
 export default function ProductClientView({
@@ -23,6 +23,7 @@ export default function ProductClientView({
   seriesData,
   productLineData,
   variantsList,
+  relatedProductsNode,
 }: ProductClientViewProps) {
   const router = useRouter();
   const [activeVariantId, setActiveVariantId] = useState<string>(variantsList[0]?.id || "");
@@ -128,14 +129,7 @@ export default function ProductClientView({
             ) : undefined
           }
           specifications={<ProductSpecifications product={activeVariant} />}
-          relatedProducts={
-            <RelatedProducts 
-              categorySlug={categoryData.slug}
-              seriesSlug={seriesData.slug}
-              productLineSlug={productLineData.slug}
-              excludeProductId={activeVariant.id} 
-            />
-          }
+          relatedProducts={relatedProductsNode}
         />
       )}
     </div>
