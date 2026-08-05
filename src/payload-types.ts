@@ -187,6 +187,7 @@ export interface Category {
   englishTitle: string;
   description?: string | null;
   coverImage?: (number | null) | Media;
+  backgroundImage?: (number | null) | Media;
   published?: boolean | null;
   seo?: {
     metaTitle?: string | null;
@@ -595,6 +596,7 @@ export interface CategoriesSelect<T extends boolean = true> {
   englishTitle?: T;
   description?: T;
   coverImage?: T;
+  backgroundImage?: T;
   published?: T;
   seo?:
     | T

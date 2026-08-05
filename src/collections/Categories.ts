@@ -61,6 +61,12 @@ export const Categories: CollectionConfig = {
       label: 'รูปภาพหน้าปกหมวดหมู่',
     },
     {
+      name: 'backgroundImage',
+      type: 'relationship',
+      relationTo: 'media',
+      label: 'รูปภาพพื้นหลัง (Artwork Background)',
+    },
+    {
       name: 'published',
       type: 'checkbox',
       defaultValue: false,

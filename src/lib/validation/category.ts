@@ -9,6 +9,7 @@ export const CategorySchema = z.object({
   english: z.string().min(1),
   description: z.string(),
   coverImage: ImageAssetSchema,
+  backgroundImage: ImageAssetSchema.optional(),
   status: z.enum(["published", "draft", "archived"]).optional(),
   published: z.boolean().optional(),
   seo: SEOSchema,

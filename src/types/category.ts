@@ -7,4 +7,5 @@ export interface Category extends CMSMetadata {
   english: string;
   description: string;
   coverImage: ImageAsset;
+  backgroundImage?: ImageAsset;
 }

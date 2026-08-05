@@ -18,6 +18,11 @@ export function mapCMSCategory(payload: any): Category {
       alt: payload.coverImageAlt ?? payload.coverImage?.alt ?? "",
       title: payload.coverImageTitle ?? payload.coverImage?.title ?? "",
     },
+    backgroundImage: payload.backgroundImage ? {
+      src: resolveMediaUrl(payload.backgroundImage.url ?? payload.backgroundImage.src ?? ""),
+      alt: payload.backgroundImage.alt ?? "",
+      title: payload.backgroundImage.title ?? "",
+    } : undefined,
     status: payload.status,
     published: payload.published,
     seo: payload.seo ? {

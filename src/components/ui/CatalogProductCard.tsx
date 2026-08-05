@@ -13,10 +13,10 @@ export function CatalogProductCard({ product, className }: CatalogProductCardPro
   const shouldReduceMotion = useReducedMotion();
   const productLineSlug = product.productLineSlug ?? product.groupSlug;
   const detailUrl = productLineSlug && product.seriesSlug
-    ? `/products/${product.categorySlug}/${product.seriesSlug}/${productLineSlug}/${product.slug}`
+    ? `/products/${product.categorySlug}/${product.seriesSlug}/${productLineSlug}`
     : product.seriesSlug
-    ? `/products/${product.categorySlug}/${product.seriesSlug}/${product.slug}`
-    : `/products/${product.categorySlug}/${product.slug}`;
+    ? `/products/${product.categorySlug}/${product.seriesSlug}`
+    : `/products/${product.categorySlug}`;
 
   return (
     <motion.article 
