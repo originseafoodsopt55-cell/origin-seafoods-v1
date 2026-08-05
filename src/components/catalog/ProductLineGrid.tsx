@@ -37,9 +37,6 @@ export function ProductLineGrid({ linesWithVariants }: ProductLineGridProps) {
               <div className="product-card-content">
                 <h4 className="product-card-title">{productLine.thai}</h4>
                 <p className="product-card-subtitle">{productLine.english}</p>
-                {productLine.brand && (
-                  <span className="product-card-brand">{productLine.brand}</span>
-                )}
               </div>
             </a>
 

@@ -26,8 +26,36 @@ export default function ProductClientView({
   relatedProductsNode,
 }: ProductClientViewProps) {
   const router = useRouter();
-  const [activeVariantId, setActiveVariantId] = useState<string>(variantsList[0]?.id || "");
-  const activeVariant = variantsList.find((v) => v.id === activeVariantId) || variantsList[0];
+
+  // Extract unique brand names available in variants
+  const availableBrands = Array.from(
+    new Set(variantsList.map((v) => v.brand).filter((b): b is string => Boolean(b && b.trim())))
+  );
+
+  const [selectedBrand, setSelectedBrand] = useState<string>(() => {
+    return availableBrands.length > 0 ? availableBrands[0] : "";
+  });
+
+  // Filter variants for the selected brand (or keep all if no brand names present)
+  const brandVariants = availableBrands.length > 0 && selectedBrand
+    ? variantsList.filter((v) => v.brand === selectedBrand)
+    : variantsList;
+
+  const [activeVariantId, setActiveVariantId] = useState<string>(() => {
+    return brandVariants[0]?.id || variantsList[0]?.id || "";
+  });
+
+  // Currently active variant (falls back safely)
+  const activeVariant = variantsList.find((v) => v.id === activeVariantId) || brandVariants[0] || variantsList[0];
+
+  // Handler for brand selection
+  const handleBrandSelect = (brandName: string) => {
+    setSelectedBrand(brandName);
+    const firstVariantForBrand = variantsList.find((v) => v.brand === brandName);
+    if (firstVariantForBrand) {
+      setActiveVariantId(firstVariantForBrand.id);
+    }
+  };
 
   const primaryImage = (activeVariant?.image && activeVariant.image.src) 
     ? activeVariant.image 
@@ -45,11 +73,12 @@ export default function ProductClientView({
   const breadcrumbItems = [
     { label: "หน้าแรก / Home", href: "/" },
     { label: "สินค้าทั้งหมด / Products", href: "/products" },
-    { label: categoryName, href: `/products/${categoryData.slug}` },
+    { label: categoryName, href: `/products#${categoryData.slug}` },
   ];
 
   return (
     <div className="relative z-10 w-full max-w-7xl mx-auto px-4 py-8">
+      {/* Back Button */}
       <button
         type="button"
         onClick={() => router.back()}
@@ -61,32 +90,71 @@ export default function ProductClientView({
         ย้อนกลับ / Back
       </button>
 
-      {variantsList.length > 1 && (
-        <div className="bg-white rounded-xl shadow-lg p-6 mb-8 text-black">
-          <h3 className="text-lg font-bold mb-4">เลือกขนาด / Select Size:</h3>
-          <div className="flex flex-wrap gap-3">
-            {variantsList.map((variant) => {
-              const isSelected = activeVariantId === variant.id;
-              const displayLabel = variant.size || variant.thaiTitle || variant.thai || "Standard";
-              return (
-                <button
-                  key={variant.id}
-                  type="button"
-                  onClick={() => setActiveVariantId(variant.id)}
-                  className={`px-4 py-2 border rounded-lg transition-all cursor-pointer ${
-                    isSelected
-                      ? "border-blue-600 bg-blue-50 text-blue-700 ring-1 ring-blue-600 font-bold"
-                      : "border-gray-300 hover:border-blue-400 hover:bg-gray-50 text-gray-700"
-                  }`}
-                >
-                  {displayLabel}
-                </button>
-              );
-            })}
-          </div>
+      {/* Control Panel: Brand & Size Selection */}
+      {(availableBrands.length > 0 || variantsList.length > 1) && (
+        <div className="bg-white rounded-xl shadow-lg p-6 mb-8 text-black border border-gray-100">
+          {/* Brand Selector */}
+          {availableBrands.length > 0 && (
+            <div className="mb-6">
+              <h3 className="text-base font-bold mb-3 flex items-center text-gray-900">
+                <span className="w-2.5 h-2.5 rounded-full bg-blue-600 mr-2 inline-block"></span>
+                เลือกแบรนด์ / Select Brand:
+              </h3>
+              <div className="flex flex-wrap gap-3">
+                {availableBrands.map((brandName) => {
+                  const isSelected = selectedBrand === brandName;
+                  return (
+                    <button
+                      key={brandName}
+                      type="button"
+                      onClick={() => handleBrandSelect(brandName)}
+                      className={`px-5 py-2 border rounded-lg transition-all cursor-pointer font-medium text-sm ${
+                        isSelected
+                          ? "border-blue-600 bg-blue-50 text-blue-700 ring-2 ring-blue-500/20 font-bold shadow-sm"
+                          : "border-gray-200 hover:border-blue-400 hover:bg-gray-50 text-gray-700"
+                      }`}
+                    >
+                      {brandName}
+                    </button>
+                  );
+                })}
+              </div>
+            </div>
+          )}
+
+          {/* Size Selector */}
+          {brandVariants.length > 0 && (
+            <div>
+              <h3 className="text-base font-bold mb-3 flex items-center text-gray-900">
+                <span className="w-2.5 h-2.5 rounded-full bg-emerald-600 mr-2 inline-block"></span>
+                เลือกขนาด / Select Size:
+              </h3>
+              <div className="flex flex-wrap gap-3">
+                {brandVariants.map((variant) => {
+                  const isSelected = activeVariantId === variant.id;
+                  const displayLabel = variant.size || variant.thaiTitle || variant.thai || "Standard";
+                  return (
+                    <button
+                      key={variant.id}
+                      type="button"
+                      onClick={() => setActiveVariantId(variant.id)}
+                      className={`px-4 py-2 border rounded-lg transition-all cursor-pointer text-sm ${
+                        isSelected
+                          ? "border-emerald-600 bg-emerald-50 text-emerald-800 ring-2 ring-emerald-500/20 font-bold shadow-sm"
+                          : "border-gray-200 hover:border-emerald-400 hover:bg-gray-50 text-gray-700"
+                      }`}
+                    >
+                      {displayLabel}
+                    </button>
+                  );
+                })}
+              </div>
+            </div>
+          )}
         </div>
       )}
 
+      {/* Main Product Layout */}
       {activeVariant && (
         <ProductLayout
           breadcrumb={<Breadcrumb items={breadcrumbItems} />}
