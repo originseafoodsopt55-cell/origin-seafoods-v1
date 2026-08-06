@@ -40,7 +40,7 @@ export const productSeries: ProductSeries[] = [
     thai: "หมึกกล้วย",
     english: "Pakistani Squid",
     image: {
-      src: "/images/products/pakistani-squid.jpg",
+      src: "/images/products/pakistani-squid.png",
       alt: "Pakistani squid frozen seafood product",
       title: "Pakistani Squid"
     },
@@ -53,7 +53,7 @@ export const productSeries: ProductSeries[] = [
     thai: "หมึกอาร์เจน",
     english: "Argentine Squid",
     image: {
-      src: "/images/products/argentine-squid.jpg",
+      src: "/images/products/argentine-squid.png",
       alt: "Argentine squid frozen seafood product",
       title: "Argentine Squid"
     },
@@ -66,7 +66,7 @@ export const productSeries: ProductSeries[] = [
     thai: "หมึกดำ",
     english: "Black Squid",
     image: {
-      src: "/images/products/black-squid.jpg",
+      src: "/images/products/black-squid.png",
       alt: "Black squid frozen seafood product",
       title: "Black Squid"
     },
@@ -79,7 +79,7 @@ export const productSeries: ProductSeries[] = [
     thai: "หัวหมึก",
     english: "Squid Head",
     image: {
-      src: "/images/products/squid-head.jpg",
+      src: "/images/products/squid-head.png",
       alt: "Squid head frozen seafood product",
       title: "Squid Head"
     },
@@ -92,7 +92,7 @@ export const productSeries: ProductSeries[] = [
     thai: "หางหมึก",
     english: "Squid Tail",
     image: {
-      src: "/images/products/squid-tail.jpg",
+      src: "/images/products/squid-tail.png",
       alt: "Squid tail frozen seafood product",
       title: "Squid Tail"
     },
@@ -105,7 +105,7 @@ export const productSeries: ProductSeries[] = [
     thai: "คอหมึก",
     english: "Squid Neck",
     image: {
-      src: "/images/products/squid-neck.jpg",
+      src: "/images/products/squid-neck.png",
       alt: "Squid neck frozen seafood product",
       title: "Squid Neck"
     },
@@ -251,7 +251,7 @@ export const productGroups: ProductGroup[] = [
     thai: "หมึกกล้วย",
     english: "Pakistani Squid",
     image: {
-      src: "/images/products/pakistani-squid-white-box.jpg",
+      src: "/images/products/pakistani-squid-white-box.png",
       alt: "Pakistani squid frozen seafood product",
       title: "Pakistani Squid"
     },
@@ -266,7 +266,7 @@ export const productGroups: ProductGroup[] = [
     thai: "หมึกอาร์เจน",
     english: "Argentine Squid",
     image: {
-      src: "/images/products/argentine-squid-argentine.jpg",
+      src: "/images/products/argentine-squid-argentine.png",
       alt: "Argentine squid frozen seafood product",
       title: "Argentine Squid"
     },
@@ -281,7 +281,7 @@ export const productGroups: ProductGroup[] = [
     thai: "หมึกดำ",
     english: "Black Squid",
     image: {
-      src: "/images/products/black-squid-xing-bang.jpg",
+      src: "/images/products/black-squid-xing-bang.png",
       alt: "Black squid frozen seafood product",
       title: "Black Squid"
     },
@@ -296,7 +296,7 @@ export const productGroups: ProductGroup[] = [
     thai: "หัวหมึก",
     english: "Squid Head",
     image: {
-      src: "/images/products/squid-head-squid-head.jpg",
+      src: "/images/products/squid-head-squid-head.png",
       alt: "Squid head frozen seafood product",
       title: "Squid Head"
     },
@@ -311,7 +311,7 @@ export const productGroups: ProductGroup[] = [
     thai: "หางหมึก",
     english: "Squid Tail",
     image: {
-      src: "/images/products/squid-tail-squid-tail.jpg",
+      src: "/images/products/squid-tail-squid-tail.png",
       alt: "Squid tail frozen seafood product",
       title: "Squid Tail"
     },
@@ -326,7 +326,7 @@ export const productGroups: ProductGroup[] = [
     thai: "คอหมึก",
     english: "Squid Neck",
     image: {
-      src: "/images/products/squid-neck-er.jpg",
+      src: "/images/products/squid-neck-er.png",
       alt: "Squid neck frozen seafood product",
       title: "Squid Neck"
     },
