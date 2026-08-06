@@ -156,7 +156,7 @@ export const productSeries: ProductSeries[] = [
     id: "series-japanese-scallop",
     slug: "japanese-scallop",
     categorySlug: "shellfish",
-    thai: "หอยเชลล์ญี่ปุ่น",
+    thai: "หอยเชลล์",
     english: "Japanese Scallop",
     image: {
       src: "/images/products/japanese-scallop.jpg",
@@ -177,19 +177,6 @@ export const productSeries: ProductSeries[] = [
       title: "Blood Cockle"
     },
     description: "หอยแครงฟรีส เนื้อเต็มสวย ไม่ติดฝา เลือดฉ่ำสดสะอาด"
-  },
-  {
-    id: "series-mussel",
-    slug: "mussel",
-    categorySlug: "shellfish",
-    thai: "หอยแมลงภู่",
-    english: "Mussel",
-    image: {
-      src: "/images/products/mussel.jpg",
-      alt: "Mussel frozen seafood product",
-      title: "Mussel"
-    },
-    description: "หอยแมลงภู่ชิลีและเนื้อหอยแมลงภู่เกรดส่งออก สดใหม่พร้อมปรุง"
   },
   // Fish
   {
@@ -366,8 +353,8 @@ export const productGroups: ProductGroup[] = [
     slug: "razor-clam",
     seriesSlug: "razor-clam",
     categorySlug: "shellfish",
-    thai: "หอยหลอดจัมโบ้",
-    english: "Jumbo Razor Clam",
+    thai: "หอยหลอด",
+    english: "Razor Clam",
     image: {
       src: "/images/products/razor-clam-razor-clam.jpg",
       alt: "Razor clam frozen seafood product",
@@ -377,32 +364,18 @@ export const productGroups: ProductGroup[] = [
   },
   // Shellfish -> Whelk
   {
-    id: "group-whelk-normal",
+    id: "group-whelk",
     slug: "whelk",
     seriesSlug: "whelk",
     categorySlug: "shellfish",
-    thai: "หอยหวานเกรดเอ",
-    english: "Premium Whelk",
+    thai: "หอยหวาน",
+    english: "Whelk",
     image: {
       src: "/images/products/whelk-whelk.jpg",
       alt: "Whelk frozen seafood product",
       title: "Whelk"
     },
-    description: "หอยหวานสดใหม่แช่แข็งอย่างรวดเร็ว เนื้อแน่นกรอบเด้ง"
-  },
-  {
-    id: "group-whelk-pointed",
-    slug: "pointed-whelk",
-    seriesSlug: "whelk",
-    categorySlug: "shellfish",
-    thai: "หอยหวาน ตูดแหลม",
-    english: "Pointed Whelk",
-    image: {
-      src: "/images/products/whelk-pointed-whelk.jpg",
-      alt: "Pointed whelk frozen seafood product",
-      title: "Pointed Whelk"
-    },
-    description: "หอยหวานตูดแหลมธรรมชาติ สด อวบ เนื้อเต็มสวย"
+    description: "หอยหวานและหอยหวานตูดแหลม เนื้อเด้งหวานเป็นธรรมชาติ"
   },
   // Shellfish -> Japanese Scallop
   {
@@ -410,8 +383,8 @@ export const productGroups: ProductGroup[] = [
     slug: "japanese-scallop-half-shell",
     seriesSlug: "japanese-scallop",
     categorySlug: "shellfish",
-    thai: "หอยเชลล์ญี่ปุ่น ฝาเดียว",
-    english: "Japanese Scallop Half Shell",
+    thai: "หอยเชลล์",
+    english: "Japanese Scallop",
     image: {
       src: "/images/products/japanese-scallop-half-shell.jpg",
       alt: "Japanese scallop half shell frozen seafood product",
@@ -425,43 +398,14 @@ export const productGroups: ProductGroup[] = [
     slug: "blood-cockle",
     seriesSlug: "blood-cockle",
     categorySlug: "shellfish",
-    thai: "หอยแครงแช่แข็ง",
-    english: "Frozen Blood Cockle",
+    thai: "หอยแครง",
+    english: "Blood Cockle",
     image: {
       src: "/images/products/blood-cockle-blood-cockle.jpg",
       alt: "Blood cockle frozen seafood product",
       title: "Blood Cockle"
     },
     description: "หอยแครงแช่แข็งเนื้อแน่น แฝงความสดหวานฉ่ำเป็นธรรมชาติ"
-  },
-  // Shellfish -> Mussel
-  {
-    id: "group-chilean-mussel",
-    slug: "chilean-mussel",
-    seriesSlug: "mussel",
-    categorySlug: "shellfish",
-    thai: "หอยแมลงภู่ชิลี",
-    english: "Chilean Mussel",
-    image: {
-      src: "/images/products/mussel-chilean-mussel.jpg",
-      alt: "Chilean mussel frozen seafood product",
-      title: "Chilean Mussel"
-    },
-    description: "หอยแมลงภู่ชิลีนำเข้า เนื้อแน่น ตัวใหญ่ บรรจุอย่างดีควบคุมความสะอาด"
-  },
-  {
-    id: "group-mussel-meat",
-    slug: "mussel-meat",
-    seriesSlug: "mussel",
-    categorySlug: "shellfish",
-    thai: "เนื้อหอยแมลงภู่",
-    english: "Mussel Meat",
-    image: {
-      src: "/images/products/mussel-mussel-meat.jpg",
-      alt: "Mussel meat frozen seafood product",
-      title: "Mussel Meat"
-    },
-    description: "เนื้อหอยแมลงภู่เด้งๆ พร้อมปรุงทานสะดวกและอร่อย"
   },
   // Fish -> Dolly Fish
   {
@@ -1072,14 +1016,14 @@ const productVariantEntries: ProductVariant[] = [
       title: "Shellfish"
     },
     size: "10/20",
+    brand: "เกรด A",
     packing: "ลังละ 12 kg.",
     description: "หอยหวานแช่แข็งอย่างรวดเร็ว ขนาด 10/20 เนื้อหวานกรุบเด้งดึ๋งเป็นธรรมชาติ"
   },
-  // Shellfish -> Whelk -> Pointed Whelk
   {
     id: "var-shell-whelk-sharp-30-50",
     slug: "30-50",
-    groupSlug: "pointed-whelk",
+    groupSlug: "whelk",
     seriesSlug: "whelk",
     categorySlug: "shellfish",
     thai: "หอยหวาน ตูดแหลม 30/50",
@@ -1090,13 +1034,14 @@ const productVariantEntries: ProductVariant[] = [
       title: "Shellfish"
     },
     size: "30/50",
+    brand: "ตูดแหลม",
     packing: "ลังละ 12 kg. (2kg.*6)",
     description: "หอยหวานตูดแหลม สดจากแหล่งน้ำลึกคัดพิเศษ อวบอ้วนและรสชาติดีเยี่ยม"
   },
   {
     id: "var-shell-whelk-sharp-50-80",
     slug: "50-80",
-    groupSlug: "pointed-whelk",
+    groupSlug: "whelk",
     seriesSlug: "whelk",
     categorySlug: "shellfish",
     thai: "หอยหวาน ตูดแหลม 50/80",
@@ -1107,6 +1052,7 @@ const productVariantEntries: ProductVariant[] = [
       title: "Shellfish"
     },
     size: "50/80",
+    brand: "ตูดแหลม",
     packing: "ลังละ 12 kg. (2kg.*6)",
     description: "หอยหวานตูดแหลมธรรมชาติ สดใหม่ คัดกรองสิ่งสกปรกและแช่เยือกแข็งคงคุณค่าครบถ้วน"
   },
@@ -1201,60 +1147,7 @@ const productVariantEntries: ProductVariant[] = [
     packing: "ลังละ 10 kg.",
     description: "หอยแครงแกะแช่แข็งไซส์ยักษ์ U15 ตัวใหญ่เนื้อหวานฟูและสะอาดปลอดภัย"
   },
-  // Shellfish -> Mussel -> Chilean Mussel
-  {
-    id: "var-shell-mussel-chile-blue",
-    slug: "blue-box",
-    groupSlug: "chilean-mussel",
-    seriesSlug: "mussel",
-    categorySlug: "shellfish",
-    thai: "หอยแมลงภู่ชิลี L (กล่องน้ำเงิน)",
-    english: "Chilean Mussel L (Blue Box)",
-    image: {
-      src: "/images/products/shellfish.webp",
-      alt: "Shellfish frozen seafood product",
-      title: "Shellfish"
-    },
-    size: "L",
-    country: "Chile",
-    packing: "ลังละ 10 kg. (1 kg.*10 ถุง) NW.50%",
-    description: "หอยแมลงภู่ชิลีตัวโต คัดเกรด L บรรจุกล่องน้ำเงิน สดสะอาดมีระเบียบประมาณ 14-16 ตัว/ถุง"
-  },
-  {
-    id: "var-shell-mussel-chile-green",
-    slug: "green-box",
-    groupSlug: "chilean-mussel",
-    seriesSlug: "mussel",
-    categorySlug: "shellfish",
-    thai: "หอยแมลงภู่ชิลี L (กล่องเขียว)",
-    english: "Chilean Mussel L (Green Box)",
-    image: {
-      src: "/images/products/shellfish.webp",
-      alt: "Shellfish frozen seafood product",
-      title: "Shellfish"
-    },
-    size: "L",
-    country: "Chile",
-    packing: "ลังละ 10 kg. (1 kg.*10 ถุง) NW.40%",
-    description: "หอยแมลงภู่ชิลีนำเข้า คัดเกรด L บรรจุกล่องเขียว สดเด้งตรงไซส์ประมาณ 25-28 ตัว/ถุง"
-  },
-  // Shellfish -> Mussel -> Mussel Meat
-  {
-    id: "var-shell-mussel-meat",
-    slug: "meat",
-    groupSlug: "mussel-meat",
-    seriesSlug: "mussel",
-    categorySlug: "shellfish",
-    thai: "เนื้อหอยแมลงภู่เด้ง",
-    english: "Mussel Meat",
-    image: {
-      src: "/images/products/shellfish.webp",
-      alt: "Shellfish frozen seafood product",
-      title: "Shellfish"
-    },
-    packing: "กล่องละ 10 kg. (ถุงละ 1 kg.*10 ถุง) NW.40%",
-    description: "เนื้อหอยแมลงภู่ล้วน แกะเปลือกแช่แข็งตัวเด้งพร้อมนำไปต้มผัดแกงทอดทันที 50 ชิ้น++ / ถุง"
-  },
+
 
   // Fish -> Dolly Fish -> Dolly Fish
   {
