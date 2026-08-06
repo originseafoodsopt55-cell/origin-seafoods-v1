@@ -183,14 +183,14 @@ export const productSeries: ProductSeries[] = [
     id: "series-dolly-fish",
     slug: "dolly-fish",
     categorySlug: "fish",
-    thai: "ปลาดอลลี่",
+    thai: "ปลาทู",
     english: "Dolly Fish",
     image: {
       src: "/images/products/frozen-fish.webp",
       alt: "Frozen fish seafood product",
       title: "Frozen Fish"
     },
-    description: "ปลาดอลลี่หั่นชิ้นติดท้องแช่แข็ง เนื้อนุ่มสะอาดได้มาตรฐาน"
+    description: "ปลาทูหั่นชิ้นติดท้องแช่แข็ง เนื้อนุ่มสะอาดได้มาตรฐาน"
   },
   // Silkworm
   {
@@ -413,14 +413,14 @@ export const productGroups: ProductGroup[] = [
     slug: "dolly-fish",
     seriesSlug: "dolly-fish",
     categorySlug: "fish",
-    thai: "ปลาดอลลี่ติดท้อง",
+    thai: "ปลาทู",
     english: "Dolly Fish Belly Cut",
     image: {
       src: "/images/products/dolly-fish-dolly-fish.jpg",
       alt: "Dolly fish frozen seafood product",
       title: "Dolly Fish"
     },
-    description: "ปลาดอลลี่หั่นชิ้นคัดคุณภาพ เนื้อนุ่มสะอาด เหมาะสำหรับประกอบอาหารทันที"
+    description: "ปลาทูหั่นชิ้นคัดคุณภาพ เนื้อนุ่มสะอาด เหมาะสำหรับประกอบอาหารทันที"
   },
   // Silkworm -> Silkworm
   {
