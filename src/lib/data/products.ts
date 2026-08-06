@@ -34,43 +34,17 @@ export const productSeries: ProductSeries[] = [
   },
   // Squid
   {
-    id: "series-squid-neck",
-    slug: "squid-neck",
-    categorySlug: "squid",
-    thai: "คอหมึก",
-    english: "Squid Neck",
-    image: {
-      src: "/images/products/squid-neck.jpg",
-      alt: "Squid neck frozen seafood product",
-      title: "Squid Neck"
-    },
-    description: "คอหมึกเปรูแช่แข็ง ชิ้นใหญ่ ขาวสะอาด เนื้อหนานุ่มเด้ง"
-  },
-  {
-    id: "series-black-squid",
-    slug: "black-squid",
-    categorySlug: "squid",
-    thai: "หมึกดำ",
-    english: "Black Squid",
-    image: {
-      src: "/images/products/black-squid.jpg",
-      alt: "Black squid frozen seafood product",
-      title: "Black Squid"
-    },
-    description: "หมึกสด ตัวแน่น เสียบไม้ย่างหรือยัดไส้รสชาติดี"
-  },
-  {
     id: "series-pakistani-squid",
     slug: "pakistani-squid",
     categorySlug: "squid",
-    thai: "หมึกปากี",
+    thai: "หมึกกล้วย",
     english: "Pakistani Squid",
     image: {
       src: "/images/products/pakistani-squid.jpg",
       alt: "Pakistani squid frozen seafood product",
       title: "Pakistani Squid"
     },
-    description: "หมึกปากีนำเข้าคุณภาพเยี่ยม แข็งแรงและสดใหม่"
+    description: "หมึกกล้วยนำเข้าคุณภาพเยี่ยม แข็งแรงและสดใหม่"
   },
   {
     id: "series-argentine-squid",
@@ -84,6 +58,19 @@ export const productSeries: ProductSeries[] = [
       title: "Argentine Squid"
     },
     description: "หมึกอาร์เจนตินานำเข้า หนังไม่ลอก ตัวสวยตรงไซส์"
+  },
+  {
+    id: "series-black-squid",
+    slug: "black-squid",
+    categorySlug: "squid",
+    thai: "หมึกดำ",
+    english: "Black Squid",
+    image: {
+      src: "/images/products/black-squid.jpg",
+      alt: "Black squid frozen seafood product",
+      title: "Black Squid"
+    },
+    description: "หมึกสด ตัวแน่น เสียบไม้ย่างหรือยัดไส้รสชาติดี"
   },
   {
     id: "series-squid-head",
@@ -110,6 +97,19 @@ export const productSeries: ProductSeries[] = [
       title: "Squid Tail"
     },
     description: "หางหมึกจีนและเปรูแช่แข็ง หางใหญ่ สวยงาม ไม่หัก"
+  },
+  {
+    id: "series-squid-neck",
+    slug: "squid-neck",
+    categorySlug: "squid",
+    thai: "คอหมึก",
+    english: "Squid Neck",
+    image: {
+      src: "/images/products/squid-neck.jpg",
+      alt: "Squid neck frozen seafood product",
+      title: "Squid Neck"
+    },
+    description: "คอหมึกเปรูแช่แข็ง ชิ้นใหญ่ ขาวสะอาด เนื้อหนานุ่มเด้ง"
   },
   // Jellyfish
   {
@@ -241,36 +241,6 @@ export const productGroups: ProductGroup[] = [
       title: "Three Spot Swimming Crab"
     },
     description: "ปูจุดธรรมชาติ เนื้อแน่นสดใหม่ เหมาะสำหรับปรุงเมนูหลากหลาย"
-  },
-  // Squid -> Squid Neck
-  {
-    id: "group-squid-neck",
-    slug: "squid-neck",
-    seriesSlug: "squid-neck",
-    categorySlug: "squid",
-    thai: "คอหมึกเปรู",
-    english: "Peru Squid Neck",
-    image: {
-      src: "/images/products/squid-neck-er.jpg",
-      alt: "Squid neck frozen seafood product",
-      title: "Squid Neck"
-    },
-    description: "คอหมึกเปรูแช่แข็ง สด สะอาด เด้งดึ๋งได้รูป"
-  },
-  // Squid -> Black Squid
-  {
-    id: "group-black-squid",
-    slug: "black-squid",
-    seriesSlug: "black-squid",
-    categorySlug: "squid",
-    thai: "หมึกดำ",
-    english: "Black Squid",
-    image: {
-      src: "/images/products/black-squid-xing-bang.jpg",
-      alt: "Black squid frozen seafood product",
-      title: "Black Squid"
-    },
-    description: "หมึกดำแช่แข็ง ตัวสดเด้ง สีสวยตรงตามธรรมชาติ"
   },
   // Squid -> Pakistani Squid
   {
