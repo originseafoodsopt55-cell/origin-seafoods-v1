@@ -1,14 +1,33 @@
-import { getPayload, Payload } from 'payload';
-import config from '../payload.config';
-import { productSeries } from '../lib/data/products';
 import fs from 'fs';
 import path from 'path';
+
+// Load .env.local variables into process.env BEFORE importing payload config
+try {
+  const envPath = path.resolve(process.cwd(), '.env.local');
+  if (fs.existsSync(envPath)) {
+    const envConfig = fs.readFileSync(envPath, 'utf8');
+    envConfig.split('\n').forEach((line) => {
+      const match = line.match(/^\s*([\w.-]+)\s*=\s*(.*)?\s*$/);
+      if (match) {
+        const key = match[1];
+        let value = match[2] || '';
+        if (value.length > 0 && value.startsWith('"') && value.endsWith('"')) {
+          value = value.substring(1, value.length - 1);
+        }
+        process.env[key] = value.trim();
+      }
+    });
+  }
+} catch (e) {
+  console.warn('Could not load .env.local', e);
+}
+
+import { getPayload, Payload } from 'payload';
+import { productSeries } from '../lib/data/products';
 
 async function uploadMedia(payload: Payload, imageAsset: { src: string; alt?: string }) {
   if (!imageAsset || !imageAsset.src) return null;
 
-  // Clean path to locate file
-  // e.g. /images/products/blue-swimming-crab.webp -> public/images/products/blue-swimming-crab.webp
   const relativePath = imageAsset.src.replace(/^\//, '');
   const filePath = path.resolve('public', relativePath);
 
@@ -58,13 +77,14 @@ async function uploadMedia(payload: Payload, imageAsset: { src: string; alt?: st
 }
 
 async function seed() {
-  console.log('Initializing Payload...');
+  console.log('Initializing Payload for series seeding...');
+  const { default: config } = await import('../payload.config');
   const payload = await getPayload({ config });
 
   console.log('Starting seed series...');
 
   for (const item of productSeries) {
-    console.log(`Processing series: ${item.slug} (${item.english})...`);
+    console.log(`Processing series: ${item.slug}...`);
 
     // 1. Find category document
     const categoryDoc = await payload.find({
@@ -81,19 +101,12 @@ async function seed() {
       continue;
     }
     const categoryId = categoryDoc.docs[0].id;
-    console.log(`Found category "${item.categorySlug}" -> ID: ${categoryId}`);
 
     // 2. Upload main image
     const imageId = await uploadMedia(payload, item.image);
     if (!imageId) {
-      console.error(`Error: Main image upload failed for series ${item.slug}`);
+      console.error(`Error: Image upload failed for series ${item.slug}`);
       continue;
-    }
-
-    // 3. Upload cover image if defined
-    let coverImageId = null;
-    if (item.coverImage) {
-      coverImageId = await uploadMedia(payload, item.coverImage);
     }
 
     const seriesData = {
@@ -102,18 +115,18 @@ async function seed() {
       englishTitle: item.english,
       description: item.description || '',
       category: categoryId,
+      coverImage: imageId,
       image: imageId,
-      coverImage: coverImageId || imageId, // Fallback to main image
-      published: true, // EXPLICITLY set to true as requested!
+      published: true,
       seo: {
         metaTitle: `${item.english} | Origin Seafoods`,
         metaDescription: item.description || '',
         canonical: `https://originseafoods.co.th/products/${item.categorySlug}/${item.slug}`,
-        ogImage: coverImageId || imageId,
+        ogImage: imageId,
       },
     };
 
-    // 4. Create or update series document by slug
+    // 3. Create or update series document by slug
     const existingSeries = await payload.find({
       collection: 'series',
       where: {
@@ -124,7 +137,7 @@ async function seed() {
     });
 
     if (existingSeries.docs.length > 0) {
-      console.log(`Updating existing series: ${item.slug}...`);
+      console.log(`Updating existing series: ${item.slug} (ID: ${existingSeries.docs[0].id})...`);
       await payload.update({
         collection: 'series',
         id: existingSeries.docs[0].id,

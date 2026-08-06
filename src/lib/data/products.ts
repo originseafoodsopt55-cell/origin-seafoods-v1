@@ -23,7 +23,7 @@ export const productSeries: ProductSeries[] = [
     id: "series-three-spot-swimming-crab",
     slug: "three-spot-swimming-crab",
     categorySlug: "crabs",
-    thai: "ปูแดง / ปูจุด",
+    thai: "ปูจุด / ปูดาว",
     english: "Three Spot Swimming Crab",
     image: {
       src: "/images/products/three-spot-swimming-crab.jpg",
@@ -246,7 +246,7 @@ export const productGroups: ProductGroup[] = [
     slug: "three-spot-swimming-crab",
     seriesSlug: "three-spot-swimming-crab",
     categorySlug: "crabs",
-    thai: "ปูแดง / ปูจุด",
+    thai: "ปูจุด / ปูดาว",
     english: "Three Spot Swimming Crab",
     image: {
       src: "/images/products/three-spot-swimming-crab-ibnr.jpg",
