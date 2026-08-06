@@ -1,30 +1,40 @@
+import fs from 'fs';
+import path from 'path';
+
+// 1. Load .env.local variables into process.env BEFORE importing payload config
+try {
+  const envPath = path.resolve(process.cwd(), '.env.local');
+  if (fs.existsSync(envPath)) {
+    const envConfig = fs.readFileSync(envPath, 'utf8');
+    envConfig.split('\n').forEach((line) => {
+      const match = line.match(/^\s*([\w.-]+)\s*=\s*(.*)?\s*$/);
+      if (match) {
+        const key = match[1];
+        let value = match[2] || '';
+        if (value.length > 0 && value.startsWith('"') && value.endsWith('"')) {
+          value = value.substring(1, value.length - 1);
+        }
+        process.env[key] = value.trim();
+      }
+    });
+  }
+} catch (e) {
+  console.warn('Could not load .env.local', e);
+}
+
 import { getPayload } from 'payload';
-import config from '../payload.config';
 import { productGroups, productVariants } from '../lib/data/products';
 
 async function migrate() {
-  console.log('Initializing Payload for Crab Product Lines & Variants Migration...');
+  console.log('Initializing Payload for Full Product Lines & Variants Migration...');
+  console.log(`Connecting to Database URI: ${process.env.DATABASE_URI ? 'FOUND (Neon Postgres)' : 'NOT FOUND'}`);
+
+  const { default: config } = await import('../payload.config');
   const payload = await getPayload({ config });
 
-  console.log('1. Cleaning up legacy brand-level product-lines in Payload CMS DB...');
+  console.log('1. Processing unified species-level product-lines in Payload CMS DB...');
 
-  // Find legacy product lines for crabs (slugs: 'ibnr', 'white-box')
-  const legacyLines = await payload.find({
-    collection: 'product-lines',
-    where: {
-      or: [
-        { slug: { equals: 'ibnr' } },
-        { slug: { equals: 'white-box' } },
-      ],
-    },
-  });
-
-  console.log(`Found ${legacyLines.docs.length} legacy product-lines to clean up.`);
-
-  // Upsert unified species-level product-lines from productGroups
-  const crabGroups = productGroups.filter((g) => g.categorySlug === 'crabs');
-
-  for (const group of crabGroups) {
+  for (const group of productGroups) {
     const categoryDoc = await payload.find({
       collection: 'categories',
       where: { slug: { equals: group.categorySlug } },
@@ -96,7 +106,7 @@ async function migrate() {
       });
 
       if (existingVar.docs.length > 0) {
-        console.log(`Re-linking variant: ${v.slug} -> line: ${group.slug}, brand: ${v.brand}`);
+        console.log(`Re-linking variant: ${v.slug} -> line: ${group.slug} (ID: ${lineId}), brand: ${v.brand}`);
         await payload.update({
           collection: 'variants',
           id: existingVar.docs[0].id,
@@ -110,23 +120,29 @@ async function migrate() {
     }
   }
 
-  // Safely delete legacy lines after variants have been re-linked
-  for (const legacy of legacyLines.docs) {
-    // Only delete if slug is not one of our unified species slugs
-    if (legacy.slug === 'ibnr' || legacy.slug === 'white-box') {
-      console.log(`Deleting legacy product line: ${legacy.slug} (ID: ${legacy.id})`);
+  // 2. Clean up legacy brand-slug lines that are no longer in productGroups
+  const currentSlugs = new Set(productGroups.map((g) => g.slug));
+  const allLinesDoc = await payload.find({
+    collection: 'product-lines',
+    limit: 500,
+  });
+
+  for (const line of allLinesDoc.docs) {
+    if (!currentSlugs.has(line.slug)) {
+      console.log(`Deleting legacy product line: ${line.slug} (ID: ${line.id})`);
       try {
         await payload.delete({
           collection: 'product-lines',
-          id: legacy.id,
+          id: line.id,
         });
+        console.log(`Successfully deleted legacy line ${line.slug} (ID: ${line.id})`);
       } catch (err) {
-        console.warn(`Failed to delete legacy line ${legacy.id}:`, err);
+        console.warn(`Failed to delete legacy line ${line.slug} (${line.id}):`, err);
       }
     }
   }
 
-  console.log('Crab Product Lines & Variants Migration completed successfully!');
+  console.log('Full Product Lines & Variants Migration completed successfully!');
   process.exit(0);
 }
 

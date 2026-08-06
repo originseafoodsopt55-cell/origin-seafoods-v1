@@ -1,9 +1,33 @@
+import fs from 'fs';
+import path from 'path';
+
+// Load .env.local variables into process.env BEFORE importing payload config
+try {
+  const envPath = path.resolve(process.cwd(), '.env.local');
+  if (fs.existsSync(envPath)) {
+    const envConfig = fs.readFileSync(envPath, 'utf8');
+    envConfig.split('\n').forEach((line) => {
+      const match = line.match(/^\s*([\w.-]+)\s*=\s*(.*)?\s*$/);
+      if (match) {
+        const key = match[1];
+        let value = match[2] || '';
+        if (value.length > 0 && value.startsWith('"') && value.endsWith('"')) {
+          value = value.substring(1, value.length - 1);
+        }
+        process.env[key] = value.trim();
+      }
+    });
+  }
+} catch (e) {
+  console.warn('Could not load .env.local', e);
+}
+
 import { getPayload } from 'payload';
-import config from '../payload.config';
 import { productVariants } from '../lib/data/products';
 
 async function seed() {
   console.log('Initializing Payload for product variants seeding...');
+  const { default: config } = await import('../payload.config');
   const payload = await getPayload({ config });
 
   console.log('Starting seed product variants...');
@@ -72,7 +96,6 @@ async function seed() {
     const productLineId = productLineDbDoc.id;
 
     // 4. Resolve parent ProductLine's coverImage ID to use as variant's image relationship
-    // coverImage can be an object if populated, or a primitive ID.
     const coverImageId = typeof productLineDbDoc.coverImage === 'object' && productLineDbDoc.coverImage !== null
       ? (productLineDbDoc.coverImage as { id: number }).id
       : (productLineDbDoc.coverImage as number);
@@ -104,8 +127,8 @@ async function seed() {
       productLine: productLineId,
       series: seriesId,
       category: categoryId,
-      image: coverImageId, // ALWAYS use parent ProductLine's coverImage
-      published: true,
+      image: coverImageId,
+      published: true, // Idempotent seed forces published: true
       seo: {
         metaTitle: `${item.english} | Origin Seafoods`,
         metaDescription: item.description || '',
@@ -114,7 +137,7 @@ async function seed() {
       },
     };
 
-    // 5. Create or update product variant document by slug AND productLine relationship (compound uniqueness)
+    // 5. Create or update variant document
     const existingVariant = await payload.find({
       collection: 'variants',
       where: {
@@ -151,7 +174,7 @@ async function seed() {
     }
   }
 
-  console.log('Seed product variants completed successfully!');
+  console.log('Seed product variants completed!');
   process.exit(0);
 }
 

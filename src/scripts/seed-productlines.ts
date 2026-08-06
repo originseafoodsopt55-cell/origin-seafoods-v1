@@ -1,8 +1,29 @@
-import { getPayload, Payload } from 'payload';
-import config from '../payload.config';
-import { productGroups } from '../lib/data/products';
 import fs from 'fs';
 import path from 'path';
+
+// Load .env.local variables into process.env BEFORE importing payload config
+try {
+  const envPath = path.resolve(process.cwd(), '.env.local');
+  if (fs.existsSync(envPath)) {
+    const envConfig = fs.readFileSync(envPath, 'utf8');
+    envConfig.split('\n').forEach((line) => {
+      const match = line.match(/^\s*([\w.-]+)\s*=\s*(.*)?\s*$/);
+      if (match) {
+        const key = match[1];
+        let value = match[2] || '';
+        if (value.length > 0 && value.startsWith('"') && value.endsWith('"')) {
+          value = value.substring(1, value.length - 1);
+        }
+        process.env[key] = value.trim();
+      }
+    });
+  }
+} catch (e) {
+  console.warn('Could not load .env.local', e);
+}
+
+import { getPayload, Payload } from 'payload';
+import { productGroups } from '../lib/data/products';
 
 async function uploadMedia(payload: Payload, imageAsset: { src: string; alt?: string }) {
   if (!imageAsset || !imageAsset.src) return null;
@@ -57,6 +78,7 @@ async function uploadMedia(payload: Payload, imageAsset: { src: string; alt?: st
 
 async function seed() {
   console.log('Initializing Payload for product lines seeding...');
+  const { default: config } = await import('../payload.config');
   const payload = await getPayload({ config });
 
   console.log('Starting seed product lines...');
