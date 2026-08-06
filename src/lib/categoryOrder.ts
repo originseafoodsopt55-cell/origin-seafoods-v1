@@ -1,3 +1,5 @@
+import { productSeries } from "@/lib/data/products";
+
 /**
  * Canonical category display order.
  * This constant is the single source of truth for category ordering
@@ -28,3 +30,18 @@ export function sortCategories<T extends { slug: string }>(items: T[]): T[] {
     return aIdx - bIdx;
   });
 }
+
+/**
+ * Sort any array of series objects by productSeries canonical order.
+ */
+export function sortSeries<T extends { slug: string }>(items: T[]): T[] {
+  const canonicalSlugs = productSeries.map((s) => s.slug);
+  return [...items].sort((a, b) => {
+    const ai = canonicalSlugs.indexOf(a.slug);
+    const bi = canonicalSlugs.indexOf(b.slug);
+    const aIdx = ai === -1 ? canonicalSlugs.length : ai;
+    const bIdx = bi === -1 ? canonicalSlugs.length : bi;
+    return aIdx - bIdx;
+  });
+}
+

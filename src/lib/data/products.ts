@@ -127,17 +127,17 @@ export const productSeries: ProductSeries[] = [
   },
   // Shellfish
   {
-    id: "series-razor-clam",
-    slug: "razor-clam",
+    id: "series-blood-cockle",
+    slug: "blood-cockle",
     categorySlug: "shellfish",
-    thai: "หอยหลอด",
-    english: "Razor Clam",
+    thai: "หอยแครง",
+    english: "Blood Cockle",
     image: {
-      src: "/images/products/razor-clam.jpg",
-      alt: "Razor clam frozen seafood product",
-      title: "Razor Clam"
+      src: "/images/products/blood-cockle.jpg",
+      alt: "Blood cockle frozen seafood product",
+      title: "Blood Cockle"
     },
-    description: "หอยหลอดแช่แข็งคุณภาพดี ขนาดจัมโบ้ อวบอ้วนสดใหม่"
+    description: "หอยแครงฟรีส เนื้อเต็มสวย ไม่ติดฝา เลือดฉ่ำสดสะอาด"
   },
   {
     id: "series-whelk",
@@ -166,17 +166,17 @@ export const productSeries: ProductSeries[] = [
     description: "หอยเชลล์ญี่ปุ่นฝาเดียว ตัวใหญ่ สวย สะอาด เต็มฝา"
   },
   {
-    id: "series-blood-cockle",
-    slug: "blood-cockle",
+    id: "series-razor-clam",
+    slug: "razor-clam",
     categorySlug: "shellfish",
-    thai: "หอยแครง",
-    english: "Blood Cockle",
+    thai: "หอยหลอด",
+    english: "Razor Clam",
     image: {
-      src: "/images/products/blood-cockle.jpg",
-      alt: "Blood cockle frozen seafood product",
-      title: "Blood Cockle"
+      src: "/images/products/razor-clam.jpg",
+      alt: "Razor clam frozen seafood product",
+      title: "Razor Clam"
     },
-    description: "หอยแครงฟรีส เนื้อเต็มสวย ไม่ติดฝา เลือดฉ่ำสดสะอาด"
+    description: "หอยหลอดแช่แข็งคุณภาพดี ขนาดจัมโบ้ อวบอ้วนสดใหม่"
   },
   // Fish
   {
@@ -248,14 +248,14 @@ export const productGroups: ProductGroup[] = [
     slug: "pakistani-squid",
     seriesSlug: "pakistani-squid",
     categorySlug: "squid",
-    thai: "หมึกปากี",
+    thai: "หมึกกล้วย",
     english: "Pakistani Squid",
     image: {
       src: "/images/products/pakistani-squid-white-box.jpg",
       alt: "Pakistani squid frozen seafood product",
       title: "Pakistani Squid"
     },
-    description: "หมึกปากีนำเข้าบรรจุกล่องขาวเกรดดี ตัวสวยสม่ำเสมอ"
+    description: "หมึกกล้วยนำเข้าบรรจุกล่องขาวเกรดดี ตัวสวยสม่ำเสมอ"
   },
   // Squid -> Argentine Squid
   {
@@ -272,14 +272,29 @@ export const productGroups: ProductGroup[] = [
     },
     description: "หมึกนำเข้าจากอาร์เจนตินา สดใหม่ เนื้อหวานเด้งธรรมชาติ"
   },
+  // Squid -> Black Squid
+  {
+    id: "group-black-squid",
+    slug: "black-squid",
+    seriesSlug: "black-squid",
+    categorySlug: "squid",
+    thai: "หมึกดำ",
+    english: "Black Squid",
+    image: {
+      src: "/images/products/black-squid-xing-bang.jpg",
+      alt: "Black squid frozen seafood product",
+      title: "Black Squid"
+    },
+    description: "หมึกดำแช่แข็ง ตัวสดเด้ง สีสวยตรงตามธรรมชาติ"
+  },
   // Squid -> Squid Head
   {
     id: "group-squid-head",
     slug: "squid-head",
     seriesSlug: "squid-head",
     categorySlug: "squid",
-    thai: "หัวหมึกนำเข้า",
-    english: "Imported Squid Head",
+    thai: "หัวหมึก",
+    english: "Squid Head",
     image: {
       src: "/images/products/squid-head-squid-head.jpg",
       alt: "Squid head frozen seafood product",
@@ -293,14 +308,29 @@ export const productGroups: ProductGroup[] = [
     slug: "squid-tail",
     seriesSlug: "squid-tail",
     categorySlug: "squid",
-    thai: "หางหมึกนำเข้า",
-    english: "Imported Squid Tail",
+    thai: "หางหมึก",
+    english: "Squid Tail",
     image: {
       src: "/images/products/squid-tail-squid-tail.jpg",
       alt: "Squid tail frozen seafood product",
       title: "Squid Tail"
     },
     description: "หางหมึกจีนและหางหมึกเปรูแช่แข็ง หางใหญ่ ขาว สะอาด ไม่หัก"
+  },
+  // Squid -> Squid Neck
+  {
+    id: "group-squid-neck",
+    slug: "squid-neck",
+    seriesSlug: "squid-neck",
+    categorySlug: "squid",
+    thai: "คอหมึก",
+    english: "Squid Neck",
+    image: {
+      src: "/images/products/squid-neck-er.jpg",
+      alt: "Squid neck frozen seafood product",
+      title: "Squid Neck"
+    },
+    description: "คอหมึกเปรูแช่แข็ง สด สะอาด เด้งดึ๋งได้รูป"
   },
   // Jellyfish -> Jellyfish
   {
@@ -317,20 +347,20 @@ export const productGroups: ProductGroup[] = [
     },
     description: "แมงกะพรุนแปรรูปคุณภาพสูง ส่งตรงจากไต้หวันและเวียดนาม เด้งกรอบสะอาด"
   },
-  // Shellfish -> Razor Clam
+  // Shellfish -> Blood Cockle
   {
-    id: "group-razor-clam",
-    slug: "razor-clam",
-    seriesSlug: "razor-clam",
+    id: "group-blood-cockle",
+    slug: "blood-cockle",
+    seriesSlug: "blood-cockle",
     categorySlug: "shellfish",
-    thai: "หอยหลอด",
-    english: "Razor Clam",
+    thai: "หอยแครง",
+    english: "Blood Cockle",
     image: {
-      src: "/images/products/razor-clam-razor-clam.jpg",
-      alt: "Razor clam frozen seafood product",
-      title: "Razor Clam"
+      src: "/images/products/blood-cockle-blood-cockle.jpg",
+      alt: "Blood cockle frozen seafood product",
+      title: "Blood Cockle"
     },
-    description: "หอยหลอดขนาดใหญ่พิเศษ เนื้ออวบอ้วนสดใหม่ไม่มีกลิ่นคาว"
+    description: "หอยแครงแช่แข็งเนื้อแน่น แฝงความสดหวานฉ่ำเป็นธรรมชาติ"
   },
   // Shellfish -> Whelk
   {
@@ -362,20 +392,20 @@ export const productGroups: ProductGroup[] = [
     },
     description: "หอยเชลล์ฝาเดียวคุณภาพเยี่ยม ขนาดสม่ำเสมอเต็มฝา"
   },
-  // Shellfish -> Blood Cockle
+  // Shellfish -> Razor Clam
   {
-    id: "group-blood-cockle",
-    slug: "blood-cockle",
-    seriesSlug: "blood-cockle",
+    id: "group-razor-clam",
+    slug: "razor-clam",
+    seriesSlug: "razor-clam",
     categorySlug: "shellfish",
-    thai: "หอยแครง",
-    english: "Blood Cockle",
+    thai: "หอยหลอด",
+    english: "Razor Clam",
     image: {
-      src: "/images/products/blood-cockle-blood-cockle.jpg",
-      alt: "Blood cockle frozen seafood product",
-      title: "Blood Cockle"
+      src: "/images/products/razor-clam-razor-clam.jpg",
+      alt: "Razor clam frozen seafood product",
+      title: "Razor Clam"
     },
-    description: "หอยแครงแช่แข็งเนื้อแน่น แฝงความสดหวานฉ่ำเป็นธรรมชาติ"
+    description: "หอยหลอดขนาดใหญ่พิเศษ เนื้ออวบอ้วนสดใหม่ไม่มีกลิ่นคาว"
   },
   // Fish -> Dolly Fish
   {

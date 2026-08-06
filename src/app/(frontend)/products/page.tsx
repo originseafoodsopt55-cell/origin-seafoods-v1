@@ -5,7 +5,7 @@ import { ProductLineGrid } from "@/components/catalog/ProductLineGrid";
 import { CatalogSidebar } from "@/components/catalog/CatalogSidebar";
 import { CategoryNavBar } from "@/components/catalog/CategoryNavBar";
 import { ProductsBackground } from "@/components/layout/ProductsBackground";
-import { sortCategories } from "@/lib/categoryOrder";
+import { sortCategories, sortSeries } from "@/lib/categoryOrder";
 
 export const metadata: Metadata = {
   title: "แคตตาล็อกสินค้าอาหารทะเลแช่แข็งทั้งหมด | Product Catalog",
@@ -42,7 +42,7 @@ export default async function ProductCatalogPage() {
 
   // Group data: Category -> Sorted list of ProductLines with Variants (Series subheadings removed)
   const sectionsData = sortedCategories.map((cat) => {
-    const catSeries = allSeries.filter((s) => s.categorySlug === cat.slug);
+    const catSeries = sortSeries(allSeries.filter((s) => s.categorySlug === cat.slug));
 
     // Flatten lines under category, grouped by series order to keep logical groups intact
     const linesWithVariants: {
