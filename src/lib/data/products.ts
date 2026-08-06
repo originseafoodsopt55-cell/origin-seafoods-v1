@@ -13,7 +13,7 @@ export const productSeries: ProductSeries[] = [
     thai: "ปูม้า",
     english: "Blue Swimming Crab",
     image: {
-      src: "/images/products/blue-swimming-crab.webp",
+      src: "/images/products/blue-swimming-crab.png",
       alt: "Blue swimming crab frozen seafood product",
       title: "Blue Swimming Crab"
     },
@@ -26,7 +26,7 @@ export const productSeries: ProductSeries[] = [
     thai: "ปูจุด / ปูดาว",
     english: "Three Spot Swimming Crab",
     image: {
-      src: "/images/products/three-spot-swimming-crab.jpg",
+      src: "/images/products/three-spot-swimming-crab.png",
       alt: "Three spot swimming crab frozen seafood product",
       title: "Three Spot Swimming Crab"
     },
@@ -221,7 +221,7 @@ export const productGroups: ProductGroup[] = [
     thai: "ปูม้า",
     english: "Blue Swimming Crab",
     image: {
-      src: "/images/products/blue-swimming-crab-ibnr.jpg",
+      src: "/images/products/blue-swimming-crab-ibnr.png",
       alt: "Blue swimming crab frozen seafood product",
       title: "Blue Swimming Crab"
     },
@@ -236,7 +236,7 @@ export const productGroups: ProductGroup[] = [
     thai: "ปูจุด / ปูดาว",
     english: "Three Spot Swimming Crab",
     image: {
-      src: "/images/products/three-spot-swimming-crab-ibnr.jpg",
+      src: "/images/products/three-spot-swimming-crab-ibnr.png",
       alt: "Three spot swimming crab frozen seafood product",
       title: "Three Spot Swimming Crab"
     },
