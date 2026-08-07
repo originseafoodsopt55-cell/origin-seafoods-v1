@@ -237,11 +237,11 @@ export const productSeries: ProductSeries[] = [
     slug: "silkworm",
     categorySlug: "silkworm",
     thai: "หนอนไหม",
-    english: "Silkworm",
+    english: "Frozen Silkworm Chrysalis",
     image: {
-      src: "/images/products/processed-seafood.webp",
-      alt: "Processed frozen seafood product",
-      title: "Processed Seafood"
+      src: "/images/products/silkworm.png",
+      alt: "Frozen silkworm chrysalis seafood product",
+      title: "Frozen Silkworm Chrysalis"
     },
     description: "หนอนไหมเกรดคัดสรรพิเศษ อวบอ้วนสะอาด ปลอดภัย"
   }
@@ -512,12 +512,12 @@ export const productGroups: ProductGroup[] = [
     slug: "silkworm",
     seriesSlug: "silkworm",
     categorySlug: "silkworm",
-    thai: "หนอนไหมเกรดพรีเมียม",
-    english: "Premium Silkworm",
+    thai: "หนอนไหม",
+    english: "Frozen Silkworm Chrysalis",
     image: {
-      src: "/images/products/silkworm-silkworm.jpg",
-      alt: "Silkworm frozen seafood product",
-      title: "Silkworm"
+      src: "/images/products/silkworm.png",
+      alt: "Frozen silkworm chrysalis seafood product",
+      title: "Frozen Silkworm Chrysalis"
     },
     description: "หนอนไหมเกรดดีที่สุด ตัวเหลืองอวบอ้วนสะอาด ไม่หักไม่แตก"
   }
@@ -1264,9 +1264,9 @@ const productVariantEntries: ProductVariant[] = [
     thai: "หนอนไหม 10 Kg (AAAAA)",
     english: "Silkworm 10 Kg (AAAAA)",
     image: {
-      src: "/images/products/processed-seafood.webp",
-      alt: "Processed frozen seafood product",
-      title: "Processed Seafood"
+      src: "/images/products/silkworm.png",
+      alt: "Frozen silkworm chrysalis seafood product",
+      title: "Frozen Silkworm Chrysalis"
     },
     size: "AAAAA",
     packing: "ลังละ 10 kg.",
