@@ -183,14 +183,14 @@ export const productSeries: ProductSeries[] = [
     id: "series-dolly-fish",
     slug: "dolly-fish",
     categorySlug: "fish",
-    thai: "ปลาทู",
-    english: "Dolly Fish",
+    thai: "หนังปลาแซลมอน",
+    english: "Salmon Skin",
     image: {
-      src: "/images/products/frozen-fish.webp",
-      alt: "Frozen fish seafood product",
-      title: "Frozen Fish"
+      src: "/images/products/salmon-skin.png",
+      alt: "Salmon skin frozen seafood product",
+      title: "Salmon Skin"
     },
-    description: "ปลาทูหั่นชิ้นติดท้องแช่แข็ง เนื้อนุ่มสะอาดได้มาตรฐาน"
+    description: "หนังปลาแซลมอนแช่แข็งคุณภาพเยี่ยม สดใหม่ กรอบอร่อย"
   },
   // Silkworm
   {
@@ -413,14 +413,14 @@ export const productGroups: ProductGroup[] = [
     slug: "dolly-fish",
     seriesSlug: "dolly-fish",
     categorySlug: "fish",
-    thai: "ปลาทู",
-    english: "Dolly Fish Belly Cut",
+    thai: "หนังปลาแซลมอน",
+    english: "Salmon skin",
     image: {
-      src: "/images/products/dolly-fish-dolly-fish.jpg",
-      alt: "Dolly fish frozen seafood product",
-      title: "Dolly Fish"
+      src: "/images/products/salmon-skin.png",
+      alt: "Salmon skin frozen seafood product",
+      title: "Salmon skin"
     },
-    description: "ปลาทูหั่นชิ้นคัดคุณภาพ เนื้อนุ่มสะอาด เหมาะสำหรับประกอบอาหารทันที"
+    description: "หนังปลาแซลมอนแช่แข็งคัดคุณภาพ สดสะอาด เหมาะสำหรับประกอบอาหารและแปรรูป"
   },
   // Silkworm -> Silkworm
   {
@@ -1156,15 +1156,15 @@ const productVariantEntries: ProductVariant[] = [
     groupSlug: "dolly-fish",
     seriesSlug: "dolly-fish",
     categorySlug: "fish",
-    thai: "ดอลลี่หั่นชิ้นติดท้อง",
-    english: "Dolly Fish Belly Cut",
+    thai: "หนังปลาแซลมอน",
+    english: "Salmon skin",
     image: {
-      src: "/images/products/frozen-fish.webp",
-      alt: "Frozen fish seafood product",
-      title: "Frozen Fish"
+      src: "/images/products/salmon-skin.png",
+      alt: "Salmon skin frozen seafood product",
+      title: "Salmon skin"
     },
     packing: "ลังละ 10 kg.",
-    description: "เนื้อปลาดอลลี่แล่ติดส่วนท้องแช่แข็ง เนื้อขาวนุ่มอร่อย สะอาดถูกหลักอนามัยสากล"
+    description: "หนังปลาแซลมอนแช่แข็งคัดพิเศษ สดสะอาด รสชาติดีเยี่ยม"
   },
 
   // Silkworm -> Silkworm -> Silkworm
