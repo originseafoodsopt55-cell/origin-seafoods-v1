@@ -113,17 +113,56 @@ export const productSeries: ProductSeries[] = [
   },
   // Jellyfish
   {
-    id: "series-jellyfish",
-    slug: "jellyfish",
+    id: "series-angel-wing-jellyfish",
+    slug: "angel-wing-jellyfish",
     categorySlug: "jellyfish",
-    thai: "แมงกะพรุน",
-    english: "Jellyfish",
+    thai: "แมงกะพรุนปีกนางฟ้า",
+    english: "Angel Wing Jellyfish",
     image: {
-      src: "/images/products/jellyfish.webp",
-      alt: "Frozen jellyfish seafood product",
-      title: "Jellyfish"
+      src: "/images/products/angel-wing-jellyfish.png",
+      alt: "Angel wing jellyfish frozen seafood product",
+      title: "Angel Wing Jellyfish"
     },
-    description: "แมงกะพรุนเกรดพรีเมียมคัดสรรพิเศษเพื่อความเด้งกรอบ"
+    description: "แมงกะพรุนปีกนางฟ้านำเข้าเกรดพรีเมียม สดสะอาด กรอบเด้ง"
+  },
+  {
+    id: "series-quartered-jellyfish",
+    slug: "quartered-jellyfish",
+    categorySlug: "jellyfish",
+    thai: "แมงกะพรุนผ่าสี่",
+    english: "Quartered Jellyfish",
+    image: {
+      src: "/images/products/quartered-jellyfish.png",
+      alt: "Quartered jellyfish frozen seafood product",
+      title: "Quartered Jellyfish"
+    },
+    description: "แมงกะพรุนผ่าสี่เกรดคุณภาพ คัดไซส์สม่ำเสมอ เนื้อกรอบอร่อย"
+  },
+  {
+    id: "series-tiger-stripe-jellyfish",
+    slug: "tiger-stripe-jellyfish",
+    categorySlug: "jellyfish",
+    thai: "แมงกะพรุนลายเสือ",
+    english: "Tiger Stripe Jellyfish",
+    image: {
+      src: "/images/products/tiger-stripe-jellyfish.png",
+      alt: "Tiger stripe jellyfish frozen seafood product",
+      title: "Tiger Stripe Jellyfish"
+    },
+    description: "แมงกะพรุนลายเสือสดสะอาด นำเข้าตรงจากแหล่งผลิตชั้นดี"
+  },
+  {
+    id: "series-cannonball-jellyfish",
+    slug: "cannonball-jellyfish",
+    categorySlug: "jellyfish",
+    thai: "แมงกะพรุนหัวกระสุน",
+    english: "Cannonball Jellyfish",
+    image: {
+      src: "/images/products/cannonball-jellyfish.png",
+      alt: "Cannonball jellyfish frozen seafood product",
+      title: "Cannonball Jellyfish"
+    },
+    description: "แมงกะพรุนหัวกระสุนเนื้อแน่นหนา กรุบกรอบพิเศษ"
   },
   // Shellfish
   {
@@ -332,20 +371,65 @@ export const productGroups: ProductGroup[] = [
     },
     description: "คอหมึกเปรูแช่แข็ง สด สะอาด เด้งดึ๋งได้รูป"
   },
-  // Jellyfish -> Jellyfish
+  // Jellyfish -> Angel Wing Jellyfish
   {
-    id: "group-jellyfish",
-    slug: "jellyfish",
-    seriesSlug: "jellyfish",
+    id: "group-angel-wing-jellyfish",
+    slug: "angel-wing-jellyfish",
+    seriesSlug: "angel-wing-jellyfish",
     categorySlug: "jellyfish",
-    thai: "แมงกะพรุนแปรรูป",
-    english: "Processed Jellyfish",
+    thai: "แมงกะพรุนปีกนางฟ้า",
+    english: "Angel Wing Jellyfish",
     image: {
-      src: "/images/products/jellyfish-original.jpg",
-      alt: "Jellyfish original frozen seafood product",
-      title: "Jellyfish Original"
+      src: "/images/products/angel-wing-jellyfish.png",
+      alt: "Angel wing jellyfish frozen seafood product",
+      title: "Angel Wing Jellyfish"
     },
-    description: "แมงกะพรุนแปรรูปคุณภาพสูง ส่งตรงจากไต้หวันและเวียดนาม เด้งกรอบสะอาด"
+    description: "แมงกะพรุนปีกนางฟ้านำเข้าเกรดพรีเมียม สดสะอาด กรอบเด้ง"
+  },
+  // Jellyfish -> Quartered Jellyfish
+  {
+    id: "group-quartered-jellyfish",
+    slug: "quartered-jellyfish",
+    seriesSlug: "quartered-jellyfish",
+    categorySlug: "jellyfish",
+    thai: "แมงกะพรุนผ่าสี่",
+    english: "Quartered Jellyfish",
+    image: {
+      src: "/images/products/quartered-jellyfish.png",
+      alt: "Quartered jellyfish frozen seafood product",
+      title: "Quartered Jellyfish"
+    },
+    description: "แมงกะพรุนผ่าสี่เกรดคุณภาพ คัดไซส์สม่ำเสมอ เนื้อกรอบอร่อย"
+  },
+  // Jellyfish -> Tiger Stripe Jellyfish
+  {
+    id: "group-tiger-stripe-jellyfish",
+    slug: "tiger-stripe-jellyfish",
+    seriesSlug: "tiger-stripe-jellyfish",
+    categorySlug: "jellyfish",
+    thai: "แมงกะพรุนลายเสือ",
+    english: "Tiger Stripe Jellyfish",
+    image: {
+      src: "/images/products/tiger-stripe-jellyfish.png",
+      alt: "Tiger stripe jellyfish frozen seafood product",
+      title: "Tiger Stripe Jellyfish"
+    },
+    description: "แมงกะพรุนลายเสือสดสะอาด นำเข้าตรงจากแหล่งผลิตชั้นดี"
+  },
+  // Jellyfish -> Cannonball Jellyfish
+  {
+    id: "group-cannonball-jellyfish",
+    slug: "cannonball-jellyfish",
+    seriesSlug: "cannonball-jellyfish",
+    categorySlug: "jellyfish",
+    thai: "แมงกะพรุนหัวกระสุน",
+    english: "Cannonball Jellyfish",
+    image: {
+      src: "/images/products/cannonball-jellyfish.png",
+      alt: "Cannonball jellyfish frozen seafood product",
+      title: "Cannonball Jellyfish"
+    },
+    description: "แมงกะพรุนหัวกระสุนเนื้อแน่นหนา กรุบกรอบพิเศษ"
   },
   // Shellfish -> Blood Cockle
   {
@@ -895,17 +979,17 @@ const productVariantEntries: ProductVariant[] = [
     description: "หางหมึกเปรูแช่แข็งคุณภาพนำเข้า หางใหญ่ เนื้อขาวใส สะอาดเป็นธรรมชาติ"
   },
 
-  // Jellyfish -> Jellyfish -> Jellyfish
+  // Jellyfish -> Angel Wing Jellyfish
   {
     id: "var-jf-wing",
     slug: "fairy-wing",
-    groupSlug: "jellyfish",
-    seriesSlug: "jellyfish",
+    groupSlug: "angel-wing-jellyfish",
+    seriesSlug: "angel-wing-jellyfish",
     categorySlug: "jellyfish",
     thai: "แมงกะพรุน ปีกนางฟ้า",
     english: "Fairy Wing Jellyfish",
     image: {
-      src: "/images/products/jellyfish.webp",
+      src: "/images/products/angel-wing-jellyfish.png",
       alt: "Frozen jellyfish seafood product",
       title: "Jellyfish"
     },
@@ -913,16 +997,17 @@ const productVariantEntries: ProductVariant[] = [
     packing: "ถังละ 13 Kg.+++",
     description: "แมงกะพรุนปีกนางฟ้านำเข้าเกรดพรีเมียมจากไต้หวัน กรอบและเด้งตัวได้ยาวนาน"
   },
+  // Jellyfish -> Tiger Stripe Jellyfish
   {
     id: "var-jf-tiger-vn",
     slug: "tiger-stripe",
-    groupSlug: "jellyfish",
-    seriesSlug: "jellyfish",
+    groupSlug: "tiger-stripe-jellyfish",
+    seriesSlug: "tiger-stripe-jellyfish",
     categorySlug: "jellyfish",
     thai: "แมงกะพรุนลายเสือ เวียดนาม",
     english: "Tiger Stripe Jellyfish Vietnam",
     image: {
-      src: "/images/products/jellyfish.webp",
+      src: "/images/products/tiger-stripe-jellyfish.png",
       alt: "Frozen jellyfish seafood product",
       title: "Jellyfish"
     },
@@ -930,16 +1015,17 @@ const productVariantEntries: ProductVariant[] = [
     packing: "ถังละ 5 Kg.",
     description: "แมงกะพรุนลายเสือ นำเข้าตรงจากเวียดนาม ปลอดภัยได้มาตรฐานอาหารแปรรูป"
   },
+  // Jellyfish -> Cannonball Jellyfish
   {
     id: "var-jf-bullet-white",
     slug: "bullet-head-white",
-    groupSlug: "jellyfish",
-    seriesSlug: "jellyfish",
+    groupSlug: "cannonball-jellyfish",
+    seriesSlug: "cannonball-jellyfish",
     categorySlug: "jellyfish",
     thai: "แมงกะพรุนหัวกระสุน ถังขาว",
     english: "Bullet Head Jellyfish White Barrel",
     image: {
-      src: "/images/products/jellyfish.webp",
+      src: "/images/products/cannonball-jellyfish.png",
       alt: "Frozen jellyfish seafood product",
       title: "Jellyfish"
     },
@@ -950,13 +1036,13 @@ const productVariantEntries: ProductVariant[] = [
   {
     id: "var-jf-bullet-grey",
     slug: "bullet-head-grey",
-    groupSlug: "jellyfish",
-    seriesSlug: "jellyfish",
+    groupSlug: "cannonball-jellyfish",
+    seriesSlug: "cannonball-jellyfish",
     categorySlug: "jellyfish",
     thai: "แมงกะพรุนหัวกระสุน ถังเทา ฝาฟ้า",
     english: "Bullet Head Jellyfish Grey Barrel",
     image: {
-      src: "/images/products/jellyfish.webp",
+      src: "/images/products/cannonball-jellyfish.png",
       alt: "Frozen jellyfish seafood product",
       title: "Jellyfish"
     },
@@ -964,22 +1050,23 @@ const productVariantEntries: ProductVariant[] = [
     packing: "ลังละ 15-16 Kg.+++",
     description: "แมงกะพรุนหัวกระสุนเกรดคัดสรร ถังเทาฝาฟ้า เนื้อหนาแน่น สวยไม่ยุ่ย 35-40 ซม. /Kg."
   },
+  // Jellyfish -> Quartered Jellyfish
   {
     id: "var-jf-thai",
     slug: "thai-stock",
-    groupSlug: "jellyfish",
-    seriesSlug: "jellyfish",
+    groupSlug: "quartered-jellyfish",
+    seriesSlug: "quartered-jellyfish",
     categorySlug: "jellyfish",
-    thai: "แมงกะพรุนไทย (สตอค)",
-    english: "Thai Jellyfish (Stock)",
+    thai: "แมงกะพรุนผ่าสี่ (สตอค)",
+    english: "Quartered Jellyfish (Stock)",
     image: {
-      src: "/images/products/jellyfish.webp",
+      src: "/images/products/quartered-jellyfish.png",
       alt: "Frozen jellyfish seafood product",
       title: "Jellyfish"
     },
     country: "Thailand",
     packing: "น้ำหนัก 17+-",
-    description: "แมงกะพรุนแปรรูปสดใหม่ คัดเกรดพรีเมียมเพื่อความสะอาดและกรอบอร่อย"
+    description: "แมงกะพรุนผ่าสี่แปรรูปสดใหม่ คัดเกรดพรีเมียมเพื่อความสะอาดและกรอบอร่อย"
   },
 
   // Shellfish -> Razor Clam -> Razor Clam
