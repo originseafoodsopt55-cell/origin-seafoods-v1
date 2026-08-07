@@ -133,7 +133,7 @@ export const productSeries: ProductSeries[] = [
     thai: "หอยแครง",
     english: "Blood Cockle",
     image: {
-      src: "/images/products/blood-cockle.jpg",
+      src: "/images/products/blood-cockle.png",
       alt: "Blood cockle frozen seafood product",
       title: "Blood Cockle"
     },
@@ -146,7 +146,7 @@ export const productSeries: ProductSeries[] = [
     thai: "หอยหวาน",
     english: "Whelk",
     image: {
-      src: "/images/products/whelk.jpg",
+      src: "/images/products/whelk.png",
       alt: "Whelk frozen seafood product",
       title: "Whelk"
     },
@@ -159,7 +159,7 @@ export const productSeries: ProductSeries[] = [
     thai: "หอยเชลล์",
     english: "Japanese Scallop",
     image: {
-      src: "/images/products/japanese-scallop.jpg",
+      src: "/images/products/japanese-scallop.png",
       alt: "Japanese scallop frozen seafood product",
       title: "Japanese Scallop"
     },
@@ -172,7 +172,7 @@ export const productSeries: ProductSeries[] = [
     thai: "หอยหลอด",
     english: "Razor Clam",
     image: {
-      src: "/images/products/razor-clam.jpg",
+      src: "/images/products/razor-clam.png",
       alt: "Razor clam frozen seafood product",
       title: "Razor Clam"
     },
@@ -356,7 +356,7 @@ export const productGroups: ProductGroup[] = [
     thai: "หอยแครง",
     english: "Blood Cockle",
     image: {
-      src: "/images/products/blood-cockle-blood-cockle.jpg",
+      src: "/images/products/blood-cockle-blood-cockle.png",
       alt: "Blood cockle frozen seafood product",
       title: "Blood Cockle"
     },
@@ -371,7 +371,7 @@ export const productGroups: ProductGroup[] = [
     thai: "หอยหวาน",
     english: "Whelk",
     image: {
-      src: "/images/products/whelk-whelk.jpg",
+      src: "/images/products/whelk-whelk.png",
       alt: "Whelk frozen seafood product",
       title: "Whelk"
     },
@@ -386,7 +386,7 @@ export const productGroups: ProductGroup[] = [
     thai: "หอยเชลล์",
     english: "Japanese Scallop",
     image: {
-      src: "/images/products/japanese-scallop-half-shell.jpg",
+      src: "/images/products/japanese-scallop-half-shell.png",
       alt: "Japanese scallop half shell frozen seafood product",
       title: "Japanese Scallop Half Shell"
     },
@@ -401,7 +401,7 @@ export const productGroups: ProductGroup[] = [
     thai: "หอยหลอด",
     english: "Razor Clam",
     image: {
-      src: "/images/products/razor-clam-razor-clam.jpg",
+      src: "/images/products/razor-clam-razor-clam.png",
       alt: "Razor clam frozen seafood product",
       title: "Razor Clam"
     },
