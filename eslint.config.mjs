@@ -4,7 +4,7 @@ import tseslint from "typescript-eslint";
 
 export default [
   {
-    ignores: [".next/**", "node_modules/**", "out/**", "next-env.d.ts"]
+    ignores: [".next/**", "node_modules/**", "out/**", "next-env.d.ts", "src/scripts/**"]
   },
   js.configs.recommended,
   nextPlugin.flatConfig.coreWebVitals,

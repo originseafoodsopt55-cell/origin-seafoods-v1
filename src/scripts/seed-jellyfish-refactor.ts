@@ -253,7 +253,7 @@ async function seedJellyfishRefactor() {
             productLine: lineId,
             seriesSlug: item.slug,
             productLineSlug: item.slug,
-          },
+          } as any,
         });
         console.log(`Relinked Variant ID ${v.id} (${v.slug}) to Series/Line ${item.slug}`);
       }
