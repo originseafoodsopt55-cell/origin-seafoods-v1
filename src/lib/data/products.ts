@@ -111,6 +111,45 @@ export const productSeries: ProductSeries[] = [
     },
     description: "คอหมึกเปรูแช่แข็ง ชิ้นใหญ่ ขาวสะอาด เนื้อหนานุ่มเด้ง"
   },
+  {
+    id: "series-cuttlefish",
+    slug: "cuttlefish",
+    categorySlug: "squid",
+    thai: "หมึกกระดอง",
+    english: "Cuttlefish",
+    image: {
+      src: "/images/products/cuttlefish.png",
+      alt: "Cuttlefish frozen seafood product",
+      title: "Cuttlefish"
+    },
+    description: "หมึกกระดองแช่แข็งเกรดพรีเมียม สดสะอาด เนื้อหนานุ่มเด้ง คัดไซส์สม่ำเสมอ"
+  },
+  {
+    id: "series-squid-roe",
+    slug: "squid-roe",
+    categorySlug: "squid",
+    thai: "ไข่หมึก",
+    english: "Squid Roe",
+    image: {
+      src: "/images/products/squid-roe.png",
+      alt: "Squid roe frozen seafood product",
+      title: "Squid Roe"
+    },
+    description: "ไข่หมึกคัดพิเศษ สดใหม่ เนื้อแน่นมันอร่อย ปลอดภัย"
+  },
+  {
+    id: "series-squid-rings",
+    slug: "squid-rings",
+    categorySlug: "squid",
+    thai: "หมึกวง",
+    english: "Squid Rings",
+    image: {
+      src: "/images/products/squid-rings.png",
+      alt: "Squid rings frozen seafood product",
+      title: "Squid Rings"
+    },
+    description: "หมึกวงตัดหั่นสม่ำเสมอ สดสะอาด เหมาะสำหรับทอดและผัด"
+  },
   // Jellyfish
   {
     id: "series-angel-wing-jellyfish",
@@ -370,6 +409,51 @@ export const productGroups: ProductGroup[] = [
       title: "Squid Neck"
     },
     description: "คอหมึกเปรูแช่แข็ง สด สะอาด เด้งดึ๋งได้รูป"
+  },
+  // Squid -> Cuttlefish
+  {
+    id: "group-cuttlefish",
+    slug: "cuttlefish",
+    seriesSlug: "cuttlefish",
+    categorySlug: "squid",
+    thai: "หมึกกระดอง",
+    english: "Cuttlefish",
+    image: {
+      src: "/images/products/cuttlefish.png",
+      alt: "Cuttlefish frozen seafood product",
+      title: "Cuttlefish"
+    },
+    description: "หมึกกระดองแช่แข็งเกรดพรีเมียม สดสะอาด เนื้อหนานุ่มเด้ง คัดไซส์สม่ำเสมอ"
+  },
+  // Squid -> Squid Roe
+  {
+    id: "group-squid-roe",
+    slug: "squid-roe",
+    seriesSlug: "squid-roe",
+    categorySlug: "squid",
+    thai: "ไข่หมึก",
+    english: "Squid Roe",
+    image: {
+      src: "/images/products/squid-roe.png",
+      alt: "Squid roe frozen seafood product",
+      title: "Squid Roe"
+    },
+    description: "ไข่หมึกคัดพิเศษ สดใหม่ เนื้อแน่นมันอร่อย ปลอดภัย"
+  },
+  // Squid -> Squid Rings
+  {
+    id: "group-squid-rings",
+    slug: "squid-rings",
+    seriesSlug: "squid-rings",
+    categorySlug: "squid",
+    thai: "หมึกวง",
+    english: "Squid Rings",
+    image: {
+      src: "/images/products/squid-rings.png",
+      alt: "Squid rings frozen seafood product",
+      title: "Squid Rings"
+    },
+    description: "หมึกวงตัดหั่นสม่ำเสมอ สดสะอาด เหมาะสำหรับทอดและผัด"
   },
   // Jellyfish -> Angel Wing Jellyfish
   {
@@ -977,6 +1061,58 @@ const productVariantEntries: ProductVariant[] = [
     country: "Peru",
     packing: "กระสอบละ 20 kg. (10 kg.* 2 Blocks)",
     description: "หางหมึกเปรูแช่แข็งคุณภาพนำเข้า หางใหญ่ เนื้อขาวใส สะอาดเป็นธรรมชาติ"
+  },
+
+  // Squid -> Cuttlefish
+  {
+    id: "var-cuttlefish-std",
+    slug: "cuttlefish-standard",
+    groupSlug: "cuttlefish",
+    seriesSlug: "cuttlefish",
+    categorySlug: "squid",
+    thai: "หมึกกระดอง",
+    english: "Frozen Cuttlefish",
+    image: {
+      src: "/images/products/cuttlefish.png",
+      alt: "Cuttlefish frozen seafood product",
+      title: "Cuttlefish"
+    },
+    packing: "ลังละ 10 kg.",
+    description: "หมึกกระดองแช่แข็งเกรดพรีเมียม สดสะอาด เนื้อหนานุ่มเด้ง คัดไซส์สม่ำเสมอ"
+  },
+  // Squid -> Squid Roe
+  {
+    id: "var-squid-roe-std",
+    slug: "squid-roe-standard",
+    groupSlug: "squid-roe",
+    seriesSlug: "squid-roe",
+    categorySlug: "squid",
+    thai: "ไข่หมึก",
+    english: "Frozen Squid Roe",
+    image: {
+      src: "/images/products/squid-roe.png",
+      alt: "Squid roe frozen seafood product",
+      title: "Squid Roe"
+    },
+    packing: "ลังละ 10 kg.",
+    description: "ไข่หมึกคัดพิเศษ สดใหม่ เนื้อแน่นมันอร่อย ปลอดภัย เหมาะสำหรับย่าง ทอด ผัด"
+  },
+  // Squid -> Squid Rings
+  {
+    id: "var-squid-rings-std",
+    slug: "squid-rings-standard",
+    groupSlug: "squid-rings",
+    seriesSlug: "squid-rings",
+    categorySlug: "squid",
+    thai: "หมึกวง",
+    english: "Frozen Squid Rings",
+    image: {
+      src: "/images/products/squid-rings.png",
+      alt: "Squid rings frozen seafood product",
+      title: "Squid Rings"
+    },
+    packing: "ลังละ 10 kg.",
+    description: "หมึกวงแช่แข็ง ตัดหั่นสม่ำเสมอ สดสะอาด เหมาะสำหรับทอดและผัดประกอบอาหาร"
   },
 
   // Jellyfish -> Angel Wing Jellyfish
