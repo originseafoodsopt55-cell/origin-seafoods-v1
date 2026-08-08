@@ -3,7 +3,7 @@ import type { ImageAsset } from "@/types";
 export const assets = {
   hero: {
     background: {
-      src: "/images/hero/background.webp",
+      src: "/images/hero/background.png",
       alt: "Origin Seafoods seafood import and export hero banner",
       title: "Origin Seafoods international seafood importer exporter banner"
     },
