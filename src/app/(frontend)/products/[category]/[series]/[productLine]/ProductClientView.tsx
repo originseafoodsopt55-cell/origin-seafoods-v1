@@ -27,9 +27,11 @@ export default function ProductClientView({
 }: ProductClientViewProps) {
   const router = useRouter();
 
+  const safeVariantsList = variantsList || [];
+
   // Extract unique brand names available in variants
   const availableBrands = Array.from(
-    new Set(variantsList.map((v) => v.brand).filter((b): b is string => Boolean(b && b.trim())))
+    new Set(safeVariantsList.map((v) => v.brand).filter((b): b is string => Boolean(b && b.trim())))
   );
 
   const [selectedBrand, setSelectedBrand] = useState<string>(() => {
@@ -38,33 +40,54 @@ export default function ProductClientView({
 
   // Filter variants for the selected brand (or keep all if no brand names present)
   const brandVariants = availableBrands.length > 0 && selectedBrand
-    ? variantsList.filter((v) => v.brand === selectedBrand)
-    : variantsList;
+    ? safeVariantsList.filter((v) => v.brand === selectedBrand)
+    : safeVariantsList;
 
   const [activeVariantId, setActiveVariantId] = useState<string>(() => {
-    return brandVariants[0]?.id || variantsList[0]?.id || "";
+    return brandVariants[0]?.id || safeVariantsList[0]?.id || "";
   });
 
-  // Currently active variant (falls back safely)
-  const activeVariant = variantsList.find((v) => v.id === activeVariantId) || brandVariants[0] || variantsList[0];
+  // Currently active variant (falls back safely to ProductLine Data)
+  const activeVariant = safeVariantsList.find((v) => v.id === activeVariantId) || brandVariants[0] || safeVariantsList[0];
+
+  const fallbackProduct: any = {
+    id: productLineData.id || productLineData.slug,
+    slug: productLineData.slug,
+    thaiTitle: productLineData.thaiTitle || productLineData.thai || "",
+    thai: productLineData.thaiTitle || productLineData.thai || "",
+    englishTitle: productLineData.englishTitle || productLineData.english || "",
+    english: productLineData.englishTitle || productLineData.english || "",
+    categorySlug: categoryData.slug,
+    seriesSlug: seriesData.slug,
+    productLineSlug: productLineData.slug,
+    groupSlug: productLineData.slug,
+    description: productLineData.description || "",
+    image: productLineData.coverImage || productLineData.image || {
+      src: "/images/products/blue-swimming-crab.webp",
+      alt: productLineData.englishTitle || productLineData.thaiTitle || "",
+      title: productLineData.englishTitle || ""
+    },
+  };
+
+  const currentProduct = activeVariant || fallbackProduct;
 
   // Handler for brand selection
   const handleBrandSelect = (brandName: string) => {
     setSelectedBrand(brandName);
-    const firstVariantForBrand = variantsList.find((v) => v.brand === brandName);
+    const firstVariantForBrand = safeVariantsList.find((v) => v.brand === brandName);
     if (firstVariantForBrand) {
       setActiveVariantId(firstVariantForBrand.id);
     }
   };
 
-  const primaryImage = (activeVariant?.image && activeVariant.image.src) 
-    ? activeVariant.image 
+  const primaryImage = (currentProduct?.image && currentProduct.image.src) 
+    ? currentProduct.image 
     : (productLineData?.coverImage || { src: "", alt: "", title: "" });
     
-  const galleryImages = (activeVariant?.gallery && activeVariant.gallery.length > 0)
-    ? activeVariant.gallery
-    : (activeVariant?.images && activeVariant.images.length > 0)
-    ? activeVariant.images
+  const galleryImages = (currentProduct?.gallery && currentProduct.gallery.length > 0)
+    ? currentProduct.gallery
+    : (currentProduct?.images && currentProduct.images.length > 0)
+    ? currentProduct.images
     : [primaryImage];
 
   const categoryName = categoryData.thaiTitle || categoryData.thai || "";
@@ -155,39 +178,39 @@ export default function ProductClientView({
       )}
 
       {/* Main Product Layout */}
-      {activeVariant && (
+      {currentProduct && (
         <ProductLayout
           breadcrumb={<Breadcrumb items={breadcrumbItems} />}
           gallery={
             <ProductGallery 
               primaryImage={primaryImage} 
               galleryImages={galleryImages} 
-              productName={activeVariant.thaiTitle || activeVariant.thai || ""} 
+              productName={currentProduct.thaiTitle || currentProduct.thai || ""} 
             />
           }
           info={
             <ProductInformation 
-              product={activeVariant} 
+              product={currentProduct} 
               categoryName={categoryName} 
               seriesName={seriesName} 
-              variants={variantsList}
+              variants={safeVariantsList}
             />
           }
           description={
-            (activeVariant.description || (activeVariant.features && activeVariant.features.length > 0)) ? (
+            (currentProduct.description || (currentProduct.features && currentProduct.features.length > 0)) ? (
               <div className="product-detail-description-block">
-                {activeVariant.description && (
+                {currentProduct.description && (
                   <div className="description-text-wrapper">
                     <h3 className="section-subtitle">รายละเอียดสินค้า / Description</h3>
-                    <p className="description-paragraph">{activeVariant.description}</p>
+                    <p className="description-paragraph">{currentProduct.description}</p>
                   </div>
                 )}
                 
-                {activeVariant.features && activeVariant.features.length > 0 && (
+                {currentProduct.features && currentProduct.features.length > 0 && (
                   <div className="features-list-wrapper">
                     <h3 className="section-subtitle">คุณลักษณะเด่น / Key Features</h3>
                     <ul className="features-bullet-list">
-                      {activeVariant.features.map((feat: string, index: number) => (
+                      {currentProduct.features.map((feat: string, index: number) => (
                         <li key={index} className="feature-item">{feat}</li>
                       ))}
                     </ul>
@@ -196,7 +219,7 @@ export default function ProductClientView({
               </div>
             ) : undefined
           }
-          specifications={<ProductSpecifications product={activeVariant} />}
+          specifications={<ProductSpecifications product={currentProduct} />}
           relatedProducts={relatedProductsNode}
         />
       )}

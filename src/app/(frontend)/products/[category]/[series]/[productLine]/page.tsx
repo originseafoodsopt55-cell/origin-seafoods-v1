@@ -28,13 +28,14 @@ export async function generateMetadata({ params }: ProductLinePageProps): Promis
     getProductVariantsByProductLine(category, series, productLine)
   ]);
 
-  if (!categoryData || !seriesData || !productLineData || !variantsList || variantsList.length === 0) {
+  if (!categoryData || !seriesData || !productLineData) {
     return {
       title: "ไม่พบสินค้า | Product Not Found",
     };
   }
 
-  const firstVariant = variantsList[0];
+  const safeVariants = variantsList || [];
+  const firstVariant = safeVariants[0];
   const thaiTitle = firstVariant?.thai || productLineData.thai || "";
   const englishTitle = firstVariant?.english || productLineData.english || "";
   const description = firstVariant?.description || productLineData.description || `จำหน่าย ${thaiTitle} นำเข้าคุณภาพเกรดพรีเมียมสำหรับตลาด B2B ค้าส่งและอุตสาหกรรมอาหาร`;
@@ -68,7 +69,7 @@ export default async function ProductLinePage({ params }: ProductLinePageProps) 
     getProductVariantsByProductLine(category, series, productLine)
   ]);
 
-  if (!categoryData || !seriesData || !productLineData || !variantsList || variantsList.length === 0) {
+  if (!categoryData || !seriesData || !productLineData) {
     notFound();
   }
 
