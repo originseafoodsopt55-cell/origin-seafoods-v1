@@ -703,24 +703,6 @@ const productVariantEntries: ProductVariant[] = [
     description: "แมงกะพรุนผ่าสี่แปรรูปสดใหม่ คัดเกรดพรีเมียมเพื่อความสะอาดและกรอบอร่อย"
   },
 
-  // Fish -> Dolly Fish -> Dolly Fish
-  {
-    id: "var-fish-dolly-belly-cut",
-    slug: "belly-cut",
-    groupSlug: "dolly-fish",
-    seriesSlug: "dolly-fish",
-    categorySlug: "fish",
-    thai: "หนังปลาแซลมอน",
-    english: "Salmon skin",
-    image: {
-      src: "/images/products/salmon-skin.png",
-      alt: "Salmon skin frozen seafood product",
-      title: "Salmon skin"
-    },
-    packing: "ลังละ 10 kg.",
-    description: "หนังปลาแซลมอนแช่แข็งคัดพิเศษ สดสะอาด รสชาติดีเยี่ยม"
-  },
-
   // Silkworm -> Silkworm -> Silkworm
   {
     id: "var-silkworm-10kg",
