@@ -610,26 +610,7 @@ export const productGroups: ProductGroup[] = [
 // ==========================================================================
 // Level 4: Product Variants (SKU / Size Level)
 // ==========================================================================
-const productVariantEntries: ProductVariant[] = [
-  // Silkworm -> Silkworm -> Silkworm
-  {
-    id: "var-silkworm-10kg",
-    slug: "10kg",
-    groupSlug: "silkworm",
-    seriesSlug: "silkworm",
-    categorySlug: "silkworm",
-    thai: "หนอนไหม 10 Kg (AAAAA)",
-    english: "Silkworm 10 Kg (AAAAA)",
-    image: {
-      src: "/images/products/silkworm.png",
-      alt: "Frozen silkworm chrysalis seafood product",
-      title: "Frozen Silkworm Chrysalis"
-    },
-    size: "AAAAA",
-    packing: "ลังละ 10 kg.",
-    description: "หนอนไหมเกรด 5A คัดพิเศษอวบแน่น ตัวสีเหลืองสวย เหมาะสำหรับคั่ว ทอด ปรุงรสตามต้องการ"
-  }
-];
+const productVariantEntries: ProductVariant[] = [];
 
 export const productVariants: ProductVariant[] = productVariantEntries.map((variant) => ({
   ...variant,
