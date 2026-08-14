@@ -89,6 +89,38 @@ async function testAllUrls() {
     })
   }
 
+  // 4. Test Old dolly-fish Redirects
+  console.log('\n--- 4. Testing Old dolly-fish Redirects ---')
+  const dollyTests = [
+    { url: '/products/fish/dolly-fish', expected: '/products/fish/salmon-skin' },
+    { url: '/products/fish/dolly-fish/dolly-fish', expected: '/products/fish/salmon-skin' }
+  ]
+  for (const t of dollyTests) {
+    try {
+      const res = await fetch(`http://127.0.0.1:3000${t.url}`, { redirect: 'manual' })
+      const loc = res.headers.get('location')
+      results.push({
+        category: 'fish',
+        productLine: 'dolly-fish (Legacy Redirect)',
+        testType: 'Legacy Slug Redirect',
+        targetUrl: t.url,
+        httpStatus: `${res.status} -> ${loc}`,
+        expectedStatus: `308 -> ${t.expected}`,
+        pass: res.status === 308 && loc === t.expected
+      })
+    } catch (e: any) {
+      results.push({
+        category: 'fish',
+        productLine: 'dolly-fish (Legacy Redirect)',
+        testType: 'Legacy Slug Redirect',
+        targetUrl: t.url,
+        httpStatus: e.message,
+        expectedStatus: `308 -> ${t.expected}`,
+        pass: false
+      })
+    }
+  }
+
   console.log('\n=== COMPLETE ROUTING TEST RESULTS ===')
   console.table(results)
 

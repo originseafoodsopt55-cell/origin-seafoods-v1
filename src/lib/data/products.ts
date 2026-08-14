@@ -258,8 +258,8 @@ export const productSeries: ProductSeries[] = [
   },
   // Fish
   {
-    id: "series-dolly-fish",
-    slug: "dolly-fish",
+    id: "series-salmon-skin",
+    slug: "salmon-skin",
     categorySlug: "fish",
     thai: "หนังปลาแซลมอน",
     english: "Salmon Skin",
@@ -575,18 +575,18 @@ export const productGroups: ProductGroup[] = [
     },
     description: "หอยหลอดขนาดใหญ่พิเศษ เนื้ออวบอ้วนสดใหม่ไม่มีกลิ่นคาว"
   },
-  // Fish -> Dolly Fish
+  // Fish -> Salmon Skin
   {
-    id: "group-dolly-fish",
-    slug: "dolly-fish",
-    seriesSlug: "dolly-fish",
+    id: "group-salmon-skin",
+    slug: "salmon-skin",
+    seriesSlug: "salmon-skin",
     categorySlug: "fish",
     thai: "หนังปลาแซลมอน",
-    english: "Salmon skin",
+    english: "Salmon Skin",
     image: {
       src: "/images/products/salmon-skin.png",
       alt: "Salmon skin frozen seafood product",
-      title: "Salmon skin"
+      title: "Salmon Skin"
     },
     description: "หนังปลาแซลมอนแช่แข็งคัดคุณภาพ สดสะอาด เหมาะสำหรับประกอบอาหารและแปรรูป"
   },

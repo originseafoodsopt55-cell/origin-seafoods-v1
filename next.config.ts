@@ -9,6 +9,16 @@ const nextConfig: NextConfig = {
   async redirects() {
     return [
       {
+        source: '/products/fish/dolly-fish',
+        destination: '/products/fish/salmon-skin',
+        permanent: true,
+      },
+      {
+        source: '/products/fish/dolly-fish/:path*',
+        destination: '/products/fish/salmon-skin',
+        permanent: true,
+      },
+      {
         source: '/products/:category/:series/:productLine/:variant',
         destination: '/products/:category/:productLine/:variant',
         permanent: true,

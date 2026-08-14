@@ -90,7 +90,7 @@ async function fixFishClean() {
     console.log(`Created Media doc ID ${mediaId} -> salmon-skin.png`);
   }
 
-  // 3. Update Series 'dolly-fish' (ID: 47)
+  // 3. Update Series 'dolly-fish' (ID: 47) -> 'salmon-skin'
   const seriesDoc = await payload.find({
     collection: 'series',
     where: {
@@ -105,16 +105,17 @@ async function fixFishClean() {
       collection: 'series',
       id: sId,
       data: {
+        slug: 'salmon-skin',
         thaiTitle: 'หนังปลาแซลมอน',
         englishTitle: 'Salmon Skin',
         coverImage: mediaId,
         description: 'หนังปลาแซลมอนแช่แข็งคุณภาพเยี่ยม สดใหม่ กรอบอร่อย',
       },
     });
-    console.log(`Updated Series DB ID ${sId} -> หนังปลาแซลมอน / Salmon Skin`);
+    console.log(`Updated Series DB ID ${sId} -> slug: salmon-skin, หนังปลาแซลมอน / Salmon Skin`);
   }
 
-  // 4. Update ProductLines 'dolly-fish' (ID: 39)
+  // 4. Update ProductLines 'dolly-fish' (ID: 39) -> 'salmon-skin'
   const lineDoc = await payload.find({
     collection: 'product-lines',
     where: {
@@ -129,13 +130,14 @@ async function fixFishClean() {
       collection: 'product-lines',
       id: lId,
       data: {
+        slug: 'salmon-skin',
         thaiTitle: 'หนังปลาแซลมอน',
-        englishTitle: 'Salmon skin',
+        englishTitle: 'Salmon Skin',
         coverImage: mediaId,
         description: 'หนังปลาแซลมอนแช่แข็งคัดคุณภาพ สดสะอาด เหมาะสำหรับประกอบอาหารและแปรรูป',
       },
     });
-    console.log(`Updated ProductLine DB ID ${lId} -> หนังปลาแซลมอน / Salmon skin`);
+    console.log(`Updated ProductLine DB ID ${lId} -> slug: salmon-skin, หนังปลาแซลมอน / Salmon Skin`);
   }
 
   // 5. Update Variants under fish category
