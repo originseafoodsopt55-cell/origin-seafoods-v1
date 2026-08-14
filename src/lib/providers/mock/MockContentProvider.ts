@@ -159,9 +159,9 @@ export class MockContentProvider implements IContentProvider {
     );
   }
 
-  async getProductLineBySlug(categorySlug: string, seriesSlug: string, productLineSlug: string): Promise<ProductLine | undefined> {
+  async getProductLineBySlug(categorySlug: string, productLineSlug: string, seriesSlug?: string): Promise<ProductLine | undefined> {
     return productLines.find(
-      (line) => line.categorySlug === categorySlug && line.seriesSlug === seriesSlug && line.slug === productLineSlug
+      (line) => line.categorySlug === categorySlug && line.slug === productLineSlug && (!seriesSlug || line.seriesSlug === seriesSlug)
     );
   }
 
@@ -171,27 +171,27 @@ export class MockContentProvider implements IContentProvider {
     );
   }
 
-  async getProductVariantsByProductLine(categorySlug: string, seriesSlug: string, productLineSlug: string): Promise<ProductVariant[]> {
+  async getProductVariantsByProductLine(categorySlug: string, productLineSlug: string, seriesSlug?: string): Promise<ProductVariant[]> {
     return productVariants.filter(
       (v) =>
         v.categorySlug === categorySlug &&
-        v.seriesSlug === seriesSlug &&
-        (v.productLineSlug ?? v.groupSlug) === productLineSlug
+        (v.productLineSlug ?? v.groupSlug) === productLineSlug &&
+        (!seriesSlug || v.seriesSlug === seriesSlug)
     );
   }
 
   async getProductVariantBySlug(
     categorySlug: string,
-    seriesSlug: string,
     productLineSlug: string,
-    variantSlug: string
+    variantSlug: string,
+    seriesSlug?: string
   ): Promise<ProductVariant | undefined> {
     return productVariants.find(
       (v) =>
         v.categorySlug === categorySlug &&
-        v.seriesSlug === seriesSlug &&
         (v.productLineSlug ?? v.groupSlug) === productLineSlug &&
-        v.slug === variantSlug
+        v.slug === variantSlug &&
+        (!seriesSlug || v.seriesSlug === seriesSlug)
     );
   }
 

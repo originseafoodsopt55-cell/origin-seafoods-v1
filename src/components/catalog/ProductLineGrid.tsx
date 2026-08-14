@@ -16,8 +16,8 @@ export function ProductLineGrid({ linesWithVariants }: ProductLineGridProps) {
       {linesWithVariants.map(({ productLine }) => {
         if (!productLine.coverImage) return null;
 
-        // Path to the ProductLine page (which redirects to the first variant)
-        const productLineHref = `/products/${productLine.categorySlug}/${productLine.seriesSlug}/${productLine.slug}`;
+        // Path to the ProductLine page
+        const productLineHref = `/products/${productLine.categorySlug}/${productLine.slug}`;
 
         return (
           <article key={productLine.id} className="catalog-product-card product-line-card">

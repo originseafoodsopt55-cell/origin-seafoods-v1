@@ -27,7 +27,7 @@ export const ProductLines: CollectionConfig = {
       index: true,
       label: 'สลัก (URL)',
       admin: {
-        description: '⚠️ มีผลต่อ URL หน้าเว็บโดยตรง ไม่ควรแก้ไขหลังจากที่เผยแพร่แล้ว เพื่อหลีกเลี่ยงลิงก์เสีย (Broken Link)',
+        description: '⚠️ มีผลต่อ URL หน้าเว็บโดยตรง (/products/[category]/[productLine]) ห้ามซ้ำกันภายใน Category เดียวกัน และไม่ควรแก้ไขหลังจากเผยแพร่แล้ว',
       },
       validate: (value: any, { operation, previousValue }: any) => {
         if (operation === 'update' && value !== previousValue) {

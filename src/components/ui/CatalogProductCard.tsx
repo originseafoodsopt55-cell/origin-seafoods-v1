@@ -12,10 +12,8 @@ interface CatalogProductCardProps {
 export function CatalogProductCard({ product, className }: CatalogProductCardProps) {
   const shouldReduceMotion = useReducedMotion();
   const productLineSlug = product.productLineSlug ?? product.groupSlug;
-  const detailUrl = productLineSlug && product.seriesSlug
-    ? `/products/${product.categorySlug}/${product.seriesSlug}/${productLineSlug}`
-    : product.seriesSlug
-    ? `/products/${product.categorySlug}/${product.seriesSlug}`
+  const detailUrl = productLineSlug
+    ? `/products/${product.categorySlug}/${productLineSlug}`
     : `/products/${product.categorySlug}`;
 
   return (

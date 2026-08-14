@@ -138,3 +138,16 @@ This document outlines key technical decisions made for the integration of Paylo
 * **Effective Commit:** `fix(brand-values): replace CMS data layer with approved hardcoded constant BRAND_VALUE_STATEMENTS`
 * **Files removed from data layer:** `getBrandValues()` from `IContentProvider`, `MockContentProvider`, `CMSContentProvider`, `data/index.ts`, `data/brandValues.ts` (defunct), `mappers/brandValuesMapper.ts`, `scripts/seed-brand-values.ts`, `collections/BrandValues.ts` (import removed from `payload.config.ts`)
 * **Historical Note:** The `BrandValues.ts` collection file, `brandValuesMapper.ts`, and `seed-brand-values.ts` files are retained in the repository as historical artifacts. They are no longer imported or executed anywhere in the codebase.
+
+---
+
+## 21. Category-Scoped ProductLine Slugs for 3-Level URL Routing Architecture (Updating Decisions 13 & 14)
+
+* **Decision:** Shorten product catalog URLs from 4 levels (`/products/[category]/[series]/[productLine]`) to 3 levels (`/products/[category]/[productLine]`). Update slug uniqueness scoping for `ProductLine` so that slugs must be unique **within their parent Category** instead of within their parent Series.
+* **Rationale:** 
+  1. The 4-level URL structure created duplicate slug path segments in 95.2% of catalog items (e.g. `/products/crabs/blue-swimming-crab/blue-swimming-crab`).
+  2. Shortening the URL to 3 levels improves user readability, shareability, and SEO structure.
+  3. Under 3-level routing (`/products/[category]/[productLine]`), `productLine.slug` is evaluated directly under `category.slug`. Therefore, slug uniqueness must be scoped to `Category` to prevent routing collisions under the same category.
+  4. The `Series` collection and database taxonomy remain 100% intact in the database and CMS for grouping and administrative management.
+* **Effective Branch:** `refactor/shorten-product-urls`
+

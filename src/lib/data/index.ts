@@ -122,8 +122,8 @@ export async function getProductGroupBySlug(categorySlug: string, seriesSlug: st
   return await provider.getProductGroupBySlug(categorySlug, seriesSlug, groupSlug);
 }
 
-export async function getProductLineBySlug(categorySlug: string, seriesSlug: string, productLineSlug: string) {
-  const item = await provider.getProductLineBySlug(categorySlug, seriesSlug, productLineSlug);
+export async function getProductLineBySlug(categorySlug: string, productLineSlug: string, seriesSlug?: string) {
+  const item = await provider.getProductLineBySlug(categorySlug, productLineSlug, seriesSlug);
   return item ? validateProductLine(item) : undefined;
 }
 
@@ -132,18 +132,18 @@ export async function getProductVariantsByGroup(categorySlug: string, seriesSlug
   return list.map(validateProductVariant);
 }
 
-export async function getProductVariantsByProductLine(categorySlug: string, seriesSlug: string, productLineSlug: string) {
-  const list = await provider.getProductVariantsByProductLine(categorySlug, seriesSlug, productLineSlug);
+export async function getProductVariantsByProductLine(categorySlug: string, productLineSlug: string, seriesSlug?: string) {
+  const list = await provider.getProductVariantsByProductLine(categorySlug, productLineSlug, seriesSlug);
   return list.map(validateProductVariant);
 }
 
 export async function getProductVariantBySlug(
   categorySlug: string,
-  seriesSlug: string,
   productLineSlug: string,
-  variantSlug: string
+  variantSlug: string,
+  seriesSlug?: string
 ) {
-  const item = await provider.getProductVariantBySlug(categorySlug, seriesSlug, productLineSlug, variantSlug);
+  const item = await provider.getProductVariantBySlug(categorySlug, productLineSlug, variantSlug, seriesSlug);
   return item ? validateProductVariant(item) : undefined;
 }
 

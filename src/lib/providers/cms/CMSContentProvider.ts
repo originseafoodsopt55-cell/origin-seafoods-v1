@@ -209,11 +209,12 @@ export class CMSContentProvider implements IContentProvider {
 
   async getProductVariantBySlug(
     categorySlug: string,
-    seriesSlug: string,
     productLineSlug: string,
-    variantSlug: string
+    variantSlug: string,
+    seriesSlug?: string
   ): Promise<ProductVariant | undefined> {
-    const raw = await cmsClient.get<any>(`/variants?where[category.slug][equals]=${categorySlug}&where[series.slug][equals]=${seriesSlug}&where[productLine.slug][equals]=${productLineSlug}&where[slug][equals]=${variantSlug}`);
+    const seriesQuery = seriesSlug ? `&where[series.slug][equals]=${seriesSlug}` : ''
+    const raw = await cmsClient.get<any>(`/variants?where[category.slug][equals]=${categorySlug}${seriesQuery}&where[productLine.slug][equals]=${productLineSlug}&where[slug][equals]=${variantSlug}`);
     const docs = Array.isArray(raw) ? raw : (raw?.docs ?? []);
     return docs.length > 0 ? mapCMSProductVariant(docs[0]) : undefined;
   }
@@ -237,14 +238,16 @@ export class CMSContentProvider implements IContentProvider {
     return docs.map(mapCMSProductLine);
   }
 
-  async getProductLineBySlug(categorySlug: string, seriesSlug: string, productLineSlug: string): Promise<ProductLine | undefined> {
-    const raw = await cmsClient.get<any>(`/product-lines?where[category.slug][equals]=${categorySlug}&where[series.slug][equals]=${seriesSlug}&where[slug][equals]=${productLineSlug}`);
+  async getProductLineBySlug(categorySlug: string, productLineSlug: string, seriesSlug?: string): Promise<ProductLine | undefined> {
+    const seriesQuery = seriesSlug ? `&where[series.slug][equals]=${seriesSlug}` : ''
+    const raw = await cmsClient.get<any>(`/product-lines?where[category.slug][equals]=${categorySlug}${seriesQuery}&where[slug][equals]=${productLineSlug}`);
     const docs = Array.isArray(raw) ? raw : (raw?.docs ?? []);
     return docs.length > 0 ? mapCMSProductLine(docs[0]) : undefined;
   }
 
-  async getProductVariantsByProductLine(categorySlug: string, seriesSlug: string, productLineSlug: string): Promise<ProductVariant[]> {
-    const raw = await cmsClient.get<any>(`/variants?where[category.slug][equals]=${categorySlug}&where[series.slug][equals]=${seriesSlug}&where[productLine.slug][equals]=${productLineSlug}&limit=100`);
+  async getProductVariantsByProductLine(categorySlug: string, productLineSlug: string, seriesSlug?: string): Promise<ProductVariant[]> {
+    const seriesQuery = seriesSlug ? `&where[series.slug][equals]=${seriesSlug}` : ''
+    const raw = await cmsClient.get<any>(`/variants?where[category.slug][equals]=${categorySlug}${seriesQuery}&where[productLine.slug][equals]=${productLineSlug}&limit=100`);
     const docs = Array.isArray(raw) ? raw : (raw?.docs ?? []);
     return docs.map(mapCMSProductVariant);
   }

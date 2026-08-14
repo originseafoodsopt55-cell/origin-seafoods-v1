@@ -77,10 +77,10 @@ export interface IContentProvider {
   getProductSeriesByCategory(categorySlug: string): Promise<ProductSeries[]>;
   getProductSeriesBySlug(categorySlug: string, seriesSlug: string): Promise<ProductSeries | undefined>;
   getProductLinesBySeries(categorySlug: string, seriesSlug: string): Promise<ProductLine[]>;
-  getProductLineBySlug(categorySlug: string, seriesSlug: string, productLineSlug: string): Promise<ProductLine | undefined>;
-  getProductVariantsByProductLine(categorySlug: string, seriesSlug: string, productLineSlug: string): Promise<ProductVariant[]>;
+  getProductLineBySlug(categorySlug: string, productLineSlug: string, seriesSlug?: string): Promise<ProductLine | undefined>;
+  getProductVariantsByProductLine(categorySlug: string, productLineSlug: string, seriesSlug?: string): Promise<ProductVariant[]>;
   getProductGroupsBySeries(categorySlug: string, seriesSlug: string): Promise<ProductGroup[]>;
   getProductGroupBySlug(categorySlug: string, seriesSlug: string, groupSlug: string): Promise<ProductGroup | undefined>;
   getProductVariantsByGroup(categorySlug: string, seriesSlug: string, groupSlug: string): Promise<ProductVariant[]>;
-  getProductVariantBySlug(categorySlug: string, seriesSlug: string, productLineSlug: string, variantSlug: string): Promise<ProductVariant | undefined>;
+  getProductVariantBySlug(categorySlug: string, productLineSlug: string, variantSlug: string, seriesSlug?: string): Promise<ProductVariant | undefined>;
 }

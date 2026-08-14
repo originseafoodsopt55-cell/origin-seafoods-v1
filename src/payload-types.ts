@@ -251,7 +251,7 @@ export interface Series {
 export interface ProductLine {
   id: number;
   /**
-   * ⚠️ มีผลต่อ URL หน้าเว็บโดยตรง ไม่ควรแก้ไขหลังจากที่เผยแพร่แล้ว เพื่อหลีกเลี่ยงลิงก์เสีย (Broken Link)
+   * ⚠️ มีผลต่อ URL หน้าเว็บโดยตรง (/products/[category]/[productLine]) ห้ามซ้ำกันภายใน Category เดียวกัน และไม่ควรแก้ไขหลังจากเผยแพร่แล้ว
    */
   slug: string;
   thaiTitle: string;

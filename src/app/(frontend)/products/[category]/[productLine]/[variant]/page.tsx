@@ -19,16 +19,14 @@ import { RelatedProducts } from "@/components/catalog/RelatedProducts";
 interface VariantDetailPageProps {
   params: Promise<{
     category: string;
-    series: string;
     productLine: string;
     variant: string;
   }>;
 }
 
-
 export async function generateMetadata({ params }: VariantDetailPageProps): Promise<Metadata> {
-  const { category, series, productLine, variant } = await params;
-  const item = await getProductVariantBySlug(category, series, productLine, variant);
+  const { category, productLine, variant } = await params;
+  const item = await getProductVariantBySlug(category, productLine, variant);
 
   if (!item) {
     return {
@@ -42,7 +40,7 @@ export async function generateMetadata({ params }: VariantDetailPageProps): Prom
     title: `${item.thai} (${item.english}) | Origin Seafoods B2B`,
     description,
     alternates: {
-      canonical: `/products/${category}/${series}/${productLine}/${variant}`
+      canonical: `/products/${category}/${productLine}/${variant}`
     },
     openGraph: {
       title: `${item.thai} (${item.english}) | Origin Seafoods`,
@@ -63,19 +61,22 @@ export async function generateMetadata({ params }: VariantDetailPageProps): Prom
 }
 
 export default async function ProductDetailPage({ params }: VariantDetailPageProps) {
-  const { category, series, productLine, variant } = await params;
+  const { category, productLine, variant } = await params;
   
-  const [categoryData, seriesData, productLineData, item, variantsList] = await Promise.all([
-    getCategoryBySlug(category),
-    getProductSeriesBySlug(category, series),
-    getProductLineBySlug(category, series, productLine),
-    getProductVariantBySlug(category, series, productLine, variant),
-    getProductVariantsByProductLine(category, series, productLine)
-  ]);
+  const categoryData = await getCategoryBySlug(category);
+  const productLineData = await getProductLineBySlug(category, productLine);
+  const item = await getProductVariantBySlug(category, productLine, variant);
 
-  if (!categoryData || !seriesData || !productLineData || !item) {
+  if (!categoryData || !productLineData || !item) {
     notFound();
   }
+
+  const fetchedSeries = productLineData.seriesSlug 
+    ? await getProductSeriesBySlug(category, productLineData.seriesSlug)
+    : undefined;
+  const seriesData = fetchedSeries ?? { slug: categoryData.slug, thai: categoryData.thai, english: categoryData.english };
+
+  const variantsList = await getProductVariantsByProductLine(category, productLine);
 
   // Image & Gallery Fallback logic
   const primaryImage = (item.image && item.image.src) ? item.image : (productLineData.coverImage || { src: "", alt: "", title: "" });
@@ -85,32 +86,20 @@ export default async function ProductDetailPage({ params }: VariantDetailPagePro
     ? item.images
     : [primaryImage];
 
-  const breadcrumbItems = [
-    { label: "หน้าแรก / Home", href: "/" },
-    { label: "สินค้าทั้งหมด / Products", href: "/products" }
-  ];
-
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "WebPage",
     name: `${item.thai} (${item.english})`,
     description: item.description,
-    url: `/products/${category}/${series}/${productLine}/${variant}`,
+    url: `/products/${category}/${productLine}/${variant}`,
     image: {
       "@type": "ImageObject",
       url: primaryImage.src,
       caption: primaryImage.alt
-    },
-    breadcrumb: {
-      "@type": "BreadcrumbList",
-      itemListElement: breadcrumbItems.map((breadcrumbItem, index) => ({
-        "@type": "ListItem",
-        position: index + 1,
-        name: breadcrumbItem.label,
-        item: breadcrumbItem.href ?? `/products/${category}/${series}/${productLine}/${variant}`
-      }))
     }
   };
+
+  const bgImageUrl = categoryData.backgroundImage?.src || "";
 
   const infoNode = (
     <ProductInformation 
@@ -147,31 +136,51 @@ export default async function ProductDetailPage({ params }: VariantDetailPagePro
 
   const relatedProductsNode = (
     <RelatedProducts 
-      categorySlug={item.categorySlug}
-      seriesSlug={item.seriesSlug}
-      productLineSlug={item.productLineSlug ?? item.groupSlug}
+      categorySlug={categoryData.slug}
+      seriesSlug={seriesData.slug}
+      productLineSlug={productLineData.slug}
       excludeProductId={item.id} 
     />
   );
 
+  const breadcrumbItems = [
+    { label: "หน้าแรก / Home", href: "/" },
+    { label: "สินค้าทั้งหมด / Products", href: "/products" },
+    { label: categoryData.thai, href: `/products/${categoryData.slug}` },
+    { label: productLineData.thai, href: `/products/${categoryData.slug}/${productLineData.slug}` },
+    { label: item.thai }
+  ];
+
   return (
-    <>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
-      <ProductLayout
-        breadcrumb={<Breadcrumb items={breadcrumbItems} />}
-        gallery={
-          <ProductGallery 
-            primaryImage={primaryImage} 
-            galleryImages={galleryImages} 
-            productName={item.thai} 
-          />
-        }
-        info={infoNode}
-        description={descriptionNode}
-        specifications={specificationsNode}
-        relatedProducts={relatedProductsNode}
+    <main 
+      className="min-h-screen bg-cover bg-center bg-no-repeat bg-fixed relative overflow-hidden"
+      style={bgImageUrl ? { backgroundImage: `url('${bgImageUrl}')` } : { backgroundColor: "#0f172a" }}
+    >
+      <div className="absolute inset-0 bg-black/60 z-0 pointer-events-none"></div>
+      
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
-    </>
+      
+      <div className="relative z-10">
+        <ProductLayout
+          breadcrumb={
+            <Breadcrumb items={breadcrumbItems} />
+          }
+          gallery={
+            <ProductGallery 
+              primaryImage={primaryImage}
+              galleryImages={galleryImages} 
+              productName={item.thai} 
+            />
+          }
+          info={infoNode}
+          description={descriptionNode}
+          specifications={specificationsNode}
+          relatedProducts={relatedProductsNode}
+        />
+      </div>
+    </main>
   );
 }
-

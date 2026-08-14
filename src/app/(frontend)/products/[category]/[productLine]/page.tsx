@@ -14,25 +14,22 @@ export const revalidate = 300;
 interface ProductLinePageProps {
   params: Promise<{
     category: string;
-    series: string;
     productLine: string;
   }>;
 }
 
 export async function generateMetadata({ params }: ProductLinePageProps): Promise<Metadata> {
-  const { category, series, productLine } = await params;
-  const [categoryData, seriesData, productLineData, variantsList] = await Promise.all([
-    getCategoryBySlug(category),
-    getProductSeriesBySlug(category, series),
-    getProductLineBySlug(category, series, productLine),
-    getProductVariantsByProductLine(category, series, productLine)
-  ]);
+  const { category, productLine } = await params;
+  const categoryData = await getCategoryBySlug(category);
+  const productLineData = await getProductLineBySlug(category, productLine);
 
-  if (!categoryData || !seriesData || !productLineData) {
+  if (!categoryData || !productLineData) {
     return {
       title: "ไม่พบสินค้า | Product Not Found",
     };
   }
+
+  const variantsList = await getProductVariantsByProductLine(category, productLine);
 
   const safeVariants = variantsList || [];
   const firstVariant = safeVariants[0];
@@ -44,7 +41,7 @@ export async function generateMetadata({ params }: ProductLinePageProps): Promis
     title: `${thaiTitle} (${englishTitle}) | Origin Seafoods B2B`,
     description,
     alternates: {
-      canonical: `/products/${category}/${series}/${productLine}`
+      canonical: `/products/${category}/${productLine}`
     },
     openGraph: {
       title: `${thaiTitle} (${englishTitle}) | Origin Seafoods`,
@@ -60,18 +57,21 @@ export async function generateMetadata({ params }: ProductLinePageProps): Promis
 }
 
 export default async function ProductLinePage({ params }: ProductLinePageProps) {
-  const { category, series, productLine } = await params;
+  const { category, productLine } = await params;
   
-  const [categoryData, seriesData, productLineData, variantsList] = await Promise.all([
-    getCategoryBySlug(category),
-    getProductSeriesBySlug(category, series),
-    getProductLineBySlug(category, series, productLine),
-    getProductVariantsByProductLine(category, series, productLine)
-  ]);
+  const categoryData = await getCategoryBySlug(category);
+  const productLineData = await getProductLineBySlug(category, productLine);
 
-  if (!categoryData || !seriesData || !productLineData) {
+  if (!categoryData || !productLineData) {
     notFound();
   }
+
+  const fetchedSeries = productLineData.seriesSlug 
+    ? await getProductSeriesBySlug(category, productLineData.seriesSlug)
+    : undefined;
+  const seriesData = fetchedSeries ?? { slug: categoryData.slug, thai: categoryData.thai, english: categoryData.english };
+
+  const variantsList = await getProductVariantsByProductLine(category, productLine);
 
   const bgImageUrl = categoryData.backgroundImage?.src || "";
 
