@@ -12,7 +12,8 @@ export class CMSClient {
    * Will be implemented with node-fetch / axios in future sprints.
    */
   async get<T>(path: string): Promise<T> {
-    const baseUrl = this.endpoint.endsWith("/") ? this.endpoint.slice(0, -1) : this.endpoint;
+    const rawEndpoint = this.endpoint || process.env.NEXT_PUBLIC_CMS_ENDPOINT || "http://localhost:3000/api";
+    const baseUrl = rawEndpoint.endsWith("/") ? rawEndpoint.slice(0, -1) : rawEndpoint;
     const cleanPath = path.startsWith("/") ? path : `/${path}`;
     const url = `${baseUrl}${cleanPath}`;
     

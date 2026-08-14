@@ -30,7 +30,8 @@ export const Series: CollectionConfig = {
       admin: {
         description: '⚠️ มีผลต่อ URL หน้าเว็บโดยตรง ไม่ควรแก้ไขหลังจากที่เผยแพร่แล้ว เพื่อหลีกเลี่ยงลิงก์เสีย (Broken Link)',
       },
-      validate: (value: any, { operation, previousValue }: any) => {
+      validate: (value: any, { operation, previousValue, req }: any) => {
+        if (req?.context?.allowSlugUpdate) return true;
         if (operation === 'update' && value !== previousValue) {
           return 'ไม่สามารถแก้ไข slug ได้หลังจากสร้างแล้ว เพื่อป้องกันลิงก์เสีย';
         }

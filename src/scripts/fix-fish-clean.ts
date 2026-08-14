@@ -30,11 +30,14 @@ async function fixFishClean() {
   const payload = await getPayload({ config });
 
   const desktopPath = 'C:\\Users\\AVS_KTB\\Desktop\\Sprint\\products\\Fish\\หนังปลาแซลมอน.png';
-  if (!fs.existsSync(desktopPath)) {
-    console.error('File หนังปลาแซลมอน.png not found!');
+  const localImagePath = path.resolve(process.cwd(), 'public/images/products/salmon-skin.png');
+  const targetImagePath = fs.existsSync(desktopPath) ? desktopPath : fs.existsSync(localImagePath) ? localImagePath : null;
+  
+  if (!targetImagePath) {
+    console.error('File salmon-skin.png not found in Desktop or public folder!');
     return;
   }
-  const fileBuffer = fs.readFileSync(desktopPath);
+  const fileBuffer = fs.readFileSync(targetImagePath);
 
   // 1. Write clean image files
   const cleanFiles = [
@@ -104,6 +107,7 @@ async function fixFishClean() {
     await payload.update({
       collection: 'series',
       id: sId,
+      context: { allowSlugUpdate: true },
       data: {
         slug: 'salmon-skin',
         thaiTitle: 'หนังปลาแซลมอน',
@@ -129,6 +133,7 @@ async function fixFishClean() {
     await payload.update({
       collection: 'product-lines',
       id: lId,
+      context: { allowSlugUpdate: true },
       data: {
         slug: 'salmon-skin',
         thaiTitle: 'หนังปลาแซลมอน',

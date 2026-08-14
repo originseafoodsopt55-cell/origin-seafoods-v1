@@ -29,7 +29,8 @@ export const ProductLines: CollectionConfig = {
       admin: {
         description: '⚠️ มีผลต่อ URL หน้าเว็บโดยตรง (/products/[category]/[productLine]) ห้ามซ้ำกันภายใน Category เดียวกัน และไม่ควรแก้ไขหลังจากเผยแพร่แล้ว',
       },
-      validate: (value: any, { operation, previousValue }: any) => {
+      validate: (value: any, { operation, previousValue, req }: any) => {
+        if (req?.context?.allowSlugUpdate) return true;
         if (operation === 'update' && value !== previousValue) {
           return 'ไม่สามารถแก้ไข slug ได้หลังจากสร้างแล้ว เพื่อป้องกันลิงก์เสีย';
         }
