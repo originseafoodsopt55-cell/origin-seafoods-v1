@@ -80,10 +80,110 @@ export const ProductLines: CollectionConfig = {
       label: 'รูปภาพหน้าปกกลุ่มสินค้า',
     },
     {
+      name: 'gallery',
+      type: 'array',
+      label: 'แกลเลอรีรูปภาพสินค้าหลัก (ProductLine Gallery)',
+      admin: {
+        description: 'รูปภาพสินค้าหลักถ่ายจริง สำหรับแสดงในสไลด์ Carousel หน้าสินค้า (แสดงเมื่อยังไม่ได้เลือกแบรนด์)',
+      },
+      fields: [
+        {
+          name: 'image',
+          type: 'relationship',
+          relationTo: 'media',
+          required: true,
+          label: 'รูปภาพ',
+        },
+      ],
+    },
+    {
       name: 'published',
       type: 'checkbox',
       defaultValue: false,
       label: 'สถานะการเผยแพร่',
+    },
+    {
+      name: 'brandOptions',
+      type: 'array',
+      label: 'ตัวเลือกแบรนด์ (Brand Options)',
+      admin: {
+        description: 'ใส่ข้อมูลแบรนด์ที่มีสำหรับสินค้านี้ (ไม่บังคับ) — ถ้าว่างจะแสดงหน้าสินค้าแบบปกติ',
+      },
+      fields: [
+        {
+          name: 'brandName',
+          type: 'text',
+          required: true,
+          label: 'ชื่อแบรนด์',
+          admin: {
+            description: 'เช่น JARADAH FISH, PHOOMA MAHACHAI',
+          },
+        },
+        {
+          name: 'boxImage',
+          type: 'relationship',
+          relationTo: 'media',
+          required: true,
+          label: 'รูปกล่องแบรนด์ (ใช้เป็น thumbnail เลือกแบรนด์)',
+        },
+        {
+          name: 'gallery',
+          type: 'array',
+          label: 'รูปภาพแกลเลอรี (carousel เมื่อเลือกแบรนด์นี้)',
+          fields: [
+            {
+              name: 'image',
+              type: 'relationship',
+              relationTo: 'media',
+              required: true,
+              label: 'รูปภาพ',
+            },
+          ],
+        },
+        {
+          name: 'packingSize',
+          type: 'text',
+          label: 'ขนาดบรรจุ (เช่น ลังละ 8 Kg.)',
+        },
+        {
+          name: 'maleSizes',
+          type: 'array',
+          label: 'ไซส์ตัวผู้ (MALE)',
+          fields: [
+            {
+              name: 'sizeText',
+              type: 'text',
+              required: true,
+              label: 'ไซส์ (เช่น 30/50)',
+            },
+            {
+              name: 'sizeImage',
+              type: 'relationship',
+              relationTo: 'media',
+              label: 'ภาพสินค้าสำหรับไซส์นี้ (เลือกผูกจาก Media หรืออัปโหลดใหม่)',
+            },
+          ],
+        },
+        {
+          name: 'femaleSizes',
+          type: 'array',
+          label: 'ไซส์ตัวเมีย (FEMALE)',
+          fields: [
+            {
+              name: 'sizeText',
+              type: 'text',
+              required: true,
+              label: 'ไซส์ (เช่น 30/50)',
+            },
+            {
+              name: 'sizeImage',
+              type: 'relationship',
+              relationTo: 'media',
+              label: 'ภาพสินค้าสำหรับไซส์นี้ (เลือกผูกจาก Media หรืออัปโหลดใหม่)',
+            },
+          ],
+        },
+      ],
     },
     {
       name: 'seo',

@@ -261,7 +261,50 @@ export interface ProductLine {
   series: number | Series;
   category: number | Category;
   coverImage?: (number | null) | Media;
+  /**
+   * รูปภาพสินค้าหลักถ่ายจริง สำหรับแสดงในสไลด์ Carousel หน้าสินค้า (แสดงเมื่อยังไม่ได้เลือกแบรนด์)
+   */
+  gallery?:
+    | {
+        image: number | Media;
+        id?: string | null;
+      }[]
+    | null;
   published?: boolean | null;
+  /**
+   * ใส่ข้อมูลแบรนด์ที่มีสำหรับสินค้านี้ (ไม่บังคับ) — ถ้าว่างจะแสดงหน้าสินค้าแบบปกติ
+   */
+  brandOptions?:
+    | {
+        /**
+         * เช่น JARADAH FISH, PHOOMA MAHACHAI
+         */
+        brandName: string;
+        boxImage: number | Media;
+        gallery?:
+          | {
+              image: number | Media;
+              id?: string | null;
+            }[]
+          | null;
+        packingSize?: string | null;
+        maleSizes?:
+          | {
+              sizeText: string;
+              sizeImage?: (number | null) | Media;
+              id?: string | null;
+            }[]
+          | null;
+        femaleSizes?:
+          | {
+              sizeText: string;
+              sizeImage?: (number | null) | Media;
+              id?: string | null;
+            }[]
+          | null;
+        id?: string | null;
+      }[]
+    | null;
   seo?: {
     metaTitle?: string | null;
     metaDescription?: string | null;
@@ -665,7 +708,41 @@ export interface ProductLinesSelect<T extends boolean = true> {
   series?: T;
   category?: T;
   coverImage?: T;
+  gallery?:
+    | T
+    | {
+        image?: T;
+        id?: T;
+      };
   published?: T;
+  brandOptions?:
+    | T
+    | {
+        brandName?: T;
+        boxImage?: T;
+        gallery?:
+          | T
+          | {
+              image?: T;
+              id?: T;
+            };
+        packingSize?: T;
+        maleSizes?:
+          | T
+          | {
+              sizeText?: T;
+              sizeImage?: T;
+              id?: T;
+            };
+        femaleSizes?:
+          | T
+          | {
+              sizeText?: T;
+              sizeImage?: T;
+              id?: T;
+            };
+        id?: T;
+      };
   seo?:
     | T
     | {

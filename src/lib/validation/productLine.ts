@@ -2,6 +2,20 @@ import { z } from "zod";
 import { ImageAssetSchema, SEOSchema } from "./shared";
 import type { ProductLine } from "@/types";
 
+const BrandSizeOptionSchema = z.object({
+  sizeText: z.string(),
+  sizeImage: ImageAssetSchema.optional(),
+});
+
+const BrandOptionSchema = z.object({
+  brandName: z.string().min(1),
+  boxImage: ImageAssetSchema.optional(),
+  gallery: z.array(ImageAssetSchema).optional(),
+  packingSize: z.string().optional(),
+  maleSizes: z.array(z.union([z.string(), BrandSizeOptionSchema])).optional(),
+  femaleSizes: z.array(z.union([z.string(), BrandSizeOptionSchema])).optional(),
+});
+
 export const ProductLineSchema = z.object({
   id: z.string().min(1),
   slug: z.string().min(1),
@@ -12,9 +26,11 @@ export const ProductLineSchema = z.object({
   description: z.string().optional(),
   brand: z.string().optional(),
   coverImage: ImageAssetSchema.optional(),
+  gallery: z.array(ImageAssetSchema).optional(),
   status: z.enum(["published", "draft", "archived"]).optional(),
   published: z.boolean().optional(),
   seo: SEOSchema,
+  brandOptions: z.array(BrandOptionSchema).optional(),
 });
 
 export function validateProductLine(data: unknown): ProductLine {

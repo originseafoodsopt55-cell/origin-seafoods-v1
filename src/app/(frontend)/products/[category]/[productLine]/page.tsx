@@ -75,6 +75,8 @@ export default async function ProductLinePage({ params }: ProductLinePageProps) 
 
   const bgImageUrl = categoryData.backgroundImage?.src || "";
 
+  const hasBrandOptions = Array.isArray(productLineData.brandOptions) && productLineData.brandOptions.length > 0;
+
   // Render Server Component Node for RelatedProducts
   const relatedProductsNode = (
     <RelatedProducts 
@@ -84,6 +86,20 @@ export default async function ProductLinePage({ params }: ProductLinePageProps) 
       excludeProductId={variantsList[0]?.id} 
     />
   );
+
+  if (hasBrandOptions) {
+    return (
+      <main className="min-h-screen bg-white relative overflow-hidden">
+        <ProductClientView 
+          categoryData={categoryData} 
+          seriesData={seriesData} 
+          productLineData={productLineData} 
+          variantsList={variantsList}
+          relatedProductsNode={relatedProductsNode}
+        />
+      </main>
+    );
+  }
 
   return (
     <main 
