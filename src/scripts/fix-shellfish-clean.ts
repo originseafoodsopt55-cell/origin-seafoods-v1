@@ -31,7 +31,7 @@ async function fixShellfishClean() {
 
   const shellfishMap = [
     { slug: 'blood-cockle', desktopName: 'หอยแครง.png', cleanName: 'blood-cockle.png', cleanGroup: 'blood-cockle-blood-cockle.png', seriesId: 45, lineId: 36, mediaSeriesId: 147, mediaLineId: 151 },
-    { slug: 'whelk', desktopName: 'หอยหวาน.png', cleanName: 'whelk.png', cleanGroup: 'whelk-whelk.png', seriesId: 43, lineId: 33, mediaSeriesId: 148, mediaLineId: 152 },
+    { slug: 'topshell', desktopName: 'หอยหวาน.png', cleanName: 'whelk.png', cleanGroup: 'whelk-whelk.png', seriesId: 43, lineId: 33, mediaSeriesId: 148, mediaLineId: 152 },
     { slug: 'japanese-scallop', desktopName: 'หอยเชลล์.png', cleanName: 'japanese-scallop.png', cleanGroup: 'japanese-scallop-half-shell.png', seriesId: 44, lineId: 35, mediaSeriesId: 149, mediaLineId: 153 },
     { slug: 'razor-clam', desktopName: 'หอยหลอด.png', cleanName: 'razor-clam.png', cleanGroup: 'razor-clam-razor-clam.png', seriesId: 42, lineId: 32, mediaSeriesId: 150, mediaLineId: 154 },
   ];

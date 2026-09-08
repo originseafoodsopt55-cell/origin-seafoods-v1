@@ -218,15 +218,15 @@ export const productSeries: ProductSeries[] = [
     description: "หอยแครงฟรีส เนื้อเต็มสวย ไม่ติดฝา เลือดฉ่ำสดสะอาด"
   },
   {
-    id: "series-whelk",
-    slug: "whelk",
+    id: "series-topshell",
+    slug: "topshell",
     categorySlug: "shellfish",
     thai: "หอยหวาน",
-    english: "Whelk",
+    english: "Top Shell",
     image: {
       src: "/images/products/whelk.png",
-      alt: "Whelk frozen seafood product",
-      title: "Whelk"
+      alt: "Top Shell frozen seafood product",
+      title: "Top Shell"
     },
     description: "หอยหวานและหอยหวานตูดแหลม เนื้อเด้งหวานเป็นธรรมชาติ"
   },
@@ -530,18 +530,18 @@ export const productGroups: ProductGroup[] = [
     },
     description: "หอยแครงแช่แข็งเนื้อแน่น แฝงความสดหวานฉ่ำเป็นธรรมชาติ"
   },
-  // Shellfish -> Whelk
+  // Shellfish -> Top Shell
   {
-    id: "group-whelk",
-    slug: "whelk",
-    seriesSlug: "whelk",
+    id: "group-topshell",
+    slug: "topshell",
+    seriesSlug: "topshell",
     categorySlug: "shellfish",
     thai: "หอยหวาน",
-    english: "Whelk",
+    english: "Top Shell",
     image: {
       src: "/images/products/whelk-whelk.png",
-      alt: "Whelk frozen seafood product",
-      title: "Whelk"
+      alt: "Top Shell frozen seafood product",
+      title: "Top Shell"
     },
     description: "หอยหวานและหอยหวานตูดแหลม เนื้อเด้งหวานเป็นธรรมชาติ"
   },

@@ -10,6 +10,7 @@ export interface BrandOption {
   boxImage?: ImageAsset;
   gallery?: ImageAsset[];
   packingSize?: string;
+  sizes?: (string | BrandSizeOption)[];
   maleSizes?: (string | BrandSizeOption)[];
   femaleSizes?: (string | BrandSizeOption)[];
 }

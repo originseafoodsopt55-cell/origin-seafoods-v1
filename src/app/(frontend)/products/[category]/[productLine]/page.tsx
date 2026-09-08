@@ -73,10 +73,6 @@ export default async function ProductLinePage({ params }: ProductLinePageProps) 
 
   const variantsList = await getProductVariantsByProductLine(category, productLine);
 
-  const bgImageUrl = categoryData.backgroundImage?.src || "";
-
-  const hasBrandOptions = Array.isArray(productLineData.brandOptions) && productLineData.brandOptions.length > 0;
-
   // Render Server Component Node for RelatedProducts
   const relatedProductsNode = (
     <RelatedProducts 
@@ -87,26 +83,8 @@ export default async function ProductLinePage({ params }: ProductLinePageProps) 
     />
   );
 
-  if (hasBrandOptions) {
-    return (
-      <main className="min-h-screen bg-white relative overflow-hidden">
-        <ProductClientView 
-          categoryData={categoryData} 
-          seriesData={seriesData} 
-          productLineData={productLineData} 
-          variantsList={variantsList}
-          relatedProductsNode={relatedProductsNode}
-        />
-      </main>
-    );
-  }
-
   return (
-    <main 
-      className="min-h-screen bg-cover bg-center bg-no-repeat bg-fixed relative overflow-hidden"
-      style={bgImageUrl ? { backgroundImage: `url('${bgImageUrl}')` } : { backgroundColor: "#0f172a" }}
-    >
-      <div className="absolute inset-0 bg-black/60 z-0 pointer-events-none"></div>
+    <main className="min-h-screen bg-white relative overflow-hidden">
       <ProductClientView 
         categoryData={categoryData} 
         seriesData={seriesData} 

@@ -146,6 +146,28 @@ export const ProductLines: CollectionConfig = {
           label: 'ขนาดบรรจุ (เช่น ลังละ 8 Kg.)',
         },
         {
+          name: 'sizes',
+          type: 'array',
+          label: 'ไซส์สินค้า / ขนาดทั่วไป (Sizes - สำหรับสินค้าไม่แยกเพศ เช่น หมึก, ปลา)',
+          admin: {
+            description: 'ใส่ขนาดไซส์สินค้าทั่วไป เช่น 200/300, 10-20, M, L (หากกรอกช่องนี้ ระบบจะไม่แสดง Badge ชาย/หญิง)',
+          },
+          fields: [
+            {
+              name: 'sizeText',
+              type: 'text',
+              required: true,
+              label: 'ไซส์ (เช่น 200/300, M, L)',
+            },
+            {
+              name: 'sizeImage',
+              type: 'relationship',
+              relationTo: 'media',
+              label: 'ภาพสินค้าสำหรับไซส์นี้ (เลือกผูกจาก Media หรืออัปโหลดใหม่)',
+            },
+          ],
+        },
+        {
           name: 'maleSizes',
           type: 'array',
           label: 'ไซส์ตัวผู้ (MALE)',

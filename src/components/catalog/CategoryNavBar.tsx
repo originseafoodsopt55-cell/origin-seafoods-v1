@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState, useMemo } from 'react';
 import type { Category } from '@/types';
 import { CATEGORY_ORDER, sortCategories } from '@/lib/categoryOrder';
 
@@ -20,38 +20,60 @@ interface CategoryNavBarProps {
 }
 
 export function CategoryNavBar({ categories, mode, initialActiveSlug }: CategoryNavBarProps) {
+  const sorted = useMemo(() => sortCategories(categories), [categories]);
+  const hasInitialScrolled = useRef(false);
+
   const [activeSlug, setActiveSlug] = useState<string>(
-    initialActiveSlug ?? categories[0]?.slug ?? ''
+    initialActiveSlug ?? sorted[0]?.slug ?? ''
   );
   const navRef = useRef<HTMLElement>(null);
-  const sorted = sortCategories(categories);
 
-  // Scroll-spy: only active in hub mode (passive visibility detection)
+  // Hash detection and smooth scroll to targeted section on mount (Run once)
   useEffect(() => {
-    if (mode !== 'hub') return;
+    if (mode !== 'hub' || typeof window === 'undefined' || hasInitialScrolled.current) return;
 
-    const sections = sorted
-      .map((cat) => document.getElementById(cat.slug))
-      .filter(Boolean) as HTMLElement[];
-
-    if (sections.length === 0) return;
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            setActiveSlug(entry.target.id);
-          }
-        });
-      },
-      {
-        rootMargin: '-120px 0px -70% 0px',
-        threshold: 0,
+    const hash = window.location.hash.replace('#', '');
+    if (hash && sorted.some((cat) => cat.slug === hash)) {
+      setActiveSlug(hash);
+      const target = document.getElementById(hash);
+      if (target) {
+        hasInitialScrolled.current = true;
+        setTimeout(() => {
+          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }, 100);
       }
-    );
+    }
+  }, [mode, sorted]);
 
-    sections.forEach((el) => observer.observe(el));
-    return () => observer.disconnect();
+  // ScrollSpy คำนวณตำแหน่งหมวดหมู่ที่ Active แม่นยำตามแนวการอ่าน (Bounding Rect Scroll Listener)
+  useEffect(() => {
+    if (mode !== 'hub' || typeof window === 'undefined') return;
+
+    const handleScrollSpy = () => {
+      const headerOffset = 160;
+      const sectionElements = sorted
+        .map((cat) => ({ slug: cat.slug, el: document.getElementById(cat.slug) }))
+        .filter((item): item is { slug: string; el: HTMLElement } => item.el !== null);
+
+      if (sectionElements.length === 0) return;
+
+      let currentSlug = sectionElements[0].slug;
+      for (const { slug, el } of sectionElements) {
+        const rect = el.getBoundingClientRect();
+        if (rect.top <= headerOffset) {
+          currentSlug = slug;
+        } else {
+          break;
+        }
+      }
+
+      setActiveSlug(currentSlug);
+    };
+
+    window.addEventListener('scroll', handleScrollSpy, { passive: true });
+    handleScrollSpy();
+
+    return () => window.removeEventListener('scroll', handleScrollSpy);
   }, [mode, sorted]);
 
   // Auto-scroll the active pill into view inside the nav bar container without triggering window scroll

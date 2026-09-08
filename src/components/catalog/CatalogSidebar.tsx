@@ -2,7 +2,7 @@
 
 import { sortCategories } from '@/lib/categoryOrder';
 import type { Category } from '@/types';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useMemo, useRef } from 'react';
 
 interface CatalogSidebarProps {
   categories: Pick<Category, 'slug' | 'thai' | 'english'>[];
@@ -16,7 +16,9 @@ interface CatalogSidebarProps {
 }
 
 export function CatalogSidebar({ categories, mode, activeSlug }: CatalogSidebarProps) {
-  const sorted = sortCategories(categories);
+  const sorted = useMemo(() => sortCategories(categories), [categories]);
+  const hasInitialScrolled = useRef(false);
+
   const [currentActive, setCurrentActive] = useState<string>(
     activeSlug ?? sorted[0]?.slug ?? ''
   );
@@ -28,32 +30,54 @@ export function CatalogSidebar({ categories, mode, activeSlug }: CatalogSidebarP
     }
   }, [activeSlug]);
 
-  // Read-only IntersectionObserver for scroll spy (only on hub page)
+  // Hash detection and smooth scroll to targeted section on mount (Run once)
   useEffect(() => {
-    if (mode !== 'hub') return;
+    if (mode !== 'hub' || typeof window === 'undefined' || hasInitialScrolled.current) return;
 
-    const sections = sorted
-      .map((cat) => document.getElementById(cat.slug))
-      .filter(Boolean) as HTMLElement[];
-
-    if (sections.length === 0) return;
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            setCurrentActive(entry.target.id);
-          }
-        });
-      },
-      {
-        rootMargin: '-120px 0px -70% 0px',
-        threshold: 0,
+    const hash = window.location.hash.replace('#', '');
+    if (hash && sorted.some((cat) => cat.slug === hash)) {
+      setCurrentActive(hash);
+      const target = document.getElementById(hash);
+      if (target) {
+        hasInitialScrolled.current = true;
+        // Delay slightly to let layout stabilize
+        setTimeout(() => {
+          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }, 100);
       }
-    );
+    }
+  }, [mode, sorted]);
 
-    sections.forEach((el) => observer.observe(el));
-    return () => observer.disconnect();
+  // ScrollSpy คำนวณตำแหน่งหมวดหมู่ที่ Active แม่นยำตามแนวการอ่าน (Bounding Rect Scroll Listener)
+  useEffect(() => {
+    if (mode !== 'hub' || typeof window === 'undefined') return;
+
+    const handleScrollSpy = () => {
+      const headerOffset = 160; // ระยะเผื่อแนว Header + Sticky Bar
+      const sectionElements = sorted
+        .map((cat) => ({ slug: cat.slug, el: document.getElementById(cat.slug) }))
+        .filter((item): item is { slug: string; el: HTMLElement } => item.el !== null);
+
+      if (sectionElements.length === 0) return;
+
+      // หาหมวดหมู่ที่อยู่ตำแหน่งบนสุดของพื้นที่แสดงผลปัจจุบัน
+      let currentSlug = sectionElements[0].slug;
+      for (const { slug, el } of sectionElements) {
+        const rect = el.getBoundingClientRect();
+        if (rect.top <= headerOffset) {
+          currentSlug = slug;
+        } else {
+          break;
+        }
+      }
+
+      setCurrentActive(currentSlug);
+    };
+
+    window.addEventListener('scroll', handleScrollSpy, { passive: true });
+    handleScrollSpy();
+
+    return () => window.removeEventListener('scroll', handleScrollSpy);
   }, [mode, sorted]);
 
   function handleLinkClick(slug: string) {

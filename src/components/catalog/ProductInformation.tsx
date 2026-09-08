@@ -9,10 +9,9 @@ interface ProductInformationProps {
   variants?: ProductVariant[];
 }
 
-export function ProductInformation({ product, categoryName, seriesName, variants = [] }: ProductInformationProps) {
+export function ProductInformation({ product, variants = [] }: ProductInformationProps) {
   return (
     <div className="product-detail-info-block">
-      <span className="product-category-tag-badge">{categoryName} &gt; {seriesName}</span>
       <h1 className="product-detail-thai-name">{product.thai}</h1>
       <p className="product-detail-eng-name">{product.english}</p>
       
@@ -69,8 +68,13 @@ export function ProductInformation({ product, categoryName, seriesName, variants
       )}
 
       <div className="product-inquiry-action" style={{ marginTop: "20px" }}>
-        <Button variant="hero-orange" href="/#contact">
-          ส่งคำถามข้อมูลสินค้า / Inquiry Now <ArrowRight size={18} style={{ marginLeft: "8px" }} />
+        <Button
+          variant="hero-orange"
+          href="/#contact"
+          className="inline-flex items-center justify-center gap-3 px-7 py-3.5 text-center font-bold text-white shadow-md hover:shadow-lg transition-all"
+        >
+          <span>สนใจติดต่อ / สั่งซื้อ</span>
+          <ArrowRight size={18} className="text-white" />
         </Button>
       </div>
     </div>

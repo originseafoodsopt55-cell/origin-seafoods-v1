@@ -288,6 +288,16 @@ export interface ProductLine {
             }[]
           | null;
         packingSize?: string | null;
+        /**
+         * ใส่ขนาดไซส์สินค้าทั่วไป เช่น 200/300, 10-20, M, L (หากกรอกช่องนี้ ระบบจะไม่แสดง Badge ชาย/หญิง)
+         */
+        sizes?:
+          | {
+              sizeText: string;
+              sizeImage?: (number | null) | Media;
+              id?: string | null;
+            }[]
+          | null;
         maleSizes?:
           | {
               sizeText: string;
@@ -727,6 +737,13 @@ export interface ProductLinesSelect<T extends boolean = true> {
               id?: T;
             };
         packingSize?: T;
+        sizes?:
+          | T
+          | {
+              sizeText?: T;
+              sizeImage?: T;
+              id?: T;
+            };
         maleSizes?:
           | T
           | {

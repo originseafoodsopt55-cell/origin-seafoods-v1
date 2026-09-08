@@ -12,6 +12,7 @@ const BrandOptionSchema = z.object({
   boxImage: ImageAssetSchema.optional(),
   gallery: z.array(ImageAssetSchema).optional(),
   packingSize: z.string().optional(),
+  sizes: z.array(z.union([z.string(), BrandSizeOptionSchema])).optional(),
   maleSizes: z.array(z.union([z.string(), BrandSizeOptionSchema])).optional(),
   femaleSizes: z.array(z.union([z.string(), BrandSizeOptionSchema])).optional(),
 });

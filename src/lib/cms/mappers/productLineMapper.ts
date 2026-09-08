@@ -47,6 +47,9 @@ function mapBrandOption(raw: any): BrandOption {
     boxImage,
     gallery: galleryItems && galleryItems.length > 0 ? galleryItems : undefined,
     packingSize: raw.packingSize ?? undefined,
+    sizes: Array.isArray(raw.sizes)
+      ? raw.sizes.map(mapSizeItem).filter((s: any) => Boolean(s && s.sizeText))
+      : undefined,
     maleSizes: Array.isArray(raw.maleSizes)
       ? raw.maleSizes.map(mapSizeItem).filter((s: any) => Boolean(s && s.sizeText))
       : undefined,
