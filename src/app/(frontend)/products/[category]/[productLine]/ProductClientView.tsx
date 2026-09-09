@@ -162,28 +162,9 @@ function BrandSelectorView({
     }
   }, [productLineData?.categorySlug, _categoryData?.slug, router]);
 
-  // ฟังก์ชันจัดการการสั่งซื้อผ่าน Facebook Messenger พร้อมคัดลอกสเปกสินค้า
+  // ฟังก์ชันจัดการการสั่งซื้อผ่าน Facebook Messenger โดยตรง
   const handleMessengerOrder = (e: React.MouseEvent) => {
     e.preventDefault();
-
-    // รวบรวมสเปกสินค้าที่ลูกค้าเลือกอยู่ขณะนั้น
-    const brandName = selectedBrand?.brandName ? ` แบรนด์: ${selectedBrand.brandName}` : "";
-    const sizeDetail = selectedSizeObj?.size 
-      ? ` ไซส์: ${selectedSizeObj.gender ? `${selectedSizeObj.gender} (${selectedSizeObj.size})` : selectedSizeObj.size}`
-      : "";
-    const packingDetail = selectedBrand?.packingSize ? ` บรรจุ: ${selectedBrand.packingSize}` : "";
-
-    // ข้อความสรุปรายการ
-    const thaiTitle = productLineData.thaiTitle || productLineData.thai || thaiName;
-    const englishTitle = productLineData.englishTitle || productLineData.english || englishName;
-    const orderMessage = `สนใจติดต่อ / สั่งซื้อ: ${thaiTitle} (${englishTitle})${brandName}${sizeDetail}${packingDetail}`;
-
-    // คัดลอกข้อความลง Clipboard
-    if (typeof navigator !== "undefined" && navigator.clipboard) {
-      navigator.clipboard.writeText(orderMessage).catch(() => {});
-    }
-
-    // เปิดแชท Messenger ของเพจบริษัท
     window.open("https://m.me/originseafoods", "_blank", "noopener,noreferrer");
   };
 
