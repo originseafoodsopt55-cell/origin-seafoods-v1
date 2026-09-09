@@ -3,10 +3,12 @@
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { ChevronDown, Menu, X } from "lucide-react";
+import { Menu, X } from "lucide-react";
 import { useState, useEffect, useRef } from "react";
 import { assets } from "@/lib/assets";
 import { Button } from "@/components/ui/Button";
+import { useLanguage } from "@/context/LanguageContext";
+import { LanguageSelector } from "./LanguageSelector";
 import type { NavigationItem } from "@/types";
 
 interface NavbarProps {
@@ -34,9 +36,34 @@ export function Navbar({ navItems }: NavbarProps) {
   const pathname = usePathname();
   const headerRef = useRef<HTMLElement>(null);
 
-  const orderedNavItems = [...navItems].sort(
+  // ปรับแก้เมนู "สินค้า" ให้ชี้ไปยัง /products โดยตรง
+  const processedNavItems = navItems.map((item) => {
+    if (item.label === "สินค้า" || item.href === "#products" || item.href === "/#products") {
+      return { ...item, href: "/products" };
+    }
+    return item;
+  });
+
+  const orderedNavItems = [...processedNavItems].sort(
     (a, b) => getNavOrder(a.href) - getNavOrder(b.href)
   );
+
+  const { lang, t } = useLanguage();
+
+  const getNavLabel = (item: NavigationItem) => {
+    if (lang === 'en') {
+      const enLabels: Record<string, string> = {
+        'หน้าแรก': 'Home',
+        'เกี่ยวกับเรา': 'About Us',
+        'สินค้า': 'Products',
+        'แบรนด์ที่นำเข้า': 'Brands',
+        'ข่าวสาร': 'News',
+        'ติดต่อเรา': 'Contact Us',
+      };
+      return enLabels[item.label.trim()] || item.label;
+    }
+    return item.label;
+  };
 
   useEffect(() => {
     const handleScroll = () => {
@@ -61,13 +88,19 @@ export function Navbar({ navItems }: NavbarProps) {
   }, []);
 
   const getIsActive = (item: NavigationItem) => {
-    const cleanItemHref = item.href.replace(/^#/, "");
+    // สถานะ Active สำหรับเมนูสินค้า: ทำงานเมื่ออยู่ที่ /products หรือหน้ารายละเอียดย่อย /products/...
+    if (item.href === "/products" || item.label === "สินค้า") {
+      return pathname === "/products" || pathname.startsWith("/products/");
+    }
+
+    const cleanItemHref = item.href.replace(/^[/#]+/, "");
     if (pathname === "/") {
       if (activeHash) {
-        return activeHash === `#${cleanItemHref}`;
+        return activeHash.replace(/^#/, "") === cleanItemHref;
       }
       return cleanItemHref === "home" || item.href === "/" || item.href === "#home";
     }
+
     return pathname.startsWith(item.href) && item.href !== "/";
   };
 
@@ -122,24 +155,22 @@ export function Navbar({ navItems }: NavbarProps) {
             const navHref = item.href.startsWith("#") ? `/${item.href}` : item.href;
             const isActive = getIsActive(item);
             return (
-              <a
+              <Link
                 key={item.href}
                 href={navHref}
                 className={isActive ? "is-active" : ""}
                 aria-current={isActive ? "page" : undefined}
               >
-                {item.label}
-              </a>
+                {getNavLabel(item)}
+              </Link>
             );
           })}
         </div>
 
         <div className="header-actions">
-          <button className="language-pill" aria-label="Language switcher">
-            TH <ChevronDown size={15} />
-          </button>
+          <LanguageSelector />
           <Button variant="header" href="/#contact">
-            ติดต่อเรา
+            {t('contactUs')}
           </Button>
         </div>
 
@@ -152,14 +183,27 @@ export function Navbar({ navItems }: NavbarProps) {
         <div className="mobile-menu">
           {orderedNavItems.map((item) => {
             const navHref = item.href.startsWith("#") ? `/${item.href}` : item.href;
+            const isActive = getIsActive(item);
             return (
-              <a key={item.href} href={navHref} onClick={() => setMenuOpen(false)}>
-                {item.label}
-              </a>
+              <Link
+                key={item.href}
+                href={navHref}
+                onClick={() => setMenuOpen(false)}
+                className={isActive ? "is-active text-[#f58220]" : ""}
+                aria-current={isActive ? "page" : undefined}
+              >
+                {getNavLabel(item)}
+              </Link>
             );
           })}
+          <div className="pt-3 pb-1 border-t border-gray-100 flex items-center justify-between">
+            <span className="text-xs font-bold text-gray-500">Language / ภาษา</span>
+            <LanguageSelector />
+          </div>
         </div>
       )}
     </header>
   );
 }
+
+export { LanguageSelector } from "./LanguageSelector";

@@ -29,11 +29,12 @@ export function Footer({ navItems, contact }: FooterProps) {
         <div>
           <h3>เมนูหลัก</h3>
           {navItems.map((item) => {
-            const navHref = item.href.startsWith("#") ? `/${item.href}` : item.href;
+            const isProducts = item.label === "สินค้า" || item.href === "#products" || item.href === "/#products";
+            const navHref = isProducts ? "/products" : (item.href.startsWith("#") ? `/${item.href}` : item.href);
             return (
-              <a key={item.href} href={navHref}>
+              <Link key={item.href} href={navHref}>
                 {item.label}
-              </a>
+              </Link>
             );
           })}
         </div>

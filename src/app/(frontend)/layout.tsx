@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { assets } from "@/lib/assets";
 import { FloatingContact } from "@/components/layout/FloatingContact";
+import { LanguageProvider } from "@/context/LanguageContext";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -90,8 +91,10 @@ export default function RootLayout({
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteSchema) }}
         />
-        {children}
-        <FloatingContact />
+        <LanguageProvider>
+          {children}
+          <FloatingContact />
+        </LanguageProvider>
       </body>
     </html>
   );

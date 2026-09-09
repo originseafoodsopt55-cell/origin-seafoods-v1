@@ -13,7 +13,7 @@ const contactData = {
 const navigationData = [
   { href: "#home", label: "หน้าแรก" },
   { href: "#about", label: "เกี่ยวกับเรา" },
-  { href: "#products", label: "สินค้า" },
+  { href: "/products", label: "สินค้า" },
   { href: "#brands", label: "แบรนด์ที่นำเข้า" },
   { href: "#gallery", label: "แกลเลอรี่" },
   { href: "#contact", label: "ติดต่อเรา" }

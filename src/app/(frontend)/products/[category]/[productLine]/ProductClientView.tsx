@@ -5,7 +5,6 @@ import React, { useState, useCallback, useEffect, useMemo } from "react";
 import { useRouter } from "next/navigation";
 import { SafeImage } from "@/components/ui/SafeImage";
 import { ArrowRight } from "lucide-react";
-import { Button } from "@/components/ui/Button";
 import type { Category, Series, ProductLine, ProductVariant, BrandOption, ImageAsset } from "@/types";
 
 interface ProductClientViewProps {
@@ -162,6 +161,28 @@ function BrandSelectorView({
       router.push("/products");
     }
   }, [productLineData?.categorySlug, _categoryData?.slug, router]);
+
+  // ฟังก์ชันสั่งซื้อผ่าน LINE Official Account พร้อมคัดลอกสเปกสินค้าลง Clipboard
+  const handleLineOrder = (e: React.MouseEvent) => {
+    e.preventDefault();
+
+    // สร้างข้อความสรุปรายการสินค้าที่เลือก
+    const brandTitle = selectedBrand?.brandName ? ` แบรนด์: ${selectedBrand.brandName}` : "";
+    const sizeTitle = selectedSizeObj?.size
+      ? ` ไซส์: ${selectedSizeObj.gender ? `${selectedSizeObj.gender} (${selectedSizeObj.size})` : selectedSizeObj.size}`
+      : "";
+    const packingTitle = selectedBrand?.packingSize ? ` ขนาดบรรจุ: ${selectedBrand.packingSize}` : "";
+
+    const summaryText = `สนใจติดต่อ / สั่งซื้อ: ${thaiName} (${englishName})${brandTitle}${sizeTitle}${packingTitle}`;
+
+    // พยายามคัดลอกข้อมูลสรุปสเปกลง Clipboard ก่อนเปิด LINE
+    if (typeof navigator !== "undefined" && navigator.clipboard) {
+      navigator.clipboard.writeText(summaryText).catch(() => {});
+    }
+
+    // เปิดลิงก์ LINE ในแท็บใหม่
+    window.open("https://lin.ee/5qZek9J", "_blank", "noopener,noreferrer");
+  };
 
   // Render Brand Thumbnails row (supports 'large' for initial brand selector and 'compact' for carousel thumbnail strip)
   const renderBrandThumbnails = (variant: "large" | "compact" = "large") => {
@@ -335,16 +356,16 @@ function BrandSelectorView({
           <h1 className="text-2xl lg:text-3xl font-bold text-gray-900 mt-1 mb-1">{displayTitle}</h1>
           <p className="text-lg text-gray-500 mb-6">{englishName}</p>
 
-          {/* CTA Button (Synced styling with Legacy Product / Centered layout) */}
+          {/* CTA Button */}
           <div className="mb-8">
-            <Button
-              variant="hero-orange"
-              href="/#contact"
-              className="inline-flex items-center justify-center gap-3 px-7 py-3.5 text-center font-bold text-white shadow-md hover:shadow-lg transition-all"
+            <button
+              type="button"
+              onClick={handleLineOrder}
+              className="w-fit flex items-center justify-center gap-2.5 px-7 py-3.5 rounded-full bg-[#f58220] hover:bg-[#e07318] text-white font-bold text-base shadow-lg shadow-orange-500/25 transition-all duration-300 hover:scale-[1.02] cursor-pointer"
             >
               <span>สนใจติดต่อ / สั่งซื้อ</span>
-              <ArrowRight size={18} className="text-white" />
-            </Button>
+              <ArrowRight className="w-5 h-5 text-white" />
+            </button>
           </div>
 
           {/* Brand Thumbnails Section (in Right Column when NO brand is selected and brandOptions exist) */}
