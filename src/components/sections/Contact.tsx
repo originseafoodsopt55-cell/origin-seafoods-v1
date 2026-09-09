@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import { MapPin } from "lucide-react";
 import { assets } from "@/lib/assets";
 import type { ContactLink } from "@/types";
 import { Button } from "@/components/ui/Button";
@@ -21,6 +22,22 @@ export function Contact({ contactLinks }: ContactProps) {
           <div className="contact-list">
             {contactLinks.map((item) => {
               const Icon = mapIcon(item.icon);
+              const isAddress = item.icon === "mappin" || item.label.includes("สมุทรสาคร");
+              if (isAddress) {
+                return (
+                  <a
+                    key={item.label}
+                    href="https://maps.google.com/?q=13.5686926,100.2948019"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="contact-item hover:text-[#f58220] hover:border-[#f58220]/40 transition-colors"
+                    title="เปิดแผนที่ใน Google Maps"
+                  >
+                    <Icon size={19} />
+                    <span>{item.label}</span>
+                  </a>
+                );
+              }
               return (
                 <div key={item.label} className="contact-item">
                   <Icon size={19} />
@@ -58,12 +75,28 @@ export function Contact({ contactLinks }: ContactProps) {
         </div>
 
         <div className="contact-right">
-          <iframe
-            title="Origin Seafoods Google Map"
-            src="https://www.google.com/maps?q=48/191%20Moo%204%20Na%20Di%20Mueang%20Samut%20Sakhon%2074000%20Thailand&output=embed"
-            loading="lazy"
-            referrerPolicy="no-referrer-when-downgrade"
-          />
+          <div className="relative group w-full h-full min-h-[390px] rounded-2xl overflow-hidden shadow-lg border border-gray-100">
+            <iframe
+              title="แผนที่ บริษัท ออริจิน ซีฟู้ดส์ จำกัด"
+              src="https://maps.google.com/maps?q=13.5686926,100.2948019&hl=th&z=16&output=embed"
+              width="100%"
+              height="100%"
+              style={{ border: 0 }}
+              allowFullScreen
+              loading="lazy"
+              referrerPolicy="no-referrer-when-downgrade"
+              className="w-full h-full min-h-[390px] border-0"
+            />
+            <a
+              href="https://maps.google.com/?q=13.5686926,100.2948019"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="absolute bottom-3 right-3 z-10 flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-white/95 backdrop-blur-sm text-xs sm:text-sm font-bold text-gray-800 shadow-md hover:shadow-lg hover:bg-white hover:text-[#f58220] transition-all border border-gray-200/80 cursor-pointer"
+            >
+              <MapPin className="w-4 h-4 text-[#f58220]" />
+              <span>เปิดใน Maps</span>
+            </a>
+          </div>
           <form className="contact-form" onSubmit={(e) => e.preventDefault()}>
             <input name="name" aria-label="Name" placeholder="Name" required />
             <input name="company" aria-label="Company" placeholder="Company" />
