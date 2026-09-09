@@ -11,9 +11,12 @@ interface BrandRailProps {
 
 export function BrandRail({ brands }: BrandRailProps) {
   return (
-    <StaggerGroup className="brand-rail" fast={true}>
+    <StaggerGroup
+      className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3 sm:gap-4 w-full max-w-full"
+      fast={true}
+    >
       {brands.map((brand) => (
-        <motion.div key={brand.name} variants={staggerItem}>
+        <motion.div key={brand.name} variants={staggerItem} className="w-full min-w-0">
           <BrandCard brand={brand} />
         </motion.div>
       ))}

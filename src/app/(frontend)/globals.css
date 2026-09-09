@@ -865,6 +865,9 @@ h2 {
 .brands-section {
   padding: 60px 0 70px;
   background: #ffffff;
+  overflow: hidden;
+  width: 100%;
+  max-width: 100%;
 }
 
 .brands-section .section-header-wrapper {
