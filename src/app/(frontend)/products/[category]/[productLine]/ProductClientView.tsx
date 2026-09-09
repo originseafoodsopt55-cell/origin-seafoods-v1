@@ -162,26 +162,29 @@ function BrandSelectorView({
     }
   }, [productLineData?.categorySlug, _categoryData?.slug, router]);
 
-  // ฟังก์ชันสั่งซื้อผ่าน LINE Official Account พร้อมคัดลอกสเปกสินค้าลง Clipboard
-  const handleLineOrder = (e: React.MouseEvent) => {
+  // ฟังก์ชันจัดการการสั่งซื้อผ่าน Facebook Messenger พร้อมคัดลอกสเปกสินค้า
+  const handleMessengerOrder = (e: React.MouseEvent) => {
     e.preventDefault();
 
-    // สร้างข้อความสรุปรายการสินค้าที่เลือก
-    const brandTitle = selectedBrand?.brandName ? ` แบรนด์: ${selectedBrand.brandName}` : "";
-    const sizeTitle = selectedSizeObj?.size
+    // รวบรวมสเปกสินค้าที่ลูกค้าเลือกอยู่ขณะนั้น
+    const brandName = selectedBrand?.brandName ? ` แบรนด์: ${selectedBrand.brandName}` : "";
+    const sizeDetail = selectedSizeObj?.size 
       ? ` ไซส์: ${selectedSizeObj.gender ? `${selectedSizeObj.gender} (${selectedSizeObj.size})` : selectedSizeObj.size}`
       : "";
-    const packingTitle = selectedBrand?.packingSize ? ` ขนาดบรรจุ: ${selectedBrand.packingSize}` : "";
+    const packingDetail = selectedBrand?.packingSize ? ` บรรจุ: ${selectedBrand.packingSize}` : "";
 
-    const summaryText = `สนใจติดต่อ / สั่งซื้อ: ${thaiName} (${englishName})${brandTitle}${sizeTitle}${packingTitle}`;
+    // ข้อความสรุปรายการ
+    const thaiTitle = productLineData.thaiTitle || productLineData.thai || thaiName;
+    const englishTitle = productLineData.englishTitle || productLineData.english || englishName;
+    const orderMessage = `สนใจติดต่อ / สั่งซื้อ: ${thaiTitle} (${englishTitle})${brandName}${sizeDetail}${packingDetail}`;
 
-    // พยายามคัดลอกข้อมูลสรุปสเปกลง Clipboard ก่อนเปิด LINE
+    // คัดลอกข้อความลง Clipboard
     if (typeof navigator !== "undefined" && navigator.clipboard) {
-      navigator.clipboard.writeText(summaryText).catch(() => {});
+      navigator.clipboard.writeText(orderMessage).catch(() => {});
     }
 
-    // เปิดลิงก์ LINE ในแท็บใหม่
-    window.open("https://lin.ee/5qZek9J", "_blank", "noopener,noreferrer");
+    // เปิดแชท Messenger ของเพจบริษัท
+    window.open("https://m.me/originseafoods", "_blank", "noopener,noreferrer");
   };
 
   // Render Brand Thumbnails row (supports 'large' for initial brand selector and 'compact' for carousel thumbnail strip)
@@ -360,7 +363,7 @@ function BrandSelectorView({
           <div className="mb-8">
             <button
               type="button"
-              onClick={handleLineOrder}
+              onClick={handleMessengerOrder}
               className="w-fit flex items-center justify-center gap-2.5 px-7 py-3.5 rounded-full bg-[#f58220] hover:bg-[#e07318] text-white font-bold text-base shadow-lg shadow-orange-500/25 transition-all duration-300 hover:scale-[1.02] cursor-pointer"
             >
               <span>สนใจติดต่อ / สั่งซื้อ</span>
