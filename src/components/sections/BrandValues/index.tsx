@@ -1,227 +1,145 @@
-"use client";
+'use client';
 
-import React, { useRef } from "react";
-import Image from "next/image";
-import { motion, useTransform, useReducedMotion, type MotionValue } from "framer-motion";
-import { Container } from "@/components/ui/Container";
-import { usePinnedScroll } from "./usePinnedScroll";
+import React, { useRef, useState, useEffect } from 'react';
 
-// Approved brand values — hardcoded, single source of truth
-const BRAND_VALUE_STATEMENTS = [
-  { id: "bv-1", title: "GOOD LEARNING" },
-  { id: "bv-2", title: "GOOD GOAL" },
-  { id: "bv-3", title: "GOOD TEAM" },
-  { id: "bv-4", title: "GOOD JOB" },
-] as const;
-
-// Static range mappings for 4 items to ensure Framer Motion useTransform reference stability
-const ITEM_OPACITY_RANGES = [
-  { input: [0.0, 0.1625, 0.20, 0.25], output: [1, 1, 0, 0] },
-  { input: [0.25, 0.2875, 0.4125, 0.45, 0.50], output: [0, 1, 1, 0, 0] },
-  { input: [0.50, 0.5375, 0.6625, 0.70, 0.75], output: [0, 1, 1, 0, 0] },
-  { input: [0.75, 0.7875, 1.0], output: [0, 1, 1] },
+const BRAND_VALUES = [
+  {
+    id: 'bv-1',
+    prefix: 'GOOD',
+    highlight: 'LEARNING',
+    desc: 'เปิดรับความรู้ใหม่ พัฒนาทักษะและมาตรฐานอย่างไม่หยุดยั้ง',
+  },
+  {
+    id: 'bv-2',
+    prefix: 'GOOD',
+    highlight: 'GOAL',
+    desc: 'เป้าหมายชัดเจน มุ่งมั่นขับเคลื่อนธุรกิจสู่ความสำเร็จร่วมกัน',
+  },
+  {
+    id: 'bv-3',
+    prefix: 'GOOD',
+    highlight: 'TEAM',
+    desc: 'ผสานพลังทีมงานมืออาชีพ ร่วมแรงร่วมใจเพื่อผลลัพธ์ที่ดีที่สุด',
+  },
+  {
+    id: 'bv-4',
+    prefix: 'GOOD',
+    highlight: 'JOB',
+    desc: 'ส่งมอบคุณภาพและความเป็นเลิศระดับสากลในทุกคำสั่งซื้อ',
+  },
 ];
 
-// Static range mappings for continuous artwork translateY scroll (bypassing low-contrast regions during rest gaps)
-const ARTWORK_SCROLL_INPUT = [0.0, 1.0];
-
-interface BrandValueItemProps {
-  title: string;
-  index: number;
-  scrollYProgress: MotionValue<number>;
-  shouldReduceMotion: boolean | null;
-}
-
-function BrandValueItem({
-  title,
-  index,
-  scrollYProgress,
-  shouldReduceMotion,
-}: BrandValueItemProps) {
-  const itemRef = useRef<HTMLLIElement>(null);
-  const range = ITEM_OPACITY_RANGES[index] || ITEM_OPACITY_RANGES[0];
-  const transformOpacity = useTransform(scrollYProgress, range.input, range.output);
-
-  React.useEffect(() => {
-    if (shouldReduceMotion) return;
-
-    // Apply initial opacity immediately on mount
-    if (itemRef.current) {
-      itemRef.current.style.opacity = transformOpacity.get().toString();
-    }
-
-    // Direct, 100% deterministic DOM inline style subscriber
-    return transformOpacity.on("change", (v) => {
-      if (itemRef.current) {
-        itemRef.current.style.opacity = v.toString();
-      }
-    });
-  }, [transformOpacity, shouldReduceMotion]);
-
-  return (
-    <motion.li ref={itemRef} className="brand-values-item">
-      <h3 className="brand-values-statement">{title}</h3>
-    </motion.li>
-  );
-}
-
-export function BrandValues({ className = "" }: { className?: string }) {
+export function BrandValues({ className = '' }: { className?: string }) {
   const containerRef = useRef<HTMLDivElement>(null);
-  const desktopBgRef = useRef<HTMLDivElement>(null);
-  const tabletBgRef = useRef<HTMLDivElement>(null);
-  const mobileBgRef = useRef<HTMLDivElement>(null);
+  const [progress, setProgress] = useState(0);
 
-  const [desktopRange, setDesktopRange] = React.useState<[number, number]>([0, 0]);
-  const [tabletRange, setTabletRange] = React.useState<[number, number]>([0, 0]);
-  const [mobileRange, setMobileRange] = React.useState<[number, number]>([0, 0]);
+  useEffect(() => {
+    let ticking = false;
 
-  const shouldReduceMotion = useReducedMotion();
-
-  const { scrollYProgress } = usePinnedScroll({
-    targetRef: containerRef,
-    itemCount: BRAND_VALUE_STATEMENTS.length,
-  });
-
-  const desktopY = useTransform(scrollYProgress, ARTWORK_SCROLL_INPUT, desktopRange);
-  const tabletY = useTransform(scrollYProgress, ARTWORK_SCROLL_INPUT, tabletRange);
-  const mobileY = useTransform(scrollYProgress, ARTWORK_SCROLL_INPUT, mobileRange);
-
-  React.useEffect(() => {
-    const calculateRanges = () => {
-      const viewportHeight = window.innerHeight;
-
-      if (desktopBgRef.current) {
-        const height = desktopBgRef.current.getBoundingClientRect().height;
-        setDesktopRange([0, -Math.max(0, height - viewportHeight)]);
-      }
-      if (tabletBgRef.current) {
-        const height = tabletBgRef.current.getBoundingClientRect().height;
-        setTabletRange([0, -Math.max(0, height - viewportHeight)]);
-      }
-      if (mobileBgRef.current) {
-        const height = mobileBgRef.current.getBoundingClientRect().height;
-        setMobileRange([0, -Math.max(0, height - viewportHeight)]);
+    const handleScroll = () => {
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          if (containerRef.current) {
+            const rect = containerRef.current.getBoundingClientRect();
+            const totalScroll = containerRef.current.scrollHeight - window.innerHeight;
+            if (totalScroll > 0) {
+              const currentScroll = -rect.top;
+              const p = Math.min(Math.max(currentScroll / totalScroll, 0), 1);
+              setProgress(p);
+            }
+          }
+          ticking = false;
+        });
+        ticking = true;
       }
     };
 
-    calculateRanges();
-
-    window.addEventListener("resize", calculateRanges);
-    return () => window.removeEventListener("resize", calculateRanges);
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    window.addEventListener('resize', handleScroll, { passive: true });
+    handleScroll();
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+      window.removeEventListener('resize', handleScroll);
+    };
   }, []);
 
-  React.useEffect(() => {
-    if (shouldReduceMotion) return;
-
-    // Apply initial transforms immediately on mount
-    if (desktopBgRef.current) {
-      desktopBgRef.current.style.transform = `translateY(${desktopY.get()}px) translateZ(0px)`;
-    }
-    if (tabletBgRef.current) {
-      tabletBgRef.current.style.transform = `translateY(${tabletY.get()}px) translateZ(0px)`;
-    }
-    if (mobileBgRef.current) {
-      mobileBgRef.current.style.transform = `translateY(${mobileY.get()}px) translateZ(0px)`;
-    }
-
-    // Direct, 100% deterministic DOM transform subscribers
-    const unsubDesktop = desktopY.on("change", (v) => {
-      if (desktopBgRef.current) {
-        desktopBgRef.current.style.transform = `translateY(${v}px) translateZ(0px)`;
-      }
-    });
-    const unsubTablet = tabletY.on("change", (v) => {
-      if (tabletBgRef.current) {
-        tabletBgRef.current.style.transform = `translateY(${v}px) translateZ(0px)`;
-      }
-    });
-    const unsubMobile = mobileY.on("change", (v) => {
-      if (mobileBgRef.current) {
-        mobileBgRef.current.style.transform = `translateY(${v}px) translateZ(0px)`;
-      }
-    });
-
-    return () => {
-      unsubDesktop();
-      unsubTablet();
-      unsubMobile();
-    };
-  }, [desktopY, tabletY, mobileY, shouldReduceMotion]);
+  const count = BRAND_VALUES.length;
+  const activePosition = progress * (count - 1);
+  const currentIndex = Math.min(Math.round(activePosition), count - 1);
 
   return (
-    <section
-      ref={containerRef}
-      id="brand-values"
-      className={`brand-values-section ${shouldReduceMotion ? "reduced-motion" : ""} ${className}`.trim()}
-      aria-label="Brand Values"
-    >
-      {/* Unified Viewport Container — single DOM path for both Motion and Reduced Motion */}
-      <div className="brand-values-sticky">
-        {/* Background Artwork Layer */}
-        <div className="brand-values-bg-layer" aria-hidden="true">
-          <motion.div
-            ref={desktopBgRef}
-            className="brand-values-bg-desktop"
-            style={{ y: shouldReduceMotion ? 0 : desktopY }}
-          >
-            <Image
-              src="/images/brand-values/brand-values-desktop-artwork.png"
-              alt=""
-              width={2560}
-              height={6000}
-              sizes="100vw"
-              quality={100}
-              priority
-              style={{ width: "100%", height: "auto", objectFit: "cover" }}
-            />
-          </motion.div>
-          <motion.div
-            ref={tabletBgRef}
-            className="brand-values-bg-tablet"
-            style={{ y: shouldReduceMotion ? 0 : tabletY }}
-          >
-            <Image
-              src="/images/brand-values/brand-values-desktop-artwork.png"
-              alt=""
-              width={2560}
-              height={6000}
-              sizes="100vw"
-              quality={100}
-              style={{ width: "100%", height: "auto", objectFit: "cover" }}
-            />
-          </motion.div>
-          <motion.div
-            ref={mobileBgRef}
-            className="brand-values-bg-mobile"
-            style={{ y: shouldReduceMotion ? 0 : mobileY }}
-          >
-            <Image
-              src="/images/brand-values/brand-values-mobile-artwork.png"
-              alt=""
-              width={1200}
-              height={3200}
-              sizes="145vw"
-              quality={100}
-              style={{ width: "100%", height: "auto", objectFit: "cover" }}
-            />
-          </motion.div>
+    <section ref={containerRef} className={`relative h-[300vh] bg-white ${className}`.trim()}>
+      {/* Sticky Viewport ล็อกกลางจอ */}
+      <div className="sticky top-0 h-screen w-full flex flex-col items-center justify-center overflow-hidden px-4 sm:px-8">
+        
+        {/* Badge หัวข้อด้านบน */}
+        <div className="inline-flex items-center gap-2 px-5 py-2 rounded-full bg-orange-50/80 border border-orange-200/90 shadow-sm mb-6 sm:mb-10 select-none">
+          <span className="w-2.5 h-2.5 rounded-full bg-[#f58220] animate-pulse" />
+          <span className="text-xs sm:text-sm font-black tracking-[0.25em] text-[#082b59] uppercase">
+            Our Core Values
+          </span>
         </div>
 
-        <Container className="brand-values-content-wrapper">
-          <h2 className="sr-only">Brand Values</h2>
-          {/* Single Unified Statement List */}
-          <ol className="brand-values-items-list" aria-label="Our brand values">
-            {BRAND_VALUE_STATEMENTS.map((item, index) => (
-              <BrandValueItem
+        {/* Stage ข้อความใหญ่พิเศษ (กว้าง 95vw เต็มตา) */}
+        <div className="relative h-[280px] sm:h-[340px] md:h-[380px] w-full max-w-[95vw] flex items-center justify-center">
+          {BRAND_VALUES.map((item, index) => {
+            const diff = index - activePosition;
+            const distance = Math.abs(diff);
+
+            const translateY = diff * 130;
+            const opacity = Math.max(1 - distance * 1.35, 0);
+            const scale = Math.max(1 - distance * 0.08, 0.92);
+            const blurValue = Math.min(distance * 6, 8);
+
+            return (
+              <div
                 key={item.id}
-                title={item.title}
-                index={index}
-                scrollYProgress={scrollYProgress}
-                shouldReduceMotion={shouldReduceMotion}
+                style={{
+                  transform: `translate3d(0, ${translateY}px, 0) scale(${scale})`,
+                  opacity: opacity,
+                  filter: `blur(${blurValue}px)`,
+                  transition: 'transform 0.1s ease-out, opacity 0.1s ease-out, filter 0.1s ease-out',
+                }}
+                className="absolute inset-0 flex flex-col items-center justify-center text-center select-none will-change-transform"
+              >
+                {/* หัวข้อหลักตัวยักษ์ บังคับขนาดด้วย Inline Style clamp() */}
+                <h2 
+                  style={{
+                    fontSize: 'clamp(2.4rem, 7.2vw, 8.5rem)',
+                    lineHeight: 1.05,
+                  }}
+                  className="font-black tracking-tight flex items-center justify-center gap-3 sm:gap-6 md:gap-8 whitespace-nowrap"
+                >
+                  <span className="text-[#082b59] drop-shadow-sm">{item.prefix}</span>
+                  <span className="bg-gradient-to-r from-[#f58220] via-[#ea580c] to-[#c2410c] bg-clip-text text-transparent drop-shadow-sm">
+                    {item.highlight}
+                  </span>
+                </h2>
+
+                {/* คำอธิบายภาษาไทยใต้ข้อความ */}
+                <p className="mt-6 sm:mt-8 md:mt-10 text-base sm:text-xl md:text-2xl font-bold text-slate-600 max-w-3xl leading-relaxed px-4">
+                  {item.desc}
+                </p>
+              </div>
+            );
+          })}
+        </div>
+
+        {/* แถบเส้นขีดบอกสถานะ 4 ขีด */}
+        <div className="flex items-center gap-2.5 mt-8 sm:mt-12 select-none">
+          {BRAND_VALUES.map((_, i) => {
+            const isActive = currentIndex === i;
+            return (
+              <div
+                key={i}
+                className={`h-2 rounded-full transition-all duration-300 ${
+                  isActive ? 'w-12 bg-[#f58220]' : 'w-3.5 bg-slate-200'
+                }`}
               />
-            ))}
-          </ol>
-        </Container>
+            );
+          })}
+        </div>
+
       </div>
     </section>
   );
