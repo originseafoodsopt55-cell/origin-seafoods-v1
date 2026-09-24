@@ -84,7 +84,7 @@ export default async function ProductLinePage({ params }: ProductLinePageProps) 
   );
 
   return (
-    <main className="min-h-screen bg-white relative overflow-hidden">
+    <main className="min-h-screen bg-[#eaf2f9] relative overflow-hidden">
       <ProductClientView 
         categoryData={categoryData} 
         seriesData={seriesData} 

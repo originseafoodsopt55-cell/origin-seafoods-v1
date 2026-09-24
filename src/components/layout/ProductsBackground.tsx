@@ -22,19 +22,19 @@ export function ProductsBackground() {
           />
         </div>
 
-        {/* 3. Bottom-Right (Shellfish) */}
+        {/* 3. Bottom-Right (Shellfish - ใช้ไฟล์ jellyfish.svg ที่มีรูปเนื้อหาเป็นเปลือกหอย) */}
         <div className="absolute bottom-10 -right-20 w-72 h-72 animate-float-slow">
           <img
-            src="/images/line-art/shellfish.svg"
+            src="/images/line-art/jellyfish.svg"
             alt="Shellfish Line Art"
             className="w-full h-full object-contain opacity-40"
           />
         </div>
 
-        {/* 4. Bottom-Left (Jellyfish) */}
+        {/* 4. Bottom-Left (Jellyfish - ใช้ไฟล์ shellfish.svg ที่มีรูปเนื้อหาเป็นแมงกะพรุน) */}
         <div className="absolute bottom-40 -left-20 w-64 h-64 animate-float-delayed">
           <img
-            src="/images/line-art/jellyfish.svg"
+            src="/images/line-art/shellfish.svg"
             alt="Jellyfish Line Art"
             className="w-full h-full object-contain opacity-40"
           />

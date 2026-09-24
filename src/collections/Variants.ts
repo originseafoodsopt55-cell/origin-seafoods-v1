@@ -128,7 +128,7 @@ export const Variants: CollectionConfig = {
     },
     {
       name: 'image',
-      type: 'relationship',
+      type: 'upload',
       relationTo: 'media',
       required: true,
       label: 'รูปภาพขนาดสินค้า',
@@ -161,7 +161,7 @@ export const Variants: CollectionConfig = {
         },
         {
           name: 'ogImage',
-          type: 'relationship',
+          type: 'upload',
           relationTo: 'media',
           label: 'OG Image',
         },

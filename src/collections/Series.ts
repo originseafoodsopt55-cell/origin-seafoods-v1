@@ -64,14 +64,14 @@ export const Series: CollectionConfig = {
     },
     {
       name: 'image',
-      type: 'relationship',
+      type: 'upload',
       relationTo: 'media',
       required: true,
       label: 'ไอคอนซีรีส์',
     },
     {
       name: 'coverImage',
-      type: 'relationship',
+      type: 'upload',
       relationTo: 'media',
       label: 'รูปภาพหน้าปกซีรีส์',
     },
@@ -103,7 +103,7 @@ export const Series: CollectionConfig = {
         },
         {
           name: 'ogImage',
-          type: 'relationship',
+          type: 'upload',
           relationTo: 'media',
           label: 'OG Image',
         },

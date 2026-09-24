@@ -56,13 +56,13 @@ export const Categories: CollectionConfig = {
     },
     {
       name: 'coverImage',
-      type: 'relationship',
+      type: 'upload',
       relationTo: 'media',
       label: 'รูปภาพหน้าปกหมวดหมู่',
     },
     {
       name: 'backgroundImage',
-      type: 'relationship',
+      type: 'upload',
       relationTo: 'media',
       label: 'รูปภาพพื้นหลัง (Artwork Background)',
     },
@@ -94,7 +94,7 @@ export const Categories: CollectionConfig = {
         },
         {
           name: 'ogImage',
-          type: 'relationship',
+          type: 'upload',
           relationTo: 'media',
           label: 'OG Image',
         },

@@ -33,7 +33,7 @@ export const Brands: CollectionConfig = {
     },
     {
       name: 'logo',
-      type: 'relationship',
+      type: 'upload',
       relationTo: 'media',
       required: true,
       label: 'รูปภาพโลโก้แบรนด์',

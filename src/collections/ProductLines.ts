@@ -75,7 +75,7 @@ export const ProductLines: CollectionConfig = {
     },
     {
       name: 'coverImage',
-      type: 'relationship',
+      type: 'upload',
       relationTo: 'media',
       label: 'รูปภาพหน้าปกกลุ่มสินค้า',
     },
@@ -89,7 +89,7 @@ export const ProductLines: CollectionConfig = {
       fields: [
         {
           name: 'image',
-          type: 'relationship',
+          type: 'upload',
           relationTo: 'media',
           required: true,
           label: 'รูปภาพ',
@@ -121,7 +121,7 @@ export const ProductLines: CollectionConfig = {
         },
         {
           name: 'boxImage',
-          type: 'relationship',
+          type: 'upload',
           relationTo: 'media',
           required: true,
           label: 'รูปกล่องแบรนด์ (ใช้เป็น thumbnail เลือกแบรนด์)',
@@ -133,7 +133,7 @@ export const ProductLines: CollectionConfig = {
           fields: [
             {
               name: 'image',
-              type: 'relationship',
+              type: 'upload',
               relationTo: 'media',
               required: true,
               label: 'รูปภาพ',
@@ -161,7 +161,7 @@ export const ProductLines: CollectionConfig = {
             },
             {
               name: 'sizeImage',
-              type: 'relationship',
+              type: 'upload',
               relationTo: 'media',
               label: 'ภาพสินค้าสำหรับไซส์นี้ (เลือกผูกจาก Media หรืออัปโหลดใหม่)',
             },
@@ -180,7 +180,7 @@ export const ProductLines: CollectionConfig = {
             },
             {
               name: 'sizeImage',
-              type: 'relationship',
+              type: 'upload',
               relationTo: 'media',
               label: 'ภาพสินค้าสำหรับไซส์นี้ (เลือกผูกจาก Media หรืออัปโหลดใหม่)',
             },
@@ -199,7 +199,7 @@ export const ProductLines: CollectionConfig = {
             },
             {
               name: 'sizeImage',
-              type: 'relationship',
+              type: 'upload',
               relationTo: 'media',
               label: 'ภาพสินค้าสำหรับไซส์นี้ (เลือกผูกจาก Media หรืออัปโหลดใหม่)',
             },
@@ -229,7 +229,7 @@ export const ProductLines: CollectionConfig = {
         },
         {
           name: 'ogImage',
-          type: 'relationship',
+          type: 'upload',
           relationTo: 'media',
           label: 'OG Image',
         },

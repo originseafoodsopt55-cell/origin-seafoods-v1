@@ -45,7 +45,7 @@ export const News: CollectionConfig = {
     },
     {
       name: 'coverImage',
-      type: 'relationship',
+      type: 'upload',
       relationTo: 'media',
       required: true,
       label: 'รูปภาพหน้าปกข่าว',
@@ -64,7 +64,7 @@ export const News: CollectionConfig = {
     },
     {
       name: 'galleryImages',
-      type: 'relationship',
+      type: 'upload',
       relationTo: 'media',
       hasMany: true,
       label: 'รูปภาพเพิ่มเติมในแกลเลอรี่ภาพบรรยากาศ',

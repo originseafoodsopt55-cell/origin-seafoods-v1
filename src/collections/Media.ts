@@ -4,8 +4,8 @@ import { isAdmin, isAdminOrEditor } from './Users'
 export const Media: CollectionConfig = {
   slug: 'media',
   admin: {
-    useAsTitle: 'title',
-    defaultColumns: ['filename', 'alt', 'mimeType'],
+    useAsTitle: 'filename',
+    defaultColumns: ['filename', 'alt', 'mimeType', 'updatedAt'],
     group: 'ตั้งค่าระบบ',
   },
   labels: {
@@ -21,6 +21,9 @@ export const Media: CollectionConfig = {
   upload: {
     staticDir: 'public/media',
     mimeTypes: ['image/*'],
+    adminThumbnail: ({ doc }) =>
+      (doc?.url as string) || (doc?.filename ? `/api/media/file/${doc.filename}` : null),
+    displayPreview: true,
   },
   fields: [
     {

@@ -16,6 +16,29 @@ interface ProductClientViewProps {
 }
 
 /* ──────────────────────────────────────────────────────────────────
+   Category Line Art Asset Mapping (from public/images/line-art)
+   ────────────────────────────────────────────────────────────────── */
+
+const CATEGORY_LINE_ART: Record<string, string> = {
+  crabs: "/images/line-art/crab.svg",
+  crab: "/images/line-art/crab.svg",
+  squid: "/images/line-art/squid.svg",
+  squids: "/images/line-art/squid.svg",
+  // สลับคู่ภาพให้ตรงกับชนิดสัตว์จริง (เนื่องจากไฟล์จริงในโฟลเดอร์ public มีการสลับรูปกันอยู่):
+  // ไฟล์ /images/line-art/jellyfish.svg มีรูปเนื้อหาจริงเป็นลายเส้นเปลือกหอย (Shellfish)
+  shellfish: "/images/line-art/jellyfish.svg",
+  shell: "/images/line-art/jellyfish.svg",
+  // ไฟล์ /images/line-art/shellfish.svg มีรูปเนื้อหาจริงเป็นลายเส้นแมงกะพรุน (Jellyfish)
+  jellyfish: "/images/line-art/shellfish.svg",
+  // หมวดปลา (ใหม่)
+  fish: "/images/line-art/fish.svg",
+  fishes: "/images/line-art/fish.svg",
+  // หมวดหนอนไหม (ใหม่)
+  silkworm: "/images/line-art/silkworm.svg",
+  silkworms: "/images/line-art/silkworm.svg",
+};
+
+/* ──────────────────────────────────────────────────────────────────
    Brand Selector View (when brandOptions exist)
    ────────────────────────────────────────────────────────────────── */
 
@@ -32,12 +55,20 @@ interface SelectedSizeState {
 }
 
 function BrandSelectorView({
-  categoryData: _categoryData,
+  categoryData,
   seriesData: _seriesData,
   productLineData,
   relatedProductsNode,
 }: BrandSelectorViewProps) {
   const router = useRouter();
+  const categorySlug =
+    typeof categoryData === "string"
+      ? categoryData
+      : categoryData?.slug || categoryData?.id || "";
+  const lineArtSrc =
+    CATEGORY_LINE_ART[categorySlug] ||
+    CATEGORY_LINE_ART[categorySlug.toLowerCase()] ||
+    undefined;
   const brandOptions: BrandOption[] = productLineData.brandOptions ?? [];
 
   const [selectedBrandIndex, setSelectedBrandIndex] = useState<number | null>(null);
@@ -152,7 +183,7 @@ function BrandSelectorView({
 
   // Targeted Category Navigation on Back Click
   const handleBack = useCallback(() => {
-    const categorySlug = productLineData?.categorySlug || _categoryData?.slug;
+    const categorySlug = productLineData?.categorySlug || categoryData?.slug;
     if (categorySlug) {
       router.push(`/products#${categorySlug}`);
     } else if (typeof window !== "undefined" && window.history.length > 1) {
@@ -160,7 +191,7 @@ function BrandSelectorView({
     } else {
       router.push("/products");
     }
-  }, [productLineData?.categorySlug, _categoryData?.slug, router]);
+  }, [productLineData?.categorySlug, categoryData?.slug, router]);
 
   // ฟังก์ชันจัดการการสั่งซื้อผ่าน Facebook Messenger โดยตรง
   const handleMessengerOrder = (e: React.MouseEvent) => {
@@ -249,25 +280,42 @@ function BrandSelectorView({
   };
 
   return (
-    <div className="content-grid relative z-10 pt-2 pb-8">
-      {/* Back Button */}
-      <button
-        type="button"
-        onClick={handleBack}
-        className="flex items-center text-gray-600 hover:text-gray-900 mb-3 transition-colors bg-gray-100 px-4 py-2 rounded-full w-fit cursor-pointer border border-gray-200"
-      >
-        <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
-        </svg>
-        ย้อนกลับ / Back
-      </button>
+    <div className="relative min-h-screen bg-gradient-to-b from-[#eaf2f9] via-[#f3f7fb] to-[#ffffff] overflow-hidden">
+      {/* Dynamic Line Art Watermark ตามหมวดสินค้า (แสดงเฉพาะหมวดที่มีไฟล์จริง) */}
+      {lineArtSrc && (
+        <div className="absolute top-10 -right-12 md:right-6 w-[340px] sm:w-[460px] md:w-[580px] pointer-events-none select-none opacity-20 -z-0">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src={lineArtSrc}
+            alt={`${categorySlug} line art`}
+            className="w-full h-auto object-contain"
+          />
+        </div>
+      )}
 
-      {/* Main 2-Column Layout (5:7 ratio) */}
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-start">
-        {/* Left Column (5 cols): Image + Brand Thumbnails (only when selectedBrand is active) */}
-        <div className="lg:col-span-5 w-full">
-          {/* Main Image / Carousel Container */}
-          <div className="relative w-full aspect-square bg-gray-50 rounded-2xl overflow-hidden mb-3 border border-gray-100 flex items-center justify-center">
+      {/* เส้นแบ่งจางๆ โทนสีฟ้าครามด้านบนตามแบบ */}
+      <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[#b8d0e5] to-transparent" />
+
+      {/* เนื้อหาหลักของหน้า (Container สินค้า & การเลือกแบรนด์) */}
+      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        {/* Back Button */}
+        <button
+          type="button"
+          onClick={handleBack}
+          className="flex items-center text-gray-600 hover:text-gray-900 mb-4 transition-all bg-white/80 hover:bg-white px-4 py-2 rounded-full w-fit cursor-pointer border border-[#b8d0e5]/60 shadow-xs backdrop-blur-sm hover:shadow-sm"
+        >
+          <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+          </svg>
+          ย้อนกลับ / Back
+        </button>
+
+        {/* Main 2-Column Layout (5:7 ratio) */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-start">
+          {/* Left Column (5 cols): Image + Brand Thumbnails (only when selectedBrand is active) */}
+          <div className="lg:col-span-5 w-full">
+            {/* Main Image / Carousel Container */}
+            <div className="relative w-full aspect-square bg-white/95 rounded-2xl overflow-hidden mb-3 border border-[#d2e3f1] shadow-sm flex items-center justify-center">
             <SafeImage
               src={primaryImage.src}
               alt={primaryImage.alt || displayTitle}
@@ -545,12 +593,13 @@ function BrandSelectorView({
         )}
       </div>
 
-      {/* Related Products */}
-      {relatedProductsNode && (
-        <section className="mt-12">
-          {relatedProductsNode}
-        </section>
-      )}
+        {/* Related Products */}
+        {relatedProductsNode && (
+          <section className="mt-12">
+            {relatedProductsNode}
+          </section>
+        )}
+      </div>
     </div>
   );
 }
