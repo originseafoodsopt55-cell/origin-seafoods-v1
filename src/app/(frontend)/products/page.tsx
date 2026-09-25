@@ -28,6 +28,71 @@ export const metadata: Metadata = {
 
 export const dynamic = 'force-dynamic';
 
+// กำหนด Class ตำแหน่งและระยะเวลาอนิเมชันของ Line Art แต่ละหมวดหมู่ให้มองเห็นชัดเจนที่สุด
+const CATEGORY_LINE_ART_CONFIG: Record<
+  string,
+  { src: string; positionClass: string; duration: string }
+> = {
+  crabs: {
+    src: "/images/line-art/crab.svg",
+    positionClass: "top-2 right-0 sm:right-4 w-[280px] sm:w-[380px]",
+    duration: "5s",
+  },
+  crab: {
+    src: "/images/line-art/crab.svg",
+    positionClass: "top-2 right-0 sm:right-4 w-[280px] sm:w-[380px]",
+    duration: "5s",
+  },
+  squid: {
+    src: "/images/line-art/squid.svg",
+    // 1. หมึกย้ายมาฝั่งซ้ายใต้เมนูส้ม ไม่ทับการ์ดสินค้า และลอยขึ้น-ลงอย่างนุ่มนวล
+    positionClass: "hidden lg:block top-[160px] -left-[295px] xl:-left-[315px] w-[240px] xl:w-[270px]",
+    duration: "6s",
+  },
+  squids: {
+    src: "/images/line-art/squid.svg",
+    positionClass: "hidden lg:block top-[160px] -left-[295px] xl:-left-[315px] w-[240px] xl:w-[270px]",
+    duration: "6s",
+  },
+  shellfish: {
+    src: "/images/line-art/shell.svg",
+    // ย้ายลงมามุมขวาล่างในพื้นที่ว่างของแถวที่ 2 พ้นแนวการ์ด 100%
+    positionClass: "bottom-2 sm:bottom-4 right-4 sm:right-8 md:right-16 w-[260px] sm:w-[320px] md:w-[380px]",
+    duration: "5.5s",
+  },
+  shell: {
+    src: "/images/line-art/shell.svg",
+    positionClass: "bottom-2 sm:bottom-4 right-4 sm:right-8 md:right-16 w-[260px] sm:w-[320px] md:w-[380px]",
+    duration: "5.5s",
+  },
+  fish: {
+    src: "/images/line-art/fish.svg",
+    positionClass: "top-0 right-0 sm:right-4 w-[300px] sm:w-[420px]",
+    duration: "5s",
+  },
+  fishes: {
+    src: "/images/line-art/fish.svg",
+    positionClass: "top-0 right-0 sm:right-4 w-[300px] sm:w-[420px]",
+    duration: "5s",
+  },
+  jellyfish: {
+    src: "/images/line-art/jellyfish.svg",
+    // ปรับเลื่อนลงมาแนวดิ่ง (top-28 / top-[125px]) ให้อยู่กึ่งกลางพอดีกับแถวสินค้า
+    positionClass: "hidden lg:block top-28 sm:top-32 lg:top-[125px] -left-[295px] xl:-left-[315px] w-[240px] xl:w-[270px]",
+    duration: "6.5s",
+  },
+  silkworm: {
+    src: "/images/line-art/silkworm.svg",
+    positionClass: "top-2 right-0 sm:right-4 w-[280px] sm:w-[380px]",
+    duration: "5s",
+  },
+  silkworms: {
+    src: "/images/line-art/silkworm.svg",
+    positionClass: "top-2 right-0 sm:right-4 w-[280px] sm:w-[380px]",
+    duration: "5s",
+  },
+};
+
 export default async function ProductCatalogPage() {
   // Parallel fetch — no N+1
   const [categories, allSeries, allProductLines, allVariants] = await Promise.all([
@@ -99,6 +164,22 @@ export default async function ProductCatalogPage() {
   return (
     <div className="products-catalog-page products-hub-page">
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
+      {/* 4. สไตล์อนิเมชันลอยขึ้น-ลงอย่างนุ่มนวล */}
+      <style>{`
+        @keyframes oceanicFloat {
+          0%, 100% {
+            transform: translateY(0px) rotate(0deg);
+          }
+          50% {
+            transform: translateY(-14px) rotate(0.5deg);
+          }
+        }
+        .animate-ocean-float {
+          animation-name: oceanicFloat;
+          animation-timing-function: ease-in-out;
+          animation-iteration-count: infinite;
+        }
+      `}</style>
       <ProductsBackground />
 
       {/* Mobile-only: horizontal sticky category pill bar (M2) */}
@@ -123,24 +204,46 @@ export default async function ProductCatalogPage() {
         <main className="catalog-content-main">
           {sectionsData.map(({ category, linesWithVariants }) => {
             const totalLines = linesWithVariants.length;
+            const config = CATEGORY_LINE_ART_CONFIG[category.slug];
 
             return (
               <section
                 key={category.slug}
                 id={category.slug}
-                className="hub-category-section"
+                className="relative hub-category-section overflow-visible mb-16 pb-10 border-b border-slate-100 last:border-b-0"
               >
-                <CatalogHeader
-                  title={`${category.thai} / ${category.english}`}
-                />
-
-                {totalLines === 0 ? (
-                  <p className="no-products-message">
-                    ขณะนี้ยังไม่มีสินค้าในหมวดหมู่นี้ / No products in this category.
-                  </p>
-                ) : (
-                  <ProductLineGrid linesWithVariants={linesWithVariants} />
+                {/* ภาพ Line Art พร้อมอนิเมชันลอย ขึ้น-ลง */}
+                {config && (
+                  <div
+                    className={`absolute ${config.positionClass} pointer-events-none select-none opacity-25 -z-0 animate-ocean-float`}
+                    style={{ animationDuration: config.duration }}
+                  >
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img
+                      src={config.src}
+                      alt={`${category.thai || category.english} line art`}
+                      className="w-full h-auto object-contain drop-shadow-sm"
+                    />
+                  </div>
                 )}
+
+                {/* 1. Header หัวข้อหมวดหมู่ */}
+                <div className="relative z-10 flex items-center justify-between mb-6">
+                  <CatalogHeader
+                    title={`${category.thai} / ${category.english}`}
+                  />
+                </div>
+
+                {/* 2. Grid การ์ดสินค้า (วาง relative z-10 เพื่อให้อยู่เหนือลายน้ำ) */}
+                <div className="relative z-10">
+                  {totalLines === 0 ? (
+                    <p className="no-products-message">
+                      ขณะนี้ยังไม่มีสินค้าในหมวดหมู่นี้ / No products in this category.
+                    </p>
+                  ) : (
+                    <ProductLineGrid linesWithVariants={linesWithVariants} />
+                  )}
+                </div>
               </section>
             );
           })}

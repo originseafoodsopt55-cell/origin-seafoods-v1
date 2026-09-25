@@ -24,16 +24,15 @@ const CATEGORY_LINE_ART: Record<string, string> = {
   crab: "/images/line-art/crab.svg",
   squid: "/images/line-art/squid.svg",
   squids: "/images/line-art/squid.svg",
-  // สลับคู่ภาพให้ตรงกับชนิดสัตว์จริง (เนื่องจากไฟล์จริงในโฟลเดอร์ public มีการสลับรูปกันอยู่):
-  // ไฟล์ /images/line-art/jellyfish.svg มีรูปเนื้อหาจริงเป็นลายเส้นเปลือกหอย (Shellfish)
-  shellfish: "/images/line-art/jellyfish.svg",
-  shell: "/images/line-art/jellyfish.svg",
-  // ไฟล์ /images/line-art/shellfish.svg มีรูปเนื้อหาจริงเป็นลายเส้นแมงกะพรุน (Jellyfish)
-  jellyfish: "/images/line-art/shellfish.svg",
-  // หมวดปลา (ใหม่)
+  // หมวดหอย (Shellfish) -> ลายเส้นหอย
+  shellfish: "/images/line-art/shell.svg",
+  shell: "/images/line-art/shell.svg",
+  // หมวดแมงกะพรุน (Jellyfish) -> ลายเส้นแมงกะพรุน
+  jellyfish: "/images/line-art/jellyfish.svg",
+  // หมวดปลา (Fish)
   fish: "/images/line-art/fish.svg",
   fishes: "/images/line-art/fish.svg",
-  // หมวดหนอนไหม (ใหม่)
+  // หมวดหนอนไหม (Silkworm)
   silkworm: "/images/line-art/silkworm.svg",
   silkworms: "/images/line-art/silkworm.svg",
 };
