@@ -295,13 +295,13 @@ function BrandSelectorView({
       {/* เส้นแบ่งจางๆ โทนสีฟ้าครามด้านบนตามแบบ */}
       <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[#b8d0e5] to-transparent" />
 
-      {/* เนื้อหาหลักของหน้า (Container สินค้า & การเลือกแบรนด์) */}
-      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      {/* เนื้อหาหลักของหน้า (Container สินค้า & การเลือกแบรนด์ ซิงค์กับแนว Logo ของ Navbar) */}
+      <div className="relative z-10 content-grid py-6 sm:py-8">
         {/* Back Button */}
         <button
           type="button"
           onClick={handleBack}
-          className="flex items-center text-gray-600 hover:text-gray-900 mb-4 transition-all bg-white/80 hover:bg-white px-4 py-2 rounded-full w-fit cursor-pointer border border-[#b8d0e5]/60 shadow-xs backdrop-blur-sm hover:shadow-sm"
+          className="flex items-center text-gray-600 hover:text-gray-900 mb-6 transition-all bg-white/80 hover:bg-white px-4 py-2 rounded-full w-fit cursor-pointer border border-[#b8d0e5]/60 shadow-xs backdrop-blur-sm hover:shadow-sm"
         >
           <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
