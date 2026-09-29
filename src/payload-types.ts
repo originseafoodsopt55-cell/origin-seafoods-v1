@@ -81,6 +81,7 @@ export interface Config {
     'sourcing-regions': SourcingRegion;
     navigation: Navigation;
     'contact-links': ContactLink;
+    'social-reels': SocialReel;
     'payload-kv': PayloadKv;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
@@ -102,6 +103,7 @@ export interface Config {
     'sourcing-regions': SourcingRegionsSelect<false> | SourcingRegionsSelect<true>;
     navigation: NavigationSelect<false> | NavigationSelect<true>;
     'contact-links': ContactLinksSelect<false> | ContactLinksSelect<true>;
+    'social-reels': SocialReelsSelect<false> | SocialReelsSelect<true>;
     'payload-kv': PayloadKvSelect<false> | PayloadKvSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
@@ -496,6 +498,22 @@ export interface ContactLink {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "social-reels".
+ */
+export interface SocialReel {
+  id: number;
+  title: string;
+  category: 'arrival' | 'kitchen';
+  reelUrl: string;
+  thumbnail?: (number | null) | Media;
+  customThumbnailUrl?: string | null;
+  order?: number | null;
+  isActive?: boolean | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-kv".
  */
 export interface PayloadKv {
@@ -573,6 +591,10 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'contact-links';
         value: number | ContactLink;
+      } | null)
+    | ({
+        relationTo: 'social-reels';
+        value: number | SocialReel;
       } | null);
   globalSlug?: string | null;
   user: {
@@ -913,6 +935,21 @@ export interface NavigationSelect<T extends boolean = true> {
 export interface ContactLinksSelect<T extends boolean = true> {
   label?: T;
   icon?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "social-reels_select".
+ */
+export interface SocialReelsSelect<T extends boolean = true> {
+  title?: T;
+  category?: T;
+  reelUrl?: T;
+  thumbnail?: T;
+  customThumbnailUrl?: T;
+  order?: T;
+  isActive?: T;
   updatedAt?: T;
   createdAt?: T;
 }

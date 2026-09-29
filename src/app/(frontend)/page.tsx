@@ -4,6 +4,7 @@ import { Hero } from "@/components/sections/Hero";
 import { About } from "@/components/sections/About";
 import { BrandValues } from "@/components/sections/BrandValues";
 import { ProductCategories } from "@/components/sections/ProductCategories";
+import { SocialReels } from "@/components/sections/SocialReels";
 import { GlobalSupply } from "@/components/sections/GlobalSupply";
 import { Brands } from "@/components/sections/Brands";
 import { NewsSection } from "@/components/sections/NewsSection";
@@ -29,6 +30,7 @@ export default async function Home() {
       <Hero />
       <About company={company} />
       <ProductCategories />
+      <SocialReels />
       <Brands />
       <GlobalSupply regions={sourcingRegions} />
       <BrandValues />

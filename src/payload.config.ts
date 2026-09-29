@@ -20,6 +20,7 @@ import { Navigation } from './collections/Navigation'
 import { ContactLinks } from './collections/ContactLinks'
 import { Contact } from './globals/Contact'
 import { Users } from './collections/Users'
+import { SocialReels } from './collections/SocialReels'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
@@ -45,6 +46,7 @@ export default buildConfig({
     SourcingRegions,
     Navigation,
     ContactLinks,
+    SocialReels,
   ],
   globals: [
     CompanyProfile,
