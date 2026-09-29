@@ -1,262 +1,79 @@
-"use client";
-
-import { useEffect, useRef, useCallback } from "react";
-import createGlobe from "cobe";
+import React from "react";
 import type { SourcingRegion } from "@/types";
-import { ScrollReveal } from "@/components/motion/ScrollReveal";
 
-interface GlobalSupplyProps {
-  regions: SourcingRegion[];
+export interface GlobalSupplyProps {
+  regions?: SourcingRegion[];
 }
 
-// Key sourcing locations for visual dots on the globe [lat, lng, size]
-const GLOBE_MARKERS: { location: [number, number]; size: number }[] = [
-  // Thailand (Samut Sakhon) — HQ
-  { location: [13.55, 100.27], size: 0.028 },
-  // North Atlantic / Norway / Iceland
-  { location: [64.15, -21.95], size: 0.018 },
-  { location: [62.0, 6.0], size: 0.018 },
-  // Canada / North America
-  { location: [49.0, -63.0], size: 0.018 },
-  { location: [44.6, -63.57], size: 0.015 },
-  // South America / Chile / Argentina
-  { location: [-33.45, -70.66], size: 0.018 },
-  { location: [-45.0, -65.0], size: 0.015 },
-  // West Africa / Mauritania / Senegal
-  { location: [14.7, -17.47], size: 0.015 },
-  { location: [18.1, -15.95], size: 0.015 },
-  // India / Sri Lanka
-  { location: [9.0, 76.5], size: 0.015 },
-  { location: [7.87, 80.77], size: 0.015 },
-  // Vietnam / Indonesia
-  { location: [10.82, 106.63], size: 0.015 },
-  { location: [-6.2, 106.85], size: 0.015 },
-  // China / Japan / Korea
-  { location: [36.07, 120.38], size: 0.015 },
-  { location: [35.0, 136.0], size: 0.015 },
-  { location: [35.18, 129.08], size: 0.015 },
-  // Australia / New Zealand
-  { location: [-33.87, 151.21], size: 0.015 },
-  { location: [-41.29, 174.78], size: 0.015 },
-];
-
-const MouseRipple = () => {
-  const canvasRef = useRef<HTMLCanvasElement>(null);
-
-  useEffect(() => {
-    const canvas = canvasRef.current;
-    if (!canvas) return;
-    const ctx = canvas.getContext("2d");
-    if (!ctx) return;
-
-    let ripples: { x: number; y: number; radius: number; alpha: number }[] = [];
-    let animationFrameId: number;
-
-    const resize = () => {
-      canvas.width = canvas.offsetWidth * window.devicePixelRatio;
-      canvas.height = canvas.offsetHeight * window.devicePixelRatio;
-      ctx.scale(window.devicePixelRatio, window.devicePixelRatio);
-    };
-    window.addEventListener("resize", resize);
-    resize();
-
-    const handleMouseMove = (e: MouseEvent) => {
-      const rect = canvas.getBoundingClientRect();
-      ripples.push({
-        x: e.clientX - rect.left,
-        y: e.clientY - rect.top,
-        radius: 0,
-        alpha: 1,
-      });
-    };
-
-    const parent = canvas.parentElement;
-    if (parent) {
-      parent.addEventListener("mousemove", handleMouseMove);
-    }
-
-    const render = () => {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-      ripples.forEach((ripple) => {
-        ctx.beginPath();
-        ctx.arc(ripple.x, ripple.y, ripple.radius, 0, Math.PI * 2);
-        ctx.strokeStyle = `rgba(255, 136, 0, ${ripple.alpha})`;
-        ctx.lineWidth = 1.7;
-        ctx.stroke();
-
-        ripple.radius += 2.5;
-        ripple.alpha -= 0.012;
-      });
-
-      ripples = ripples.filter((ripple) => ripple.alpha > 0);
-      animationFrameId = requestAnimationFrame(render);
-    };
-    render();
-
-    return () => {
-      window.removeEventListener("resize", resize);
-      if (parent) parent.removeEventListener("mousemove", handleMouseMove);
-      cancelAnimationFrame(animationFrameId);
-    };
-  }, []);
+export function GlobalSupply({ regions }: GlobalSupplyProps = {}) {
+  void regions; // Retain prop compatibility
 
   return (
-    <canvas
-      ref={canvasRef}
-      style={{
-        position: "absolute",
-        inset: 0,
-        width: "100%",
-        height: "100%",
-        pointerEvents: "none",
-        zIndex: 10,
-      }}
-    />
-  );
-};
-
-export function GlobalSupply({ regions }: GlobalSupplyProps) {
-  const canvasRef = useRef<HTMLCanvasElement>(null);
-  const pointerInteracting = useRef<number | null>(null);
-  const pointerInteractionMovement = useRef(0);
-  const phiRef = useRef(1.8);
-  const widthRef = useRef(0);
-  const globeRef = useRef<ReturnType<typeof createGlobe> | null>(null);
-
-  // Keep regions prop to avoid TS unused warning — data drives the markers above
-  void regions;
-
-  const onResize = useCallback(() => {
-    if (canvasRef.current) {
-      widthRef.current = canvasRef.current.offsetWidth;
-    }
-  }, []);
-
-  useEffect(() => {
-    window.addEventListener("resize", onResize);
-    onResize();
-
-    const canvasEl = canvasRef.current;
-    if (!canvasEl) return;
-
-    const dpr = typeof window !== "undefined" ? Math.min(window.devicePixelRatio || 2, 2) : 2;
-    const size = widthRef.current * dpr;
-
-    globeRef.current = createGlobe(canvasEl, {
-      devicePixelRatio: dpr,
-      width: size,
-      height: size,
-      phi: phiRef.current,
-      theta: 0.25,
-      dark: 1,
-      diffuse: 1.6,
-      mapSamples: 24000,
-      mapBrightness: 4.5,
-      baseColor: [0.15, 0.15, 0.15],
-      markerColor: [1, 0.53, 0],
-      glowColor: [0.2, 0.2, 0.3],
-      markers: GLOBE_MARKERS,
-    });
-
-    // Auto-rotation loop
-    let animFrame: number;
-    const animate = () => {
-      if (!pointerInteracting.current) {
-        phiRef.current += 0.003;
-      }
-
-      const currentPhi = phiRef.current + pointerInteractionMovement.current;
-      const currentDpr = typeof window !== "undefined" ? Math.min(window.devicePixelRatio || 2, 2) : 2;
-      const currentSize = widthRef.current * currentDpr;
-
-      globeRef.current?.update({
-        phi: currentPhi,
-        width: currentSize,
-        height: currentSize,
-      });
-
-      animFrame = requestAnimationFrame(animate);
-    };
-    animFrame = requestAnimationFrame(animate);
-
-    return () => {
-      cancelAnimationFrame(animFrame);
-      globeRef.current?.destroy();
-      globeRef.current = null;
-      window.removeEventListener("resize", onResize);
-    };
-  }, [onResize]);
-
-  return (
+    // 1. ปรับความสูงให้เต็มหน้าจอพอดี (หักลบความสูง Header/Navbar ~76px) เพื่อให้สัดส่วน 16:9 แสดงผลได้ครบ
     <section
       id="global-supply"
-      className="global-supply-section"
-      aria-labelledby="global-supply-heading"
+      className="relative w-full h-[calc(100vh-76px)] min-h-[640px] max-h-[1080px] overflow-hidden flex items-center bg-[#072a58]"
     >
-      <MouseRipple />
-      <div className="global-supply-container">
-        {/* Text Column */}
-        <ScrollReveal className="global-supply-text">
-          <p className="global-supply-eyebrow">GLOBAL SOURCING</p>
-          <h2 id="global-supply-heading" className="global-supply-title">
+      {/* 2. Video Background: ผลักตำแหน่งไปฝั่งขวาเล็กน้อย (object-[70%_center] หรือ lg:object-[65%_center])
+             เพื่อให้เรือและลูกโลกอยู่ฝั่งขวา และเปิดพื้นที่โล่งฝั่งซ้ายให้ตัวหนังสือ */}
+      <video
+        autoPlay
+        loop
+        muted
+        playsInline
+        className="absolute inset-0 w-full h-full object-cover object-[70%_center] lg:object-[65%_center] pointer-events-none"
+      >
+        <source src="/videos/global-sourcing-loop.mp4" type="video/mp4" />
+      </video>
+
+      {/* 3. Gradient Overlay บังฝั่งซ้ายเพื่อความคมชัดของข้อความ */}
+      <div className="absolute inset-0 bg-gradient-to-r from-white/95 via-white/80 via-35% to-transparent lg:w-[55%] pointer-events-none z-[1]" />
+
+      {/* 4. Text & Content Layer ฝั่งซ้าย */}
+      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full py-8 lg:py-12">
+        <div className="max-w-xl">
+          {/* Tag หมวดหมู่ */}
+          <span className="inline-block text-xs sm:text-sm font-bold tracking-widest text-[#f57e2a] uppercase mb-3">
+            GLOBAL SOURCING
+          </span>
+
+          {/* พาดหัวหลัก */}
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black text-[#072a58] leading-tight mb-5">
             เรานำเข้าสินค้า
-            <br />
+            <br className="hidden sm:inline" />
             จากทั่วโลก
           </h2>
-          <p className="global-supply-subtitle">
-            We import products from around the world
-          </p>
-        </ScrollReveal>
 
-        {/* Globe Column */}
-        <div className="global-supply-globe-wrapper">
-          <canvas
-            ref={canvasRef}
-            className="global-supply-globe-canvas"
-            onPointerDown={(e) => {
-              pointerInteracting.current =
-                e.clientX - pointerInteractionMovement.current;
-              if (canvasRef.current) {
-                canvasRef.current.style.cursor = "grabbing";
-              }
-            }}
-            onPointerUp={() => {
-              pointerInteracting.current = null;
-              if (canvasRef.current) {
-                canvasRef.current.style.cursor = "grab";
-              }
-            }}
-            onPointerOut={() => {
-              pointerInteracting.current = null;
-              if (canvasRef.current) {
-                canvasRef.current.style.cursor = "grab";
-              }
-            }}
-            onMouseMove={(e) => {
-              if (pointerInteracting.current !== null) {
-                const delta = e.clientX - pointerInteracting.current;
-                pointerInteractionMovement.current = delta / 120;
-              }
-            }}
-            onTouchMove={(e) => {
-              if (pointerInteracting.current !== null && e.touches[0]) {
-                const delta =
-                  e.touches[0].clientX - pointerInteracting.current;
-                pointerInteractionMovement.current = delta / 120;
-              }
-            }}
-          />
-          {/* Multi-layer Parallax Orbiting Starfield */}
-          <div className="stars-container" aria-hidden="true">
-            <div className="stars-layer stars-small" />
-            <div className="stars-layer stars-medium" />
-            <div className="stars-layer stars-large" />
+          {/* ข้อความบรรยายทางการ (Company Narrative) */}
+          <p className="text-slate-700 text-sm sm:text-base leading-relaxed font-normal mb-8 text-balance">
+            Origin is a global frozen seafood importer, exporter and distributor with extensive experience and a global network of partners. We operate according to international standards, selecting the highest-quality raw materials from the best sources, and using modern storage and logistics systems to provide customers with a fresh ocean experience.
+          </p>
+
+          {/* เส้นคั่นและไอคอน 3 รายการ */}
+          <div className="grid grid-cols-3 gap-4 pt-6 border-t border-slate-300/80">
+            <div className="space-y-1">
+              <span className="text-2xl">🌐</span>
+              <p className="text-[11px] sm:text-xs font-bold text-[#072a58] uppercase">
+                Global Sourcing
+              </p>
+            </div>
+            <div className="space-y-1">
+              <span className="text-2xl">⚓</span>
+              <p className="text-[11px] sm:text-xs font-bold text-[#072a58] uppercase">
+                Reliable Logistics
+              </p>
+            </div>
+            <div className="space-y-1">
+              <span className="text-2xl">❄️</span>
+              <p className="text-[11px] sm:text-xs font-bold text-[#072a58] uppercase">
+                Cold Chain Excellence
+              </p>
+            </div>
           </div>
-          {/* Atmospheric glow ring behind the globe */}
-          <div className="global-supply-globe-glow" aria-hidden="true" />
         </div>
       </div>
     </section>
   );
 }
+
+export default GlobalSupply;
