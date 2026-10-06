@@ -5,12 +5,12 @@ import Link from 'next/link';
 
 export function Hero() {
   return (
-    <section className="relative w-full h-[70vh] min-h-[500px] max-h-[800px] flex items-center justify-center overflow-hidden bg-[#072a58]">
+    <section className="relative w-full h-screen min-h-[600px] flex items-center justify-center overflow-hidden bg-[#072a58]">
       
       {/* 1. ภาพพื้นหลังเต็มจอ */}
       <div 
         className="absolute inset-0 w-full h-full bg-cover bg-bottom bg-no-repeat"
-        style={{ backgroundImage: "url('/images/hero-bg-1.png')" }} 
+        style={{ backgroundImage: "url('/images/hero-section-1920x1080.png')" }} 
       />
 
       {/* 3. เนื้อหาตรงกลาง (Centered Content) */}
