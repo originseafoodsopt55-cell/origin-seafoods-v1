@@ -43,7 +43,6 @@ function renderASTNode(node: any, index: number): React.ReactNode {
           className="rounded-xl object-cover w-full h-auto"
           quality={90}
         />
-        {alt && <figcaption className="text-center text-sm text-gray-500 mt-2">{alt}</figcaption>}
       </figure>
     );
   }

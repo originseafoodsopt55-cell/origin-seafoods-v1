@@ -30,7 +30,8 @@ export function Footer({ navItems, contact }: FooterProps) {
           <h3>เมนูหลัก</h3>
           {navItems.map((item) => {
             const isProducts = item.label === "สินค้า" || item.href === "#products" || item.href === "/#products";
-            const navHref = isProducts ? "/products" : (item.href.startsWith("#") ? `/${item.href}` : item.href);
+            const isNews = item.label === "ข่าวสาร" || item.href === "#news" || item.href === "/#news";
+            const navHref = isProducts ? "/products" : isNews ? "/news" : (item.href.startsWith("#") ? `/${item.href}` : item.href);
             return (
               <Link key={item.href} href={navHref}>
                 {item.label}

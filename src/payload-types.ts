@@ -429,6 +429,8 @@ export interface News {
    * ⚠️ มีผลต่อ URL หน้าข่าวสารโดยตรง ไม่ควรแก้ไขหลังจากที่สร้างแล้ว เพื่อหลีกเลี่ยงลิงก์เสีย (Broken Link)
    */
   slug: string;
+  category?: string | null;
+  categories?: (number | Category)[] | null;
   coverImage: number | Media;
   summary: string;
   richText: {
@@ -886,6 +888,8 @@ export interface GallerySelect<T extends boolean = true> {
 export interface NewsSelect<T extends boolean = true> {
   title?: T;
   slug?: T;
+  category?: T;
+  categories?: T;
   coverImage?: T;
   summary?: T;
   richText?: T;

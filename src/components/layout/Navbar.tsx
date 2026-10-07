@@ -36,10 +36,13 @@ export function Navbar({ navItems }: NavbarProps) {
   const pathname = usePathname();
   const headerRef = useRef<HTMLElement>(null);
 
-  // ปรับแก้เมนู "สินค้า" ให้ชี้ไปยัง /products โดยตรง
+  // ปรับแก้เมนู "สินค้า" ให้ชี้ไปยัง /products และ "ข่าวสาร" ให้ชี้ไปยัง /news โดยตรง
   const processedNavItems = navItems.map((item) => {
     if (item.label === "สินค้า" || item.href === "#products" || item.href === "/#products") {
       return { ...item, href: "/products" };
+    }
+    if (item.label === "ข่าวสาร" || item.href === "#news" || item.href === "/#news") {
+      return { ...item, href: "/news" };
     }
     return item;
   });
@@ -91,6 +94,11 @@ export function Navbar({ navItems }: NavbarProps) {
     // สถานะ Active สำหรับเมนูสินค้า: ทำงานเมื่ออยู่ที่ /products หรือหน้ารายละเอียดย่อย /products/...
     if (item.href === "/products" || item.label === "สินค้า") {
       return pathname === "/products" || pathname.startsWith("/products/");
+    }
+
+    // สถานะ Active สำหรับเมนูข่าวสาร: ทำงานเมื่ออยู่ที่ /news หรือหน้ารายละเอียดย่อย /news/...
+    if (item.href === "/news" || item.label === "ข่าวสาร") {
+      return pathname === "/news" || pathname.startsWith("/news/");
     }
 
     const cleanItemHref = item.href.replace(/^[/#]+/, "");

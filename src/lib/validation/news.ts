@@ -11,5 +11,7 @@ export const NewsArticleSchema = z.object({
   galleryImages: z.array(ImageAssetSchema).optional(),
   publishedDate: z.string().min(1),
   featured: z.boolean(),
+  category: z.string().optional(),
+  categories: z.array(z.any()).optional(),
   seo: SEOSchema,
 });

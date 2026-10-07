@@ -61,6 +61,24 @@ export function mapCMSNewsArticle(payload: any): NewsArticle {
       ? new Date(payload.publishedDate).toISOString()
       : new Date().toISOString(),
     featured: Boolean(payload.featured),
+    category: typeof payload.category === "string" && payload.category.trim() ? payload.category.trim() : undefined,
+    categories: Array.isArray(payload.categories)
+      ? payload.categories
+          .map((cat: any) => {
+            if (typeof cat === "string") return cat.trim();
+            if (cat && typeof cat === "object") {
+              return {
+                id: cat.id ? String(cat.id) : undefined,
+                title: cat.title || cat.thaiTitle || cat.englishTitle || cat.name || "",
+                thaiTitle: cat.thaiTitle,
+                englishTitle: cat.englishTitle,
+                slug: cat.slug,
+              };
+            }
+            return null;
+          })
+          .filter(Boolean)
+      : undefined,
     seo: payload.seo
       ? {
           metaTitle: payload.seo.title || payload.seo.metaTitle || undefined,

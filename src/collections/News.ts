@@ -6,7 +6,7 @@ export const News: CollectionConfig = {
   slug: 'news',
   admin: {
     useAsTitle: 'title',
-    defaultColumns: ['title', 'slug', 'publishedDate', 'featured'],
+    defaultColumns: ['title', 'category', 'publishedDate', 'featured'],
     group: 'เนื้อหาหลักหน้าเว็บ',
   },
   labels: {
@@ -42,6 +42,21 @@ export const News: CollectionConfig = {
         }
         return true;
       },
+    },
+    {
+      name: 'category',
+      type: 'text',
+      label: 'หมวดหมู่ข่าว (เช่น ข่าวสารองค์กร, งานแสดงสินค้า, CSR, กิจกรรม)',
+      admin: {
+        placeholder: 'เช่น ข่าวสารองค์กร, งานแสดงสินค้า, กิจกรรมองค์กร, CSR',
+      },
+    },
+    {
+      name: 'categories',
+      type: 'relationship',
+      relationTo: 'categories',
+      hasMany: true,
+      label: 'หมวดหมู่สินค้า/แท็กที่เกี่ยวข้อง (Optional)',
     },
     {
       name: 'coverImage',

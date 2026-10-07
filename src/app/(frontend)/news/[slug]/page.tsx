@@ -5,6 +5,7 @@ import { ArrowLeft, ArrowRight, Calendar } from "lucide-react";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
 import { NewsRichText } from "@/components/news/NewsRichText";
+import { NewsCard } from "@/components/news/NewsCard";
 import { getNavigation, getContact, getNewsBySlug, getRelatedNews } from "@/lib/data";
 
 export const dynamic = "force-dynamic";
@@ -119,30 +120,9 @@ export default async function NewsDetailPage({
             <h2 className="text-2xl font-bold text-[#082b59] mb-6">
               ข่าวสารอื่นที่คุณอาจสนใจ / Related News
             </h2>
-            <div className="news-grid">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
               {relatedNews.map((item) => (
-                <Link
-                  key={item.id}
-                  href={`/news/${item.slug}`}
-                  className="news-card"
-                >
-                  <div className="news-card-photo-container">
-                    <Image
-                      src={item.coverImage.src}
-                      alt={item.coverImage.alt}
-                      fill
-                      sizes="300px"
-                      className="news-card-img"
-                    />
-                  </div>
-                  <div className="news-card-content">
-                    <h3 className="news-card-title">{item.title}</h3>
-                    <div className="news-card-footer">
-                      <span>อ่านรายละเอียด</span>
-                      <ArrowRight size={14} />
-                    </div>
-                  </div>
-                </Link>
+                <NewsCard key={item.id} news={item} />
               ))}
             </div>
           </section>
