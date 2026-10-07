@@ -1,7 +1,7 @@
 import { notFound } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowLeft, ArrowRight, Calendar } from "lucide-react";
+import { ArrowLeft, Calendar } from "lucide-react";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
 import { NewsRichText } from "@/components/news/NewsRichText";
